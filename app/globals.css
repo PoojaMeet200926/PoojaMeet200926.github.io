@@ -57,7 +57,7 @@ button { font: inherit; }
 .gate-opening .envelope-shadow { opacity: .55; transform: scale(.84); }
 
 .hero { position: relative; min-height: 100svh; display: grid; place-items: center; overflow: hidden; isolation: isolate; }
-.hero-image, .venue-image { position: absolute; inset: 0; background: url('/waterfront-venue.png') center/cover no-repeat; }
+.hero-image, .venue-image { position: absolute; inset: 0; background: url('/narayani-heights-venue.png') center/cover no-repeat; }
 .hero-image { transform: scale(1.035); animation: heroZoom 12s ease-out both; }
 .hero-wash { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg,rgba(249,245,238,.12),rgba(61,59,51,.05) 52%,rgba(43,45,40,.34)); }
 .door { position: absolute; top: 0; bottom: 0; z-index: 5; width: 51%; background: linear-gradient(90deg,#eee8df,#fdfaf4 52%,#dfd6ca); box-shadow: 0 0 50px rgba(82,70,56,.28); animation: openDoor 2.25s cubic-bezier(.65,0,.2,1) .15s both; }

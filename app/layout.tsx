@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
     openGraph: {
       title: "Meet & Pooja | Wedding Invitation",
-      description: "19–20 September 2026 · Ahmedabad & Gandhinagar",
+      description: "19–20 September 2026 · Narayani Heights, Ahmedabad",
       type: "website",
       images: [{ url: `${origin}/og.png`, width: 1792, height: 936, alt: "Meet and Pooja wedding invitation" }],
     },

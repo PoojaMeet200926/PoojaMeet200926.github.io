@@ -4,6 +4,11 @@ import { useEffect, useMemo, useState } from "react";
 
 type Countdown = { days: number; hours: number; minutes: number; seconds: number };
 
+const TREMONT_LOCATION = "https://share.google/hWnrB6DVuauJ6YYIV";
+const NARAYANI_HEIGHTS_LOCATION = "https://share.google/VsfLgB1XlksNToBEJ";
+const TREMONT_ADDRESS = "B.1302, Tremont, Vaishnodevi Circle, Ahmedabad";
+const NARAYANI_HEIGHTS_ADDRESS = "Narayani Heights, Airport-Gandhinagar Road, Bhat, Ahmedabad";
+
 const EVENTS = [
   {
     day: "Friday",
@@ -11,7 +16,8 @@ const EVENTS = [
     month: "September",
     title: "Ganesh Sthapan · Mandap Muhurat · Grah Shanti",
     time: "An auspicious beginning",
-    venue: "With the blessings of Lord Ganesha",
+    venue: TREMONT_ADDRESS,
+    map: TREMONT_LOCATION,
   },
   {
     day: "Friday",
@@ -19,8 +25,8 @@ const EVENTS = [
     month: "September",
     title: "Mehendi",
     time: "An afternoon of henna & happiness",
-    venue: "B.1302, Tremont, Vaishnodevi Circle, Ahmedabad",
-    map: "https://www.google.com/maps/search/?api=1&query=Tremont+Vaishnodevi+Circle+Ahmedabad",
+    venue: TREMONT_ADDRESS,
+    map: TREMONT_LOCATION,
   },
   {
     day: "Saturday",
@@ -28,8 +34,8 @@ const EVENTS = [
     month: "September",
     title: "Ring Ceremony",
     time: "09:30 AM",
-    venue: "Narayani Heights Club & Resorts, Gandhinagar",
-    map: "https://www.google.com/maps/search/?api=1&query=Narayani+Heights+Club+and+Resorts+Gandhinagar",
+    venue: NARAYANI_HEIGHTS_ADDRESS,
+    map: NARAYANI_HEIGHTS_LOCATION,
   },
   {
     day: "Saturday",
@@ -37,8 +43,8 @@ const EVENTS = [
     month: "September",
     title: "Haldi",
     time: "11:00 AM · Lunch at 12:30 PM",
-    venue: "Narayani Heights Club & Resorts, Gandhinagar",
-    map: "https://www.google.com/maps/search/?api=1&query=Narayani+Heights+Club+and+Resorts+Gandhinagar",
+    venue: NARAYANI_HEIGHTS_ADDRESS,
+    map: NARAYANI_HEIGHTS_LOCATION,
   },
   {
     day: "Saturday",
@@ -46,7 +52,8 @@ const EVENTS = [
     month: "September",
     title: "Mameru",
     time: "03:00 PM",
-    venue: "A cherished family tradition",
+    venue: NARAYANI_HEIGHTS_ADDRESS,
+    map: NARAYANI_HEIGHTS_LOCATION,
   },
   {
     day: "Saturday",
@@ -54,7 +61,8 @@ const EVENTS = [
     month: "September",
     title: "Sangeet",
     time: "07:30 PM",
-    venue: "An evening of music, dance & celebration",
+    venue: NARAYANI_HEIGHTS_ADDRESS,
+    map: NARAYANI_HEIGHTS_LOCATION,
   },
   {
     day: "Sunday",
@@ -62,7 +70,8 @@ const EVENTS = [
     month: "September",
     title: "Wedding Ceremony",
     time: "Pooja weds Meet",
-    venue: "The beginning of forever",
+    venue: NARAYANI_HEIGHTS_ADDRESS,
+    map: NARAYANI_HEIGHTS_LOCATION,
     featured: true,
   },
 ];
@@ -170,7 +179,7 @@ export default function Home() {
           <p className="eyebrow">Together with their families</p>
           <h1><span>Meet</span><i>&</i><span>Pooja</span></h1>
           <p className="hero-date">19 — 20 September 2026</p>
-          <p className="hero-place">Ahmedabad · Gandhinagar</p>
+          <p className="hero-place">Tremont · Narayani Heights</p>
           <a className="scroll-cue" href="#story" aria-label="Explore the invitation">
             <span>Explore our celebration</span>
             <b>↓</b>
@@ -191,14 +200,14 @@ export default function Home() {
         <p className="script-note">Your presence will make our joy complete.</p>
       </section>
 
-      <section className="venue-reveal" aria-label="Waterfront wedding venue">
+      <section className="venue-reveal" aria-label="Narayani Heights wedding venue">
         <div className="venue-sticky">
           <div className="venue-image" />
           <div className="venue-overlay" />
           <div className="venue-copy">
-            <p className="section-kicker light">Where forever begins</p>
-            <h2>A celebration<br /><em>by the water</em></h2>
-            <p>Ivory blooms, still waters, and a horizon made for promises.</p>
+            <p className="section-kicker light">The celebration venue</p>
+            <h2>Narayani<br /><em>Heights</em></h2>
+            <p>Lush green lawns, grand gathering spaces, and an evening made for celebration.</p>
           </div>
         </div>
       </section>
@@ -236,7 +245,7 @@ export default function Home() {
                 <h3>{event.title}</h3>
                 <p className="event-time">{event.time}</p>
                 <p className="event-venue">{event.venue}</p>
-                {event.map && <a href={event.map} target="_blank" rel="noreferrer">View location ↗</a>}
+                {event.map && <a href={event.map} target="_blank" rel="noreferrer">Open directions ↗</a>}
               </div>
             </article>
           ))}
