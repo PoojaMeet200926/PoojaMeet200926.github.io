@@ -19,52 +19,116 @@ button { font: inherit; }
 
 .invitation-gate {
   position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
-  overflow: hidden; background:
-    radial-gradient(circle at 50% 35%, rgba(255,255,255,.98), rgba(248,240,231,.94) 50%, rgba(219,201,191,.92)),
-    repeating-linear-gradient(95deg, rgba(255,255,255,.12) 0 1px, transparent 1px 7px);
-  transition: opacity .8s ease .95s, visibility 0s linear 1.75s;
+  overflow: hidden; perspective: 1500px; background: #ded7cc;
+  transition: opacity .75s ease, visibility 0s linear .75s;
 }
 .gate-open { opacity: 0; visibility: hidden; pointer-events: none; }
-.gate-glow { position: absolute; width: 75vw; aspect-ratio: 1; border-radius: 50%; background: rgba(255,255,255,.7); filter: blur(60px); }
-.gate-kicker { position: absolute; top: max(34px, 7vh); z-index: 2; margin: 0; color: var(--sage-deep); font: 500 10px/1.3 Arial, sans-serif; letter-spacing: .28em; text-transform: uppercase; }
-.envelope-button { position: relative; z-index: 3; width: min(86vw, 390px); height: 330px; padding: 0; border: 0; background: none; cursor: pointer; perspective: 1200px; }
-.envelope-button:focus-visible { outline: 1px solid var(--champagne); outline-offset: 12px; border-radius: 8px; }
-.envelope-button:disabled { cursor: default; }
-.envelope-shadow { position: absolute; left: 10%; right: 10%; bottom: 29px; height: 38px; border-radius: 50%; background: rgba(80,61,48,.19); filter: blur(19px); transition: transform 1s ease, opacity 1s ease; }
-.envelope { position: absolute; inset: 52px 0 auto; height: 225px; transform-style: preserve-3d; transition: transform 1.4s cubic-bezier(.2,.75,.2,1); }
-.envelope-back, .envelope-front, .envelope-side, .envelope-flap { position: absolute; inset: 0; border: 1px solid rgba(123,102,81,.15); }
-.envelope-back { border-radius: 4px; background: #eee4d9; box-shadow: 0 24px 55px rgba(96,74,58,.16); }
-.envelope-front { z-index: 4; clip-path: polygon(0 36%, 50% 77%, 100% 36%, 100% 100%, 0 100%); background: linear-gradient(145deg,#f8efe6,#eadfd3); }
-.envelope-side { z-index: 3; }
-.envelope-left { clip-path: polygon(0 0, 52% 63%, 0 100%); background: linear-gradient(100deg,#efe4d9,#f9f2eb); }
-.envelope-right { clip-path: polygon(100% 0, 48% 63%, 100% 100%); background: linear-gradient(260deg,#efe4d9,#f9f2eb); }
-.envelope-flap { z-index: 6; transform-origin: top; clip-path: polygon(0 0, 100% 0, 50% 70%); background: linear-gradient(160deg,#faf3eb,#e9dbce); transition: transform 1s cubic-bezier(.55,.05,.4,1), z-index 0s linear .5s; }
-.wax-seal { position: absolute; z-index: 8; top: 119px; left: 50%; display: grid; place-items: center; width: 58px; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; color: #f5e7d9; background: radial-gradient(circle at 36% 30%, #96766b, #6f554f 58%, #57413d); box-shadow: 0 6px 16px rgba(83,56,48,.28), inset 0 0 0 3px rgba(255,255,255,.12); font: 500 12px/1 Arial, sans-serif; letter-spacing: .08em; transition: opacity .35s ease, transform .55s ease; }
-.wax-seal span { margin: 0 2px; font-size: 9px; }
-.letter { position: absolute; z-index: 2; left: 6%; right: 6%; top: 9px; height: 188px; display: flex; align-items: center; justify-content: center; flex-direction: column; border: 1px solid rgba(157,132,103,.21); background: linear-gradient(rgba(255,255,255,.83),rgba(251,247,241,.95)), radial-gradient(circle at 10% 0,#e8d8d0,transparent 35%); box-shadow: 0 5px 16px rgba(83,67,53,.08); transition: transform 1.2s cubic-bezier(.2,.75,.25,1) .55s; }
-.letter::before, .letter::after { content: ""; position: absolute; width: 95px; height: 50px; opacity: .48; background: radial-gradient(ellipse at center, #cfc2b5 0 5%, transparent 6%), radial-gradient(ellipse at 18% 30%, #9daa99 0 4%, transparent 5%); }
-.letter::before { top: -8px; left: 8px; transform: rotate(-18deg); }
-.letter::after { right: 8px; bottom: -8px; transform: rotate(162deg); }
-.letter-floret { color: var(--champagne); font-size: 14px; }
-.letter-names { margin-top: 10px; font: 400 clamp(32px,10vw,48px)/.9 "Snell Roundhand","Segoe Script",cursive; color: #57564f; }
-.letter-names i { padding: 0 .2em; color: var(--champagne); font-size: .62em; }
-.letter-date { margin-top: 18px; color: #79776f; font: 600 9px/1 Arial,sans-serif; letter-spacing: .23em; }
-.tap-copy { position: absolute; bottom: max(34px, 8vh); z-index: 2; margin: 0; color: #7f7c74; font: 500 10px/1 Arial,sans-serif; letter-spacing: .22em; text-transform: uppercase; animation: breathe 2.2s ease-in-out infinite; }
-.gate-opening .envelope-flap { z-index: 1; transform: rotateX(180deg); }
-.gate-opening .wax-seal { opacity: 0; transform: translateX(-50%) scale(.72) rotate(-10deg); }
-.gate-opening .letter { z-index: 7; transform: translateY(-104px) scale(1.03); }
-.gate-opening .envelope { transform: translateY(44px); }
-.gate-opening .envelope-shadow { opacity: .55; transform: scale(.84); }
+.gate-atmosphere {
+  position: absolute; inset: -8%; background:
+    radial-gradient(circle at 50% 43%, rgba(255,255,255,.9), transparent 42%),
+    linear-gradient(145deg, rgba(248,244,236,.96), rgba(204,195,181,.96));
+}
+.gate-atmosphere::after {
+  content: ""; position: absolute; inset: 0; opacity: .3; mix-blend-mode: soft-light;
+  background: repeating-linear-gradient(105deg, rgba(255,255,255,.28) 0 1px, transparent 1px 7px);
+}
+.gate-kicker {
+  position: absolute; top: max(24px, 4.5vh); z-index: 8; margin: 0; color: #5e675d;
+  font: 600 9px/1.3 Arial,sans-serif; letter-spacing: .34em; text-transform: uppercase;
+  transition: opacity .4s ease;
+}
+.cover-button, .gate-inner-card {
+  width: min(86vw, calc(78svh * .5625), 440px); aspect-ratio: 9 / 16; border-radius: 3px;
+}
+.cover-button {
+  position: relative; z-index: 5; padding: 0; border: 0; background: transparent; cursor: pointer;
+  transform-style: preserve-3d; perspective: 1500px; filter: drop-shadow(0 26px 32px rgba(65,53,43,.24));
+}
+.cover-button:focus-visible { outline: 1px solid #9d8057; outline-offset: 9px; }
+.cover-button:disabled { cursor: default; }
+.cover-shadow {
+  position: absolute; z-index: -1; left: 9%; right: 9%; bottom: -14px; height: 45px; border-radius: 50%;
+  background: rgba(68,51,39,.26); filter: blur(23px); transition: opacity 1s ease, transform 1.4s ease;
+}
+.cover-panel {
+  position: absolute; inset: 0; overflow: hidden; backface-visibility: hidden;
+  background: url('/invitation-cover-v2.png') center/cover no-repeat;
+  box-shadow: inset 0 0 0 1px rgba(143,117,79,.28);
+  transition: transform 1.65s cubic-bezier(.7,0,.2,1), opacity .75s ease 1.15s, filter .8s ease;
+}
+.cover-left { clip-path: inset(0 50% 0 0); transform-origin: 0 50%; }
+.cover-right { clip-path: inset(0 0 0 50%); transform-origin: 100% 50%; }
+.cover-inscription {
+  position: absolute; z-index: 4; top: 22%; left: 13%; right: 13%; display: flex; align-items: center;
+  flex-direction: column; color: #4d4b44; text-shadow: 0 1px 8px rgba(255,255,255,.88);
+  transition: opacity .38s ease, transform .65s ease;
+}
+.cover-inscription small { font: 600 8px/1 Arial,sans-serif; letter-spacing: .28em; text-transform: uppercase; }
+.cover-inscription strong { margin-top: 13px; font: 400 clamp(37px,11vw,62px)/.84 "Snell Roundhand","Segoe Script",cursive; white-space: nowrap; }
+.cover-inscription strong i { margin: 0 .08em; color: #aa8b5d; font: italic 400 .55em/1 Georgia,serif; }
+.cover-inscription b { margin-top: 22px; color: #6b675f; font: 600 8px/1 Arial,sans-serif; letter-spacing: .21em; text-transform: uppercase; }
+.cover-seal {
+  position: absolute; z-index: 5; left: 50%; top: 51.4%; display: grid; place-items: center; width: 58px; aspect-ratio: 1;
+  transform: translate(-50%,-50%); border-radius: 50%; color: #fff6e9;
+  background: radial-gradient(circle at 35% 28%,#b99b6b,#8e6f48 56%,#684e32);
+  box-shadow: 0 7px 18px rgba(68,48,29,.3), inset 0 0 0 3px rgba(255,255,255,.15);
+  font: 600 11px/1 Arial,sans-serif; letter-spacing: .08em;
+  transition: transform .7s cubic-bezier(.2,.8,.2,1), opacity .4s ease;
+}
+.cover-seal i { margin: 0 2px; font-size: 7px; }
+.gate-inner-card {
+  position: absolute; z-index: 3; display: flex; align-items: center; justify-content: center; flex-direction: column;
+  padding: 48px 28px; color: #4b4c45; text-align: center;
+  background:
+    linear-gradient(rgba(255,253,248,.88),rgba(249,244,236,.92)),
+    url('/narayani-heights-venue.png') center/cover no-repeat;
+  border: 1px solid rgba(162,132,87,.38); box-shadow: 0 26px 60px rgba(60,49,40,.2);
+  opacity: 0; transform: translateY(46px) scale(.86); transition: opacity .75s ease .58s, transform 1.25s cubic-bezier(.2,.8,.2,1) .58s;
+}
+.gate-inner-card::before { content: ""; position: absolute; inset: 12px; border: 1px solid rgba(171,145,104,.32); pointer-events: none; }
+.gate-inner-card > * { position: relative; z-index: 1; }
+.inner-floret { color: #ae8e60; font-size: 14px; }
+.gate-inner-card > p { margin: 22px 0 0; font: 600 8px/1.4 Arial,sans-serif; letter-spacing: .28em; text-transform: uppercase; }
+.inner-names { margin-top: 28px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
+.inner-names span { font: 400 clamp(49px,14vw,78px)/.78 "Snell Roundhand","Segoe Script",cursive; }
+.inner-names i { margin: 0 .14em; color: #a98959; font: italic 400 27px/1 Georgia,serif; }
+.inner-rule { width: min(270px,78%); margin-top: 42px; padding: 15px 0; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; border-top: 1px solid rgba(119,111,93,.23); border-bottom: 1px solid rgba(119,111,93,.23); }
+.inner-rule b { font-size: 34px; font-weight: 400; }
+.inner-rule span { padding: 0 12px; color: #6d7168; font: 600 8px/1 Arial,sans-serif; letter-spacing: .2em; text-transform: uppercase; }
+.gate-inner-card small { margin-top: 31px; color: #73746d; font-size: 13px; font-style: italic; letter-spacing: .035em; }
+.gate-prompt {
+  position: absolute; z-index: 8; bottom: max(22px, 4.5vh); color: #66685f;
+  font: 600 9px/1 Arial,sans-serif; letter-spacing: .22em; text-transform: uppercase;
+}
+.gate-prompt > span { display: flex; align-items: center; gap: 11px; }
+.prompt-sealed > i { width: 30px; height: 1px; background: #9f875f; animation: linePulse 2s ease-in-out infinite; }
+.prompt-opening { display: none !important; }
+.prompt-opening > b { display: flex; gap: 4px; }
+.prompt-opening > b i { width: 3px; height: 3px; border-radius: 50%; background: currentColor; animation: dot 1s ease-in-out infinite; }
+.prompt-opening > b i:nth-child(2) { animation-delay: .15s; }
+.prompt-opening > b i:nth-child(3) { animation-delay: .3s; }
+.gate-opening .cover-seal { opacity: 0; transform: translate(-50%,-50%) scale(.55) rotate(-14deg); }
+.gate-opening .cover-inscription { opacity: 0; transform: translateY(-15px); }
+.gate-opening .cover-left { transform: translateX(-59%) rotateY(-12deg); opacity: 0; filter: brightness(.9); }
+.gate-opening .cover-right { transform: translateX(59%) rotateY(12deg); opacity: 0; filter: brightness(.9); }
+.gate-opening .cover-shadow { opacity: .3; transform: scale(.72); }
+.gate-opening .gate-inner-card { opacity: 1; transform: translateY(0) scale(1); }
+.gate-opening .prompt-sealed { display: none; }
+.gate-opening .prompt-opening { display: flex !important; }
+.gate-opening .gate-kicker { opacity: .35; }
 
 .hero { position: relative; min-height: 100svh; display: grid; place-items: center; overflow: hidden; isolation: isolate; }
 .hero-image, .venue-image { position: absolute; inset: 0; background: url('/narayani-heights-venue.png') center/cover no-repeat; }
 .hero-image { transform: scale(1.035); animation: heroZoom 12s ease-out both; }
 .hero-wash { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg,rgba(249,245,238,.12),rgba(61,59,51,.05) 52%,rgba(43,45,40,.34)); }
-.door { position: absolute; top: 0; bottom: 0; z-index: 5; width: 51%; background: linear-gradient(90deg,#eee8df,#fdfaf4 52%,#dfd6ca); box-shadow: 0 0 50px rgba(82,70,56,.28); animation: openDoor 2.25s cubic-bezier(.65,0,.2,1) .15s both; }
+.door { position: absolute; top: 0; bottom: 0; z-index: 5; width: 51%; background: linear-gradient(90deg,#eee8df,#fdfaf4 52%,#dfd6ca); box-shadow: 0 0 50px rgba(82,70,56,.28); }
 .door::after { content: ""; position: absolute; inset: 4vh 5vw; border: 1px solid rgba(151,129,91,.28); }
 .door-left { left: 0; transform-origin: left; }
-.door-right { right: 0; transform-origin: right; animation-name: openDoorRight; }
-.hero-content { position: relative; z-index: 3; width: min(88%,620px); margin-top: -5vh; text-align: center; color: #fffdfa; text-shadow: 0 2px 20px rgba(50,47,40,.36); animation: fadeRise 1.3s ease 1.8s both; }
+.door-right { right: 0; transform-origin: right; }
+.hero-content { position: relative; z-index: 3; width: min(88%,620px); margin-top: -5vh; text-align: center; color: #fffdfa; text-shadow: 0 2px 20px rgba(50,47,40,.36); opacity: 0; }
+.invitation-open .door-left { animation: openDoor 2.25s cubic-bezier(.65,0,.2,1) .12s both; }
+.invitation-open .door-right { animation: openDoorRight 2.25s cubic-bezier(.65,0,.2,1) .12s both; }
+.invitation-open .hero-content { animation: fadeRise 1.3s ease 1.45s both; }
 .eyebrow, .section-kicker { margin: 0 0 18px; font: 600 10px/1.4 Arial,sans-serif; letter-spacing: .29em; text-transform: uppercase; }
 .hero h1 { margin: 0; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; font-weight: 400; }
 .hero h1 span { font: 400 clamp(64px,20vw,118px)/.77 "Snell Roundhand","Segoe Script",cursive; }
@@ -142,6 +206,8 @@ button { font: inherit; }
 @keyframes heroZoom { from { transform: scale(1.08); } to { transform: scale(1.02); } }
 @keyframes breathe { 50% { opacity: .4; transform: translateY(3px); } }
 @keyframes arrow { 50% { transform: translateY(4px); } }
+@keyframes linePulse { 50% { width: 48px; opacity: .4; } }
+@keyframes dot { 50% { opacity: .25; transform: translateY(-2px); } }
 
 @media (min-width: 720px) {
   .event-card { grid-template-columns: 140px 1fr; min-height: 228px; }
@@ -151,7 +217,7 @@ button { font: inherit; }
 }
 
 @media (max-width: 380px) {
-  .envelope-button { width: 92vw; }
+  .cover-button, .gate-inner-card { width: 91vw; }
   .event-card { grid-template-columns: 78px 1fr; }
   .event-details { padding: 27px 21px; }
   .countdown-unit strong { font-size: 30px; }

@@ -117,7 +117,8 @@ export default function Home() {
   const openInvitation = () => {
     if (invitationState !== "sealed") return;
     setInvitationState("opening");
-    window.setTimeout(() => setInvitationState("open"), 1750);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.setTimeout(() => setInvitationState("open"), reducedMotion ? 80 : 3200);
   };
 
   const shareInvitation = async () => {
@@ -141,33 +142,38 @@ export default function Home() {
   };
 
   return (
-    <main>
+    <main className={`invitation-${invitationState}`}>
       <div className={`invitation-gate gate-${invitationState}`} aria-hidden={invitationState === "open"}>
-        <div className="gate-glow" />
-        <p className="gate-kicker">An invitation to celebrate</p>
+        <div className="gate-atmosphere" />
+        <p className="gate-kicker">A celebration awaits</p>
+        <div className="gate-inner-card" aria-hidden="true">
+          <span className="inner-floret">✦</span>
+          <p>Together with their families</p>
+          <div className="inner-names"><span>Meet</span><i>&</i><span>Pooja</span></div>
+          <div className="inner-rule"><b>19</b><span>September</span><b>20</b></div>
+          <small>Two days of love · One beautiful beginning</small>
+        </div>
         <button
-          className="envelope-button"
+          className="cover-button"
           type="button"
           onClick={openInvitation}
-          aria-label="Open Meet and Pooja's wedding invitation"
+          aria-label="Untie and open Meet and Pooja's wedding invitation"
           disabled={invitationState !== "sealed"}
         >
-          <span className="envelope-shadow" />
-          <span className="envelope">
-            <span className="envelope-back" />
-            <span className="letter">
-              <span className="letter-floret">✦</span>
-              <span className="letter-names">Meet <i>&</i> Pooja</span>
-              <span className="letter-date">19 · 20 · 09 · 26</span>
-            </span>
-            <span className="envelope-side envelope-left" />
-            <span className="envelope-side envelope-right" />
-            <span className="envelope-front" />
-            <span className="envelope-flap" />
-            <span className="wax-seal">M<span>♥</span>P</span>
+          <span className="cover-shadow" />
+          <span className="cover-panel cover-left" />
+          <span className="cover-panel cover-right" />
+          <span className="cover-inscription">
+            <small>The wedding of</small>
+            <strong>Meet <i>&</i> Pooja</strong>
+            <b>19 · 20 · September · 2026</b>
           </span>
+          <span className="cover-seal">M<i>♥</i>P</span>
         </button>
-        <p className="tap-copy">Tap to open</p>
+        <div className="gate-prompt" aria-live="polite">
+          <span className="prompt-sealed"><i /> Tap to untie the ribbon</span>
+          <span className="prompt-opening">Opening your invitation <b><i /><i /><i /></b></span>
+        </div>
       </div>
 
       <section className="hero" id="home">
