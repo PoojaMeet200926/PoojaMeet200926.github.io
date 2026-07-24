@@ -162,7 +162,7 @@ export default function Home() {
           className="cover-button"
           type="button"
           onClick={openInvitation}
-          aria-label="Untie the satin bow and open Meet and Pooja's wedding invitation"
+          aria-label="Pull the satin ribbon and open Meet and Pooja's wedding invitation"
           disabled={invitationState !== "sealed"}
         >
           <span className="cover-shadow" />
@@ -185,8 +185,8 @@ export default function Home() {
           </span>
         </button>
         <div className="gate-prompt" aria-live="polite">
-          <span className="prompt-sealed"><i /> Tap to untie the ribbon</span>
-          <span className="prompt-untying">Untying the satin bow <b><i /><i /><i /></b></span>
+          <span className="prompt-sealed"><i /> Tap to pull the ribbon</span>
+          <span className="prompt-untying">Pulling the satin ribbon <b><i /><i /><i /></b></span>
           <span className="prompt-opening">Opening your invitation <b><i /><i /><i /></b></span>
         </div>
       </div>
