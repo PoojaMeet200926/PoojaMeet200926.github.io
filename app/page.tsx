@@ -122,8 +122,8 @@ export default function Home() {
       return;
     }
     setInvitationState("untying");
-    window.setTimeout(() => setInvitationState("opening"), 2200);
-    window.setTimeout(() => setInvitationState("open"), 5600);
+    window.setTimeout(() => setInvitationState("opening"), 2100);
+    window.setTimeout(() => setInvitationState("open"), 5500);
   };
 
   const shareInvitation = async () => {
@@ -177,13 +177,11 @@ export default function Home() {
             <i className="ribbon-strip ribbon-vertical ribbon-bottom" />
           </span>
           <span className="satin-bow" aria-hidden="true">
-            <i className="bow-piece bow-left" />
-            <i className="bow-piece bow-right" />
+            <i className="bow-piece bow-tail-left" />
+            <i className="bow-piece bow-tail-right" />
+            <i className="bow-piece bow-loop-left" />
+            <i className="bow-piece bow-loop-right" />
             <i className="bow-piece bow-center" />
-          </span>
-          <span className="loose-ribbon-tails" aria-hidden="true">
-            <i className="loose-tail loose-tail-left" />
-            <i className="loose-tail loose-tail-right" />
           </span>
         </button>
         <div className="gate-prompt" aria-live="polite">
