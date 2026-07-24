@@ -87,7 +87,7 @@ function getCountdown(): Countdown {
 }
 
 export default function Home() {
-  const [invitationState, setInvitationState] = useState<"sealed" | "untying" | "opening" | "open">("sealed");
+  const [invitationState, setInvitationState] = useState<"sealed" | "untying" | "opening" | "revealed" | "open">("sealed");
   const [countdown, setCountdown] = useState<Countdown>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [shareMessage, setShareMessage] = useState("");
 
@@ -104,6 +104,25 @@ export default function Home() {
     return () => window.clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    if (invitationState !== "revealed") return;
+
+    const continueInvitation = () => setInvitationState("open");
+    const continueFromKeyboard = (event: KeyboardEvent) => {
+      if (event.key === "Enter" || event.key === " ") continueInvitation();
+    };
+
+    window.addEventListener("pointerup", continueInvitation, true);
+    window.addEventListener("touchend", continueInvitation, { capture: true, passive: true });
+    window.addEventListener("keydown", continueFromKeyboard);
+
+    return () => {
+      window.removeEventListener("pointerup", continueInvitation, true);
+      window.removeEventListener("touchend", continueInvitation, true);
+      window.removeEventListener("keydown", continueFromKeyboard);
+    };
+  }, [invitationState]);
+
   const countdownItems = useMemo(
     () => [
       ["Days", countdown.days],
@@ -118,12 +137,12 @@ export default function Home() {
     if (invitationState !== "sealed") return;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) {
-      setInvitationState("open");
+      setInvitationState("revealed");
       return;
     }
     setInvitationState("untying");
     window.setTimeout(() => setInvitationState("opening"), 740);
-    window.setTimeout(() => setInvitationState("open"), 2050);
+    window.setTimeout(() => setInvitationState("revealed"), 2050);
   };
 
   const shareInvitation = async () => {
@@ -151,7 +170,7 @@ export default function Home() {
       <div className={`invitation-gate gate-${invitationState}`} aria-hidden={invitationState === "open"}>
         <div className="gate-atmosphere" />
         <p className="gate-kicker">A celebration awaits</p>
-        <div className="gate-inner-card" aria-hidden="true">
+        <div className="gate-inner-card" aria-hidden={invitationState !== "revealed"}>
           <span className="inner-floret">✦</span>
           <p>Together with their families</p>
           <div className="inner-names"><span>Meet</span><i>&</i><span>Pooja</span></div>
@@ -188,6 +207,7 @@ export default function Home() {
           <span className="prompt-sealed"><i /> Tap to pull the ribbon</span>
           <span className="prompt-untying">Pulling the satin ribbon <b><i /><i /><i /></b></span>
           <span className="prompt-opening">Opening your invitation <b><i /><i /><i /></b></span>
+          <span className="prompt-revealed"><i /> Tap or swipe to continue</span>
         </div>
       </div>
 
