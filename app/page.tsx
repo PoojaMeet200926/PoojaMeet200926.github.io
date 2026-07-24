@@ -122,8 +122,8 @@ export default function Home() {
       return;
     }
     setInvitationState("untying");
-    window.setTimeout(() => setInvitationState("opening"), 2600);
-    window.setTimeout(() => setInvitationState("open"), 4550);
+    window.setTimeout(() => setInvitationState("opening"), 600);
+    window.setTimeout(() => setInvitationState("open"), 2300);
   };
 
   const shareInvitation = async () => {
@@ -183,35 +183,6 @@ export default function Home() {
             <i className="bow-piece bow-loop-right" />
             <i className="bow-piece bow-center" />
           </span>
-          <svg
-            className="loose-ribbon"
-            aria-hidden="true"
-            viewBox="0 0 600 250"
-            preserveAspectRatio="none"
-          >
-            <defs>
-              <linearGradient id="looseRibbonSatin" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#fff8df" />
-                <stop offset=".16" stopColor="#f5d995" />
-                <stop offset=".43" stopColor="#bd7b2f" />
-                <stop offset=".61" stopColor="#ffe9b0" />
-                <stop offset=".82" stopColor="#c38438" />
-                <stop offset="1" stopColor="#fff1c5" />
-              </linearGradient>
-            </defs>
-            <path
-              className="loose-ribbon-shadow"
-              d="M -42 133 C 68 178 152 181 243 147 C 335 113 421 144 493 170 C 546 189 593 170 644 125"
-            />
-            <path
-              className="loose-ribbon-face"
-              d="M -42 133 C 68 178 152 181 243 147 C 335 113 421 144 493 170 C 546 189 593 170 644 125"
-            />
-            <path
-              className="loose-ribbon-highlight"
-              d="M -42 128 C 68 173 152 176 243 142 C 335 108 421 139 493 165 C 546 184 593 165 644 120"
-            />
-          </svg>
         </button>
         <div className="gate-prompt" aria-live="polite">
           <span className="prompt-sealed"><i /> Tap to pull the ribbon</span>
