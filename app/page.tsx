@@ -122,8 +122,8 @@ export default function Home() {
       return;
     }
     setInvitationState("untying");
-    window.setTimeout(() => setInvitationState("opening"), 1500);
-    window.setTimeout(() => setInvitationState("open"), 4550);
+    window.setTimeout(() => setInvitationState("opening"), 1050);
+    window.setTimeout(() => setInvitationState("open"), 3900);
   };
 
   const shareInvitation = async () => {

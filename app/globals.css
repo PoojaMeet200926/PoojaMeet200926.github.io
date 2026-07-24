@@ -176,34 +176,34 @@ button { font: inherit; }
 .prompt-untying > b i:nth-child(2), .prompt-opening > b i:nth-child(2) { animation-delay: .15s; }
 .prompt-untying > b i:nth-child(3), .prompt-opening > b i:nth-child(3) { animation-delay: .3s; }
 .gate-untying .satin-bow, .gate-opening .satin-bow {
-  animation: bowTension 1.18s cubic-bezier(.36,.03,.2,1) both;
+  animation: bowTension .82s cubic-bezier(.36,.03,.2,1) both;
 }
 .gate-untying .bow-loop-right, .gate-opening .bow-loop-right {
-  animation: slipLoopRight .9s cubic-bezier(.4,.02,.14,1) .03s both;
+  animation: slipLoopRight .62s cubic-bezier(.4,.02,.14,1) .02s both;
 }
 .gate-untying .bow-loop-left, .gate-opening .bow-loop-left {
-  animation: slipLoopLeft .98s cubic-bezier(.4,.02,.14,1) .07s both;
+  animation: slipLoopLeft .68s cubic-bezier(.4,.02,.14,1) .04s both;
 }
 .gate-untying .bow-tail-right, .gate-opening .bow-tail-right {
-  animation: drawTailRight 1.02s cubic-bezier(.36,.02,.14,1) .06s both;
+  animation: drawTailRight .7s cubic-bezier(.36,.02,.14,1) .03s both;
 }
 .gate-untying .bow-tail-left, .gate-opening .bow-tail-left {
-  animation: drawTailLeft 1.06s cubic-bezier(.36,.02,.14,1) .09s both;
+  animation: drawTailLeft .74s cubic-bezier(.36,.02,.14,1) .05s both;
 }
 .gate-untying .bow-center, .gate-opening .bow-center {
-  animation: releaseKnot .96s cubic-bezier(.42,0,.16,1) .05s both;
+  animation: releaseKnot .65s cubic-bezier(.42,0,.16,1) .03s both;
 }
 .gate-untying .ribbon-left, .gate-opening .ribbon-left {
-  animation: retractRibbonLeft .7s cubic-bezier(.65,0,.2,1) .8s both;
+  animation: retractRibbonLeft .52s cubic-bezier(.65,0,.2,1) .5s both;
 }
 .gate-untying .ribbon-right, .gate-opening .ribbon-right {
-  animation: retractRibbonRight .7s cubic-bezier(.65,0,.2,1) .8s both;
+  animation: retractRibbonRight .52s cubic-bezier(.65,0,.2,1) .5s both;
 }
 .gate-untying .ribbon-top, .gate-opening .ribbon-top {
-  animation: retractRibbonTop .7s cubic-bezier(.65,0,.2,1) .8s both;
+  animation: retractRibbonTop .52s cubic-bezier(.65,0,.2,1) .5s both;
 }
 .gate-untying .ribbon-bottom, .gate-opening .ribbon-bottom {
-  animation: retractRibbonBottom .7s cubic-bezier(.65,0,.2,1) .8s both;
+  animation: retractRibbonBottom .52s cubic-bezier(.65,0,.2,1) .5s both;
 }
 .gate-opening .cover-flap-top { transform: translateY(-94%) rotateX(-18deg) scale(.98); opacity: 0; filter: brightness(.9); }
 .gate-opening .cover-flap-right { transform: translateX(94%) rotateY(18deg) scale(.98); opacity: 0; filter: brightness(.9); }
