@@ -87,7 +87,7 @@ function getCountdown(): Countdown {
 }
 
 export default function Home() {
-  const [invitationState, setInvitationState] = useState<"sealed" | "opening" | "open">("sealed");
+  const [invitationState, setInvitationState] = useState<"sealed" | "untying" | "opening" | "open">("sealed");
   const [countdown, setCountdown] = useState<Countdown>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [shareMessage, setShareMessage] = useState("");
 
@@ -116,9 +116,14 @@ export default function Home() {
 
   const openInvitation = () => {
     if (invitationState !== "sealed") return;
-    setInvitationState("opening");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.setTimeout(() => setInvitationState("open"), reducedMotion ? 80 : 3200);
+    if (reducedMotion) {
+      setInvitationState("open");
+      return;
+    }
+    setInvitationState("untying");
+    window.setTimeout(() => setInvitationState("opening"), 1450);
+    window.setTimeout(() => setInvitationState("open"), 4100);
   };
 
   const shareInvitation = async () => {
@@ -157,21 +162,25 @@ export default function Home() {
           className="cover-button"
           type="button"
           onClick={openInvitation}
-          aria-label="Untie and open Meet and Pooja's wedding invitation"
+          aria-label="Untie the satin bow and open Meet and Pooja's wedding invitation"
           disabled={invitationState !== "sealed"}
         >
           <span className="cover-shadow" />
           <span className="cover-panel cover-left" />
           <span className="cover-panel cover-right" />
-          <span className="cover-inscription">
-            <small>The wedding of</small>
-            <strong>Meet <i>&</i> Pooja</strong>
-            <b>19 · 20 · September · 2026</b>
+          <span className="satin-band" aria-hidden="true">
+            <i />
+            <b />
           </span>
-          <span className="cover-seal">M<i>♥</i>P</span>
+          <span className="satin-bow" aria-hidden="true">
+            <i className="bow-piece bow-left" />
+            <i className="bow-piece bow-right" />
+            <i className="bow-piece bow-center" />
+          </span>
         </button>
         <div className="gate-prompt" aria-live="polite">
           <span className="prompt-sealed"><i /> Tap to untie the ribbon</span>
+          <span className="prompt-untying">Untying the satin bow <b><i /><i /><i /></b></span>
           <span className="prompt-opening">Opening your invitation <b><i /><i /><i /></b></span>
         </div>
       </div>

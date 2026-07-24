@@ -52,30 +52,52 @@ button { font: inherit; }
 }
 .cover-panel {
   position: absolute; inset: 0; overflow: hidden; backface-visibility: hidden;
-  background: url('/invitation-cover-v2.png') center/cover no-repeat;
+  background: url('/invitation-box-lid.png') center/cover no-repeat;
   box-shadow: inset 0 0 0 1px rgba(143,117,79,.28);
   transition: transform 1.65s cubic-bezier(.7,0,.2,1), opacity .75s ease 1.15s, filter .8s ease;
 }
 .cover-left { clip-path: inset(0 50% 0 0); transform-origin: 0 50%; }
 .cover-right { clip-path: inset(0 0 0 50%); transform-origin: 100% 50%; }
-.cover-inscription {
-  position: absolute; z-index: 4; top: 22%; left: 13%; right: 13%; display: flex; align-items: center;
-  flex-direction: column; color: #4d4b44; text-shadow: 0 1px 8px rgba(255,255,255,.88);
-  transition: opacity .38s ease, transform .65s ease;
+.satin-band {
+  position: absolute; z-index: 6; left: -1%; right: -1%; top: 46.2%; height: 10.8%; overflow: hidden;
+  border-top: 1px solid rgba(177,130,59,.55); border-bottom: 1px solid rgba(158,112,47,.5);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.72) 0%,rgba(255,237,196,.75) 16%,rgba(217,165,90,.34) 42%,rgba(255,244,217,.92) 58%,rgba(188,134,62,.42) 83%,rgba(255,255,255,.58) 100%),
+    repeating-linear-gradient(93deg,rgba(112,72,28,.08) 0 1px,rgba(255,255,255,.05) 1px 3px);
+  box-shadow: 0 8px 18px rgba(88,58,28,.16), inset 0 5px 8px rgba(255,255,255,.44), inset 0 -5px 8px rgba(111,69,24,.1);
+  transform-origin: 50% 50%;
+  transition: transform 1.05s cubic-bezier(.62,0,.25,1) .28s, opacity .35s ease 1s;
 }
-.cover-inscription small { font: 600 8px/1 Arial,sans-serif; letter-spacing: .28em; text-transform: uppercase; }
-.cover-inscription strong { margin-top: 13px; font: 400 clamp(37px,11vw,62px)/.84 "Snell Roundhand","Segoe Script",cursive; white-space: nowrap; }
-.cover-inscription strong i { margin: 0 .08em; color: #aa8b5d; font: italic 400 .55em/1 Georgia,serif; }
-.cover-inscription b { margin-top: 22px; color: #6b675f; font: 600 8px/1 Arial,sans-serif; letter-spacing: .21em; text-transform: uppercase; }
-.cover-seal {
-  position: absolute; z-index: 5; left: 50%; top: 51.4%; display: grid; place-items: center; width: 58px; aspect-ratio: 1;
-  transform: translate(-50%,-50%); border-radius: 50%; color: #fff6e9;
-  background: radial-gradient(circle at 35% 28%,#b99b6b,#8e6f48 56%,#684e32);
-  box-shadow: 0 7px 18px rgba(68,48,29,.3), inset 0 0 0 3px rgba(255,255,255,.15);
-  font: 600 11px/1 Arial,sans-serif; letter-spacing: .08em;
-  transition: transform .7s cubic-bezier(.2,.8,.2,1), opacity .4s ease;
+.satin-band i, .satin-band b {
+  position: absolute; left: 0; right: 0; height: 1px; display: block;
+  background: repeating-linear-gradient(90deg,rgba(127,81,31,.44) 0 3px,transparent 3px 6px);
+  opacity: .6;
 }
-.cover-seal i { margin: 0 2px; font-size: 7px; }
+.satin-band i { top: 4px; }
+.satin-band b { bottom: 4px; }
+.satin-bow {
+  position: absolute; z-index: 8; left: 50%; top: 34.4%; width: 94%; aspect-ratio: 3 / 2;
+  transform: translateX(-50%); pointer-events: none;
+  filter: drop-shadow(0 12px 12px rgba(78,48,20,.25));
+}
+.bow-piece {
+  position: absolute; inset: 0; display: block;
+  background: url('/satin-bow-v2.png') center/contain no-repeat;
+  backface-visibility: hidden;
+  transition: transform 1.18s cubic-bezier(.55,0,.2,1), opacity .42s ease .74s, filter .7s ease;
+}
+.bow-left {
+  clip-path: polygon(0 0,49% 0,49% 100%,0 100%);
+  transform-origin: 48% 27%;
+}
+.bow-right {
+  clip-path: polygon(51% 0,100% 0,100% 100%,51% 100%);
+  transform-origin: 52% 27%;
+}
+.bow-center {
+  clip-path: polygon(42% 15%,58% 15%,58% 40%,42% 40%);
+  transform-origin: 50% 27%;
+}
 .gate-inner-card {
   position: absolute; z-index: 3; display: flex; align-items: center; justify-content: center; flex-direction: column;
   padding: 48px 28px; color: #4b4c45; text-align: center;
@@ -83,7 +105,7 @@ button { font: inherit; }
     linear-gradient(rgba(255,253,248,.88),rgba(249,244,236,.92)),
     url('/narayani-heights-venue.png') center/cover no-repeat;
   border: 1px solid rgba(162,132,87,.38); box-shadow: 0 26px 60px rgba(60,49,40,.2);
-  opacity: 0; transform: translateY(46px) scale(.86); transition: opacity .75s ease .58s, transform 1.25s cubic-bezier(.2,.8,.2,1) .58s;
+  opacity: 0; transform: translateY(46px) scale(.86); transition: opacity .75s ease 1.55s, transform 1.05s cubic-bezier(.2,.8,.2,1) 1.45s;
 }
 .gate-inner-card::before { content: ""; position: absolute; inset: 12px; border: 1px solid rgba(171,145,104,.32); pointer-events: none; }
 .gate-inner-card > * { position: relative; z-index: 1; }
@@ -102,20 +124,32 @@ button { font: inherit; }
 }
 .gate-prompt > span { display: flex; align-items: center; gap: 11px; }
 .prompt-sealed > i { width: 30px; height: 1px; background: #9f875f; animation: linePulse 2s ease-in-out infinite; }
-.prompt-opening { display: none !important; }
-.prompt-opening > b { display: flex; gap: 4px; }
-.prompt-opening > b i { width: 3px; height: 3px; border-radius: 50%; background: currentColor; animation: dot 1s ease-in-out infinite; }
-.prompt-opening > b i:nth-child(2) { animation-delay: .15s; }
-.prompt-opening > b i:nth-child(3) { animation-delay: .3s; }
-.gate-opening .cover-seal { opacity: 0; transform: translate(-50%,-50%) scale(.55) rotate(-14deg); }
-.gate-opening .cover-inscription { opacity: 0; transform: translateY(-15px); }
+.prompt-untying, .prompt-opening { display: none !important; }
+.prompt-untying > b, .prompt-opening > b { display: flex; gap: 4px; }
+.prompt-untying > b i, .prompt-opening > b i { width: 3px; height: 3px; border-radius: 50%; background: currentColor; animation: dot 1s ease-in-out infinite; }
+.prompt-untying > b i:nth-child(2), .prompt-opening > b i:nth-child(2) { animation-delay: .15s; }
+.prompt-untying > b i:nth-child(3), .prompt-opening > b i:nth-child(3) { animation-delay: .3s; }
+.gate-untying .satin-band, .gate-opening .satin-band { transform: scaleX(.05); opacity: 0; }
+.gate-untying .bow-left, .gate-opening .bow-left {
+  transform: translate(-33%,-2%) rotate(-18deg) scale(.88);
+  opacity: 0; filter: brightness(.95);
+}
+.gate-untying .bow-right, .gate-opening .bow-right {
+  transform: translate(33%,-2%) rotate(18deg) scale(.88);
+  opacity: 0; filter: brightness(.95);
+}
+.gate-untying .bow-center, .gate-opening .bow-center {
+  transform: translateY(14%) rotate(12deg) scale(.58);
+  opacity: 0;
+}
 .gate-opening .cover-left { transform: translateX(-59%) rotateY(-12deg); opacity: 0; filter: brightness(.9); }
 .gate-opening .cover-right { transform: translateX(59%) rotateY(12deg); opacity: 0; filter: brightness(.9); }
 .gate-opening .cover-shadow { opacity: .3; transform: scale(.72); }
 .gate-opening .gate-inner-card { opacity: 1; transform: translateY(0) scale(1); }
-.gate-opening .prompt-sealed { display: none; }
+.gate-untying .prompt-sealed, .gate-opening .prompt-sealed { display: none; }
+.gate-untying .prompt-untying { display: flex !important; }
 .gate-opening .prompt-opening { display: flex !important; }
-.gate-opening .gate-kicker { opacity: .35; }
+.gate-untying .gate-kicker, .gate-opening .gate-kicker { opacity: .35; }
 
 .hero { position: relative; min-height: 100svh; display: grid; place-items: center; overflow: hidden; isolation: isolate; }
 .hero-image, .venue-image { position: absolute; inset: 0; background: url('/narayani-heights-venue.png') center/cover no-repeat; }
