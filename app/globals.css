@@ -55,7 +55,7 @@ button { font: inherit; }
   background: url('/invitation-box-lid.png') center/cover no-repeat;
   box-shadow: inset 0 0 0 1px rgba(143,117,79,.18);
   will-change: transform, opacity;
-  transition: transform .98s cubic-bezier(.36,.03,.16,1), opacity .3s ease .58s;
+  transition: transform 1.08s cubic-bezier(.22,.68,.18,1), opacity .44s ease .46s;
 }
 .cover-flap-top {
   clip-path: polygon(0 0,100% 0,76% 25%,50% 50%,24% 25%);
@@ -178,34 +178,34 @@ button { font: inherit; }
 .prompt-untying > b i:nth-child(2), .prompt-opening > b i:nth-child(2) { animation-delay: .15s; }
 .prompt-untying > b i:nth-child(3), .prompt-opening > b i:nth-child(3) { animation-delay: .3s; }
 .gate-untying .satin-bow, .gate-opening .satin-bow {
-  animation: bowPullRight .56s cubic-bezier(.3,.02,.16,1) both;
+  animation: bowSettle .72s cubic-bezier(.22,.68,.18,1) both;
 }
 .gate-untying .bow-loop-right, .gate-opening .bow-loop-right {
-  animation: slipLoopToRight .44s cubic-bezier(.3,.02,.16,1) .04s both;
+  animation: foldLoopRight .64s cubic-bezier(.22,.68,.18,1) .03s both;
 }
 .gate-untying .bow-loop-left, .gate-opening .bow-loop-left {
-  animation: relaxLeftLoop .47s cubic-bezier(.32,.02,.18,1) .08s both;
+  animation: foldLoopLeft .64s cubic-bezier(.22,.68,.18,1) .03s both;
 }
 .gate-untying .bow-tail-right, .gate-opening .bow-tail-right {
-  animation: pullRightTail .55s cubic-bezier(.28,.02,.15,1) both;
+  animation: releaseTailRight .68s cubic-bezier(.22,.68,.18,1) .04s both;
 }
 .gate-untying .bow-tail-left, .gate-opening .bow-tail-left {
-  animation: releaseLeftTail .45s cubic-bezier(.32,.02,.18,1) .12s both;
+  animation: releaseTailLeft .68s cubic-bezier(.22,.68,.18,1) .04s both;
 }
 .gate-untying .bow-center, .gate-opening .bow-center {
-  animation: followRightPull .46s cubic-bezier(.3,.01,.16,1) .03s both;
+  animation: softenKnot .62s cubic-bezier(.22,.68,.18,1) .04s both;
 }
 .gate-untying .ribbon-left, .gate-opening .ribbon-left {
-  animation: sweepRibbonFromLeft .34s cubic-bezier(.4,0,.2,1) .26s both;
+  animation: retractRibbonLeft .4s cubic-bezier(.4,0,.2,1) .32s both;
 }
 .gate-untying .ribbon-right, .gate-opening .ribbon-right {
-  animation: sweepRibbonRight .3s cubic-bezier(.4,0,.2,1) .26s both;
+  animation: retractRibbonRight .4s cubic-bezier(.4,0,.2,1) .32s both;
 }
 .gate-untying .ribbon-top, .gate-opening .ribbon-top {
-  animation: retractRibbonTop .3s cubic-bezier(.4,0,.2,1) .32s both;
+  animation: retractRibbonTop .4s cubic-bezier(.4,0,.2,1) .32s both;
 }
 .gate-untying .ribbon-bottom, .gate-opening .ribbon-bottom {
-  animation: retractRibbonBottom .3s cubic-bezier(.4,0,.2,1) .32s both;
+  animation: retractRibbonBottom .4s cubic-bezier(.4,0,.2,1) .32s both;
 }
 .gate-opening .cover-flap-top { transform: translate3d(0,-94%,0) rotateX(-14deg) scale(.985); opacity: 0; }
 .gate-opening .cover-flap-right { transform: translate3d(94%,0,0) rotateY(14deg) scale(.985); opacity: 0; }
@@ -227,50 +227,47 @@ button { font: inherit; }
 .gate-opening .prompt-opening { display: flex !important; }
 .gate-untying .gate-kicker, .gate-opening .gate-kicker { opacity: .35; }
 
-@keyframes bowPullRight {
-  0%, 8% { transform: translate3d(-50%,0,0); }
-  28% { transform: translate3d(-49.8%,0,0) rotate(-.04deg) scaleX(1.004); }
-  52% { transform: translate3d(-49.25%,-.1%,0) rotate(-.1deg) scaleX(1.01); }
-  76% { transform: translate3d(-48.7%,-.2%,0) rotate(-.18deg) scaleX(1.016); }
-  100% { transform: translate3d(-48.2%,-.3%,0) rotate(-.24deg) scaleX(1.02); }
+@keyframes bowSettle {
+  0%, 10% { transform: translate3d(-50%,0,0) scale(1); opacity: 1; }
+  42% { transform: translate3d(-50%,.15%,0) scale(.994,.998); opacity: 1; }
+  74% { transform: translate3d(-50%,.45%,0) scale(.968,.982); opacity: .84; }
+  100% { transform: translate3d(-50%,.7%,0) scale(.94,.96); opacity: 0; }
 }
-@keyframes slipLoopToRight {
+@keyframes foldLoopLeft {
   0%, 12% { transform: translate3d(0,0,0) rotate(0) rotateY(0) scale(1); opacity: 1; }
-  35% { transform: translate3d(2%,0,8px) rotate(-3deg) rotateY(-8deg) scaleX(.86); }
-  65% { transform: translate3d(7%,-1%,6px) rotate(-8deg) rotateY(-28deg) scale(.52,.9); opacity: .94; }
-  85% { transform: translate3d(13%,-2%,0) rotate(-14deg) rotateY(-50deg) scale(.26,.72); opacity: .55; }
-  100% { transform: translate3d(21%,-3%,-6px) rotate(-20deg) rotateY(-62deg) scale(.12,.54); opacity: 0; }
+  42% { transform: translate3d(-2%,1%,7px) rotate(-2deg) rotateY(8deg) scale(.92,.98); }
+  74% { transform: translate3d(-7%,4%,2px) rotate(-8deg) rotateY(26deg) scale(.68,.87); opacity: .86; }
+  100% { transform: translate3d(-14%,9%,-6px) rotate(-16deg) rotateY(44deg) scale(.42,.68); opacity: 0; }
 }
-@keyframes relaxLeftLoop {
-  0%, 30% { transform: translate3d(0,0,0) rotate(0) rotateY(0) scale(1); opacity: 1; }
-  52% { transform: translate3d(2%,2%,6px) rotate(2deg) rotateY(8deg) scale(.95,.98); }
-  76% { transform: translate3d(6%,6%,0) rotate(7deg) rotateY(24deg) scale(.72,.9); opacity: .84; }
-  100% { transform: translate3d(12%,14%,-6px) rotate(16deg) rotateY(42deg) scale(.42,.7); opacity: 0; }
+@keyframes foldLoopRight {
+  0%, 12% { transform: translate3d(0,0,0) rotate(0) rotateY(0) scale(1); opacity: 1; }
+  42% { transform: translate3d(2%,1%,7px) rotate(2deg) rotateY(-8deg) scale(.92,.98); }
+  74% { transform: translate3d(7%,4%,2px) rotate(8deg) rotateY(-26deg) scale(.68,.87); opacity: .86; }
+  100% { transform: translate3d(14%,9%,-6px) rotate(16deg) rotateY(-44deg) scale(.42,.68); opacity: 0; }
 }
-@keyframes pullRightTail {
-  0%, 10% { transform: translate3d(0,0,0) rotate(0) scale(1); opacity: 1; }
-  28% { transform: translate3d(5%,-1%,6px) rotate(-4deg) scale(.98,1.03); }
-  56% { transform: translate3d(22%,-4%,7px) rotate(-14deg) scale(.9,1.08); opacity: .98; }
-  80% { transform: translate3d(46%,-6%,0) rotate(-26deg) scale(.75,1.13); opacity: .84; }
-  100% { transform: translate3d(72%,-7%,-8px) rotate(-38deg) scale(.58,1.18); opacity: 0; }
+@keyframes releaseTailLeft {
+  0%, 14% { transform: translate3d(0,0,0) rotate(0) scale(1); opacity: 1; }
+  44% { transform: translate3d(-3%,1%,6px) rotate(-2deg) scale(.97,1.015); }
+  74% { transform: translate3d(-10%,6%,1px) rotate(-8deg) scale(.84,1.035); opacity: .82; }
+  100% { transform: translate3d(-19%,13%,-6px) rotate(-16deg) scale(.68,1.05); opacity: 0; }
 }
-@keyframes releaseLeftTail {
-  0%, 34% { transform: translate3d(0,0,0) rotate(0) scale(1); opacity: 1; }
-  58% { transform: translate3d(3%,1%,4px) rotate(-2deg) scale(.97,1.02); }
-  80% { transform: translate3d(10%,7%,0) rotate(6deg) scale(.85,1.06); opacity: .7; }
-  100% { transform: translate3d(18%,16%,-6px) rotate(14deg) scale(.72,1.08); opacity: 0; }
+@keyframes releaseTailRight {
+  0%, 14% { transform: translate3d(0,0,0) rotate(0) scale(1); opacity: 1; }
+  44% { transform: translate3d(3%,1%,6px) rotate(2deg) scale(.97,1.015); }
+  74% { transform: translate3d(10%,6%,1px) rotate(8deg) scale(.84,1.035); opacity: .82; }
+  100% { transform: translate3d(19%,13%,-6px) rotate(16deg) scale(.68,1.05); opacity: 0; }
 }
-@keyframes followRightPull {
-  0%, 20% { transform: translate3d(0,0,14px) rotate(0) scale(1); opacity: 1; }
-  46% { transform: translate3d(3%,-.5%,12px) rotate(-2deg) scale(1,.95); }
-  72% { transform: translate3d(9%,-1%,4px) rotate(-6deg) scale(.78,.7); opacity: .9; }
-  100% { transform: translate3d(20%,-2%,-5px) rotate(-12deg) scale(.34,.32); opacity: 0; }
+@keyframes softenKnot {
+  0%, 16% { transform: translate3d(0,0,14px) scale(1); opacity: 1; }
+  46% { transform: translate3d(0,.5%,12px) scale(.96,.91); }
+  76% { transform: translate3d(0,2%,4px) scale(.72,.6); opacity: .86; }
+  100% { transform: translate3d(0,4%,-5px) scale(.34,.28); opacity: 0; }
 }
-@keyframes sweepRibbonFromLeft {
+@keyframes retractRibbonLeft {
   0% { transform: translateX(0); opacity: 1; }
-  100% { transform: translateX(205%); opacity: 0; }
+  100% { transform: translateX(-104%); opacity: 0; }
 }
-@keyframes sweepRibbonRight {
+@keyframes retractRibbonRight {
   0% { transform: translateX(0); opacity: 1; }
   100% { transform: translateX(104%); opacity: 0; }
 }
