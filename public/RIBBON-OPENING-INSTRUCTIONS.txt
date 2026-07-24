@@ -1,0 +1,31 @@
+REALISTIC RIBBON OPENING ASSET
+==============================
+
+Place the final pre-composed opening video in this folder with this exact name:
+
+  ribbon-opening.mp4
+
+Recommended export:
+- Format: MP4
+- Codec: H.264
+- Canvas: 1080 x 1920 (9:16)
+- Frame rate: 30 fps
+- Duration: 3 to 5 seconds
+- Audio: AAC, optional
+- First frame: must visually match invitation-cover-v2.png or the wrapped-card poster
+- Last frame: must visually match the first visible frame of the website hero/cover
+- Web optimized / fast start: enabled
+- Target file size: ideally 2 to 6 MB
+
+IMPORTANT:
+Do not use a green-screen video directly in the browser. Composite the ribbon over the actual invitation cover in Blender, DaVinci Resolve, After Effects, or another editor, and then export a normal MP4.
+
+The website already:
+- starts the video after a user tap
+- supports inline playback on iPhone
+- unlocks scrolling when the video ends
+- includes a Skip opening button
+- stops playback when the opening is skipped
+- handles missing, blocked, interrupted, or stalled playback
+- falls back to a simple cover crossfade if the video is missing or blocked
+- respects reduced-motion settings

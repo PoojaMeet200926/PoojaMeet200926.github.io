@@ -41,3 +41,5 @@ next-env.d.ts
 /outputs/
 /work/
 /.site-git/
+/.dev-server.*.log
+/.dev-server.pid
