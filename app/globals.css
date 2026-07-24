@@ -48,13 +48,13 @@ button { font: inherit; }
 .cover-button:disabled { cursor: default; }
 .cover-shadow {
   position: absolute; z-index: -1; left: 9%; right: 9%; bottom: -14px; height: 45px; border-radius: 50%;
-  background: rgba(68,51,39,.26); filter: blur(23px); transition: opacity .65s ease, transform .95s cubic-bezier(.4,0,.2,1);
+  background: rgba(68,51,39,.26); filter: blur(23px); transition: opacity .46s ease, transform .7s cubic-bezier(.4,0,.2,1);
 }
 .cover-flap {
   position: absolute; inset: 0; overflow: hidden; backface-visibility: hidden;
   background: url('/invitation-box-lid.png') center/cover no-repeat;
   box-shadow: inset 0 0 0 1px rgba(143,117,79,.18);
-  transition: transform 1.32s cubic-bezier(.55,0,.16,1), opacity .38s ease .82s, filter .55s ease;
+  transition: transform .98s cubic-bezier(.5,0,.16,1), opacity .3s ease .58s, filter .42s ease;
 }
 .cover-flap-top {
   clip-path: polygon(0 0,100% 0,76% 25%,50% 50%,24% 25%);
@@ -148,12 +148,12 @@ button { font: inherit; }
     linear-gradient(rgba(255,253,248,.88),rgba(249,244,236,.92)),
     url('/narayani-heights-venue.png') center/cover no-repeat;
   border: 1px solid rgba(162,132,87,.38); box-shadow: 0 26px 60px rgba(60,49,40,.2);
-  opacity: 0; transform: scale(.94); transition: opacity .28s ease .08s, transform .78s cubic-bezier(.2,.8,.2,1) .08s;
+  opacity: 0; transform: scale(.94); transition: opacity .22s ease .05s, transform .58s cubic-bezier(.2,.8,.2,1) .05s;
 }
 .gate-inner-card::before { content: ""; position: absolute; inset: 12px; border: 1px solid rgba(171,145,104,.32); pointer-events: none; }
 .gate-inner-card > * {
   position: relative; z-index: 1; opacity: 0; transform: translateY(12px);
-  transition: opacity .56s ease .9s, transform .7s cubic-bezier(.2,.8,.2,1) .9s;
+  transition: opacity .42s ease .62s, transform .52s cubic-bezier(.2,.8,.2,1) .62s;
 }
 .inner-floret { color: #ae8e60; font-size: 14px; }
 .gate-inner-card > p { margin: 22px 0 0; font: 600 8px/1.4 Arial,sans-serif; letter-spacing: .28em; text-transform: uppercase; }
@@ -176,34 +176,34 @@ button { font: inherit; }
 .prompt-untying > b i:nth-child(2), .prompt-opening > b i:nth-child(2) { animation-delay: .15s; }
 .prompt-untying > b i:nth-child(3), .prompt-opening > b i:nth-child(3) { animation-delay: .3s; }
 .gate-untying .satin-bow, .gate-opening .satin-bow {
-  animation: bowTension .68s cubic-bezier(.33,.02,.18,1) both;
+  animation: bowTension .5s cubic-bezier(.3,.02,.18,1) both;
 }
 .gate-untying .bow-loop-right, .gate-opening .bow-loop-right {
-  animation: slipLoopRight .5s cubic-bezier(.34,.02,.16,1) .015s both;
+  animation: slipLoopRight .36s cubic-bezier(.3,.02,.16,1) .01s both;
 }
 .gate-untying .bow-loop-left, .gate-opening .bow-loop-left {
-  animation: slipLoopLeft .54s cubic-bezier(.34,.02,.16,1) .035s both;
+  animation: slipLoopLeft .39s cubic-bezier(.3,.02,.16,1) .025s both;
 }
 .gate-untying .bow-tail-right, .gate-opening .bow-tail-right {
-  animation: drawTailRight .56s cubic-bezier(.33,.01,.17,1) .025s both;
+  animation: drawTailRight .4s cubic-bezier(.3,.01,.17,1) .018s both;
 }
 .gate-untying .bow-tail-left, .gate-opening .bow-tail-left {
-  animation: drawTailLeft .59s cubic-bezier(.33,.01,.17,1) .04s both;
+  animation: drawTailLeft .42s cubic-bezier(.3,.01,.17,1) .03s both;
 }
 .gate-untying .bow-center, .gate-opening .bow-center {
-  animation: releaseKnot .52s cubic-bezier(.36,0,.16,1) .025s both;
+  animation: releaseKnot .38s cubic-bezier(.32,0,.16,1) .018s both;
 }
 .gate-untying .ribbon-left, .gate-opening .ribbon-left {
-  animation: retractRibbonLeft .44s cubic-bezier(.45,0,.2,1) .36s both;
+  animation: retractRibbonLeft .34s cubic-bezier(.4,0,.2,1) .24s both;
 }
 .gate-untying .ribbon-right, .gate-opening .ribbon-right {
-  animation: retractRibbonRight .44s cubic-bezier(.45,0,.2,1) .36s both;
+  animation: retractRibbonRight .34s cubic-bezier(.4,0,.2,1) .24s both;
 }
 .gate-untying .ribbon-top, .gate-opening .ribbon-top {
-  animation: retractRibbonTop .44s cubic-bezier(.45,0,.2,1) .36s both;
+  animation: retractRibbonTop .34s cubic-bezier(.4,0,.2,1) .24s both;
 }
 .gate-untying .ribbon-bottom, .gate-opening .ribbon-bottom {
-  animation: retractRibbonBottom .44s cubic-bezier(.45,0,.2,1) .36s both;
+  animation: retractRibbonBottom .34s cubic-bezier(.4,0,.2,1) .24s both;
 }
 .gate-opening .cover-flap-top { transform: translateY(-94%) rotateX(-18deg) scale(.98); opacity: 0; filter: brightness(.9); }
 .gate-opening .cover-flap-right { transform: translateX(94%) rotateY(18deg) scale(.98); opacity: 0; filter: brightness(.9); }
