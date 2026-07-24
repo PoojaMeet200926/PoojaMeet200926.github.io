@@ -210,6 +210,15 @@ button { font: inherit; }
 .gate-opening .cover-shadow { opacity: .3; transform: scale(.72); }
 .gate-opening .gate-inner-card { opacity: 1; transform: scale(1); }
 .gate-opening .gate-inner-card > * { opacity: 1; transform: translateY(0); }
+.gate-open .cover-shadow,
+.gate-open .cover-flap,
+.gate-open .satin-ribbons,
+.gate-open .satin-bow,
+.gate-open .loose-ribbon-tails {
+  opacity: 0 !important;
+}
+.gate-open .gate-inner-card { opacity: 1; transform: scale(1); }
+.gate-open .gate-inner-card > * { opacity: 1; transform: translateY(0); }
 .gate-untying .prompt-sealed, .gate-opening .prompt-sealed { display: none; }
 .gate-untying .prompt-untying { display: flex !important; }
 .gate-opening .prompt-opening { display: flex !important; }
