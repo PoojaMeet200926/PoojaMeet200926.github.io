@@ -122,8 +122,8 @@ export default function Home() {
       return;
     }
     setInvitationState("untying");
-    window.setTimeout(() => setInvitationState("opening"), 1450);
-    window.setTimeout(() => setInvitationState("open"), 4100);
+    window.setTimeout(() => setInvitationState("opening"), 2200);
+    window.setTimeout(() => setInvitationState("open"), 5600);
   };
 
   const shareInvitation = async () => {
@@ -166,16 +166,24 @@ export default function Home() {
           disabled={invitationState !== "sealed"}
         >
           <span className="cover-shadow" />
-          <span className="cover-panel cover-left" />
-          <span className="cover-panel cover-right" />
-          <span className="satin-band" aria-hidden="true">
-            <i />
-            <b />
+          <span className="cover-flap cover-flap-top" />
+          <span className="cover-flap cover-flap-right" />
+          <span className="cover-flap cover-flap-bottom" />
+          <span className="cover-flap cover-flap-left" />
+          <span className="satin-ribbons" aria-hidden="true">
+            <i className="ribbon-strip ribbon-horizontal ribbon-left" />
+            <i className="ribbon-strip ribbon-horizontal ribbon-right" />
+            <i className="ribbon-strip ribbon-vertical ribbon-top" />
+            <i className="ribbon-strip ribbon-vertical ribbon-bottom" />
           </span>
           <span className="satin-bow" aria-hidden="true">
             <i className="bow-piece bow-left" />
             <i className="bow-piece bow-right" />
             <i className="bow-piece bow-center" />
+          </span>
+          <span className="loose-ribbon-tails" aria-hidden="true">
+            <i className="loose-tail loose-tail-left" />
+            <i className="loose-tail loose-tail-right" />
           </span>
         </button>
         <div className="gate-prompt" aria-live="polite">
