@@ -4,7 +4,11 @@ import { useEffect, useMemo, useState } from "react";
 import { decodeInvitationToken } from "../lib/invitation-token.mjs";
 
 type Countdown = { days: number; hours: number; minutes: number; seconds: number };
-type InvitationDetails = { people: number | null; days: 1 | 2 | 3 };
+type InvitationDetails = {
+  people: number | null;
+  days: 1 | 2 | 3;
+  side: "meet" | "pooja";
+};
 
 const TREMONT_LOCATION = "https://share.google/hWnrB6DVuauJ6YYIV";
 const NARAYANI_HEIGHTS_LOCATION = "https://share.google/VsfLgB1XlksNToBEJ";
@@ -143,6 +147,8 @@ export default function Home() {
   const displayDetails = invitationDetails
     ? INVITED_DAY_DETAILS[invitationDetails.days]
     : DEFAULT_DISPLAY_DETAILS;
+  const firstName = invitationDetails?.side === "pooja" ? "Pooja" : "Meet";
+  const secondName = firstName === "Pooja" ? "Meet" : "Pooja";
 
   const visibleEvents = useMemo(() => {
     if (!invitationDetails) return EVENTS;
@@ -226,8 +232,8 @@ export default function Home() {
 
   const shareInvitation = async () => {
     const shareData = {
-      title: "Meet & Pooja — Wedding Invitation",
-      text: `Join us as Meet and Pooja begin their forever, ${displayDetails.dateLine}.`,
+      title: `${firstName} & ${secondName} — Wedding Invitation`,
+      text: `Join us as ${firstName} and ${secondName} begin their forever, ${displayDetails.dateLine}.`,
       url: window.location.href,
     };
     try {
@@ -252,7 +258,7 @@ export default function Home() {
         <div className="gate-inner-card" aria-hidden={invitationState !== "revealed"}>
           <span className="inner-floret">✦</span>
           <p>Together with their families</p>
-          <div className="inner-names"><span>Meet</span><i>&</i><span>Pooja</span></div>
+          <div className="inner-names"><span>{firstName}</span><i>&</i><span>{secondName}</span></div>
           <div className={`inner-rule${displayDetails.lastDate ? "" : " inner-rule-single"}`}>
             <b>{displayDetails.firstDate}</b>
             <span>September</span>
@@ -264,7 +270,7 @@ export default function Home() {
           className="cover-button"
           type="button"
           onClick={openInvitation}
-          aria-label="Pull the satin ribbon and open Meet and Pooja's wedding invitation"
+          aria-label={`Pull the satin ribbon and open ${firstName} and ${secondName}'s wedding invitation`}
           disabled={invitationState !== "sealed"}
         >
           <span className="cover-shadow" />
@@ -301,7 +307,7 @@ export default function Home() {
         <div className="door door-right" />
         <div className="hero-content">
           <p className="eyebrow">Together with their families</p>
-          <h1><span>Meet</span><i>&</i><span>Pooja</span></h1>
+          <h1><span>{firstName}</span><i>&</i><span>{secondName}</span></h1>
           <p className="hero-date">{displayDetails.dateLine}</p>
           <p className="hero-place">{displayDetails.placeLine}</p>
           <a className="scroll-cue" href="#story" aria-label="Explore the invitation">
@@ -318,8 +324,11 @@ export default function Home() {
         <h2>Two hearts,<br /><em>one beautiful forever.</em></h2>
         <div className="fine-rule"><span>✦</span></div>
         <p className="story-copy">
-          Mrs. Dharmishtha and Mr. Ketan Modi request the pleasure of your gracious presence
-          as their beloved daughter Pooja celebrates her wedding with Meet.
+          {invitationDetails?.side === "meet" ? (
+            <>Together with their families, Meet and Pooja request the pleasure of your gracious presence as they celebrate their wedding.</>
+          ) : (
+            <>Mrs. Dharmishtha and Mr. Ketan Modi request the pleasure of your gracious presence as their beloved daughter Pooja celebrates her wedding with Meet.</>
+          )}
         </p>
         <p className="script-note">Your presence will make our joy complete.</p>
       </section>
@@ -378,7 +387,7 @@ export default function Home() {
               <div className="event-details">
                 <p className="event-index">0{index + 1}</p>
                 <h3>{event.title}</h3>
-                <p className="event-time">{event.time}</p>
+                <p className="event-time">{event.featured ? `${firstName} weds ${secondName}` : event.time}</p>
                 <p className="event-venue">{event.venue}</p>
                 {event.map && <a href={event.map} target="_blank" rel="noreferrer">Open directions ↗</a>}
               </div>
@@ -390,7 +399,7 @@ export default function Home() {
       <section className="closing paper-section">
         <p className="section-kicker">With love</p>
         <h2>We cannot wait<br />to celebrate with you.</h2>
-        <p className="closing-names">Meet <i>&</i> Pooja</p>
+        <p className="closing-names">{firstName} <i>&</i> {secondName}</p>
         <button className="share-button" type="button" onClick={shareInvitation}>
           <span>Share the invitation</span><b>↗</b>
         </button>

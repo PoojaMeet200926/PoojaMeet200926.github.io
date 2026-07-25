@@ -14,7 +14,7 @@ import sys
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 
-TOKEN_VERSION = 2
+TOKEN_VERSION = 3
 NONCE_LENGTH = 12
 TAG_LENGTH = 16
 TOKEN_KEY = bytes(
@@ -29,6 +29,10 @@ DATE_GROUPS = {
     (20,): 1,
     (19, 20): 2,
     (18, 19, 20): 3,
+}
+SIDE_VALUES = {
+    "meet": 0,
+    "pooja": 1,
 }
 
 
@@ -51,6 +55,7 @@ def parse_invited_dates(value: str | list[str]) -> tuple[int, ...]:
 def create_token(
     invitees: int | None,
     dates: tuple[int, ...],
+    side: str,
     *,
     nonce: bytes | None = None,
 ) -> str:
@@ -59,6 +64,9 @@ def create_token(
         raise ValueError("Number of invitees must be between 1 and 250.")
     if dates not in DATE_GROUPS:
         raise ValueError("Unsupported invited-date group.")
+    side = side.strip().lower()
+    if side not in SIDE_VALUES:
+        raise ValueError("Invitation side must be Meet or Pooja.")
 
     nonce = secrets.token_bytes(NONCE_LENGTH) if nonce is None else nonce
     if len(nonce) != NONCE_LENGTH:
@@ -66,10 +74,10 @@ def create_token(
 
     people_value = 0 if invitees is None else invitees
     day_count = DATE_GROUPS[dates]
-    plaintext = bytes([people_value, day_count])
+    plaintext = bytes([people_value, day_count, SIDE_VALUES[side]])
     pad = hmac.new(TOKEN_KEY, b"E" + nonce, hashlib.sha256).digest()
     ciphertext = bytes(
-        [plaintext[0] ^ pad[0], plaintext[1] ^ pad[1]]
+        value ^ pad[index] for index, value in enumerate(plaintext)
     )
     body = bytes([TOKEN_VERSION]) + nonce + ciphertext
     tag = hmac.new(TOKEN_KEY, body, hashlib.sha256).digest()[:TAG_LENGTH]
@@ -84,13 +92,14 @@ def build_invitation_url(
     website_url: str,
     dates: tuple[int, ...],
     invitees: int | None,
+    side: str,
 ) -> str:
     """Add a fresh encrypted invitation token to the hosted website URL."""
     parsed = urlsplit(website_url.strip())
     if parsed.scheme not in {"http", "https"} or not parsed.netloc:
         raise ValueError("Website URL must start with http:// or https://.")
 
-    token = create_token(invitees, dates)
+    token = create_token(invitees, dates, side)
     query = [
         (key, value)
         for key, value in parse_qsl(parsed.query, keep_blank_values=True)
@@ -108,7 +117,7 @@ def build_invitation_url(
     )
 
 
-def interactive_values() -> tuple[str, tuple[int, ...], int | None]:
+def interactive_values() -> tuple[str, tuple[int, ...], int | None, str]:
     print("Meet & Pooja — Invitation Link Generator\n")
     website_url = input("Hosted website URL: ").strip()
     dates = parse_invited_dates(
@@ -118,7 +127,10 @@ def interactive_values() -> tuple[str, tuple[int, ...], int | None]:
         "Number of invitees (leave blank for the whole family): "
     ).strip()
     invitees = None if not invitee_text else int(invitee_text)
-    return website_url, dates, invitees
+    side = input("Invitation from whose side (Meet/Pooja): ").strip().lower()
+    if side not in SIDE_VALUES:
+        raise ValueError("Invitation side must be Meet or Pooja.")
+    return website_url, dates, invitees, side
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -145,6 +157,11 @@ def parse_arguments() -> argparse.Namespace:
         action="store_true",
         help="Invite the whole family without showing a guest count",
     )
+    parser.add_argument(
+        "--side",
+        choices=sorted(SIDE_VALUES),
+        help="Whose name appears first: meet or pooja",
+    )
     return parser.parse_args()
 
 
@@ -152,21 +169,25 @@ def main() -> int:
     interactive = len(sys.argv) == 1
     try:
         if interactive:
-            website_url, dates, invitees = interactive_values()
+            website_url, dates, invitees, side = interactive_values()
         else:
             arguments = parse_arguments()
             if not arguments.url or not arguments.days:
                 raise ValueError("--url and --days are required.")
+            if not arguments.side:
+                raise ValueError("Use --side meet or --side pooja.")
             if arguments.invitees is None and not arguments.family:
                 raise ValueError("Use --invitees NUMBER or --family.")
             website_url = arguments.url
             dates = parse_invited_dates(arguments.days)
             invitees = arguments.invitees
+            side = arguments.side
 
         invitation_url = build_invitation_url(
             website_url,
             dates,
             invitees,
+            side,
         )
         print("\nShare this link with the guest:\n")
         print(invitation_url)
