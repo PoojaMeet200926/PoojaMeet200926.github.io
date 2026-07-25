@@ -63,6 +63,10 @@ The program prints the final encoded link. Copy that complete link and send it t
 
 The site shows only the events included in that link. For `--family`, it shows the invited dates but does not mention a guest count. The selected side controls name order throughout the invitation.
 
+## English and Gujarati
+
+Guests can switch the complete invitation between English and Gujarati using the fixed language button in the top-right corner. The selection is saved on that device and does not modify the guest's encoded invitation link, invited dates, guest count, or name order.
+
 ### JavaScript alternative
 
 ```powershell

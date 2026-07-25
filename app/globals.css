@@ -17,6 +17,19 @@ body { margin: 0; background: var(--ivory); color: var(--ink); font-family: "Iow
 button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; }
 
+.language-toggle {
+  position: fixed; z-index: 160;
+  top: max(14px, env(safe-area-inset-top)); right: max(14px, env(safe-area-inset-right));
+  min-width: 104px; height: 40px; display: flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 0 14px; border: 1px solid rgba(255,255,255,.46); border-radius: 22px;
+  color: #fff; background: rgba(65,70,63,.72); box-shadow: 0 8px 28px rgba(39,42,38,.15);
+  backdrop-filter: blur(14px); cursor: pointer; transition: background .25s ease, transform .25s ease;
+}
+.language-toggle span { font: 500 17px/1 "Noto Serif Gujarati","Nirmala UI","Shruti",serif; }
+.language-toggle b { font: 600 10px/1 Arial,sans-serif; letter-spacing: .08em; }
+.language-toggle:hover { background: rgba(65,70,63,.9); transform: translateY(-1px); }
+.language-toggle:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
 .invitation-gate {
   position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
   overflow: hidden; perspective: 1500px; background: #ded7cc;
@@ -371,6 +384,37 @@ button { font: inherit; }
 .share-button b { font-size: 17px; font-weight: 400; }
 .share-status { min-height: 20px; margin: 15px 0 0; color: #77736a; font: 500 10px/1.4 Arial,sans-serif; letter-spacing: .08em; }
 .floating-share { position: fixed; z-index: 20; right: 16px; bottom: 16px; height: 43px; padding: 0 17px; border: 1px solid rgba(255,255,255,.32); border-radius: 22px; color: #fff; background: rgba(60,67,60,.83); box-shadow: 0 7px 24px rgba(34,38,34,.16); backdrop-filter: blur(12px); cursor: pointer; font: 600 11px/1 Arial,sans-serif; letter-spacing: .08em; }
+
+.language-gu {
+  font-family: "Noto Serif Gujarati","Shruti","Nirmala UI",serif;
+}
+.language-gu .gate-kicker,
+.language-gu .gate-inner-card > p,
+.language-gu .inner-rule span,
+.language-gu .gate-prompt,
+.language-gu .eyebrow,
+.language-gu .section-kicker,
+.language-gu .hero-place,
+.language-gu .scroll-cue,
+.language-gu .countdown-unit span,
+.language-gu .event-date-block span,
+.language-gu .event-date-block small,
+.language-gu .event-index,
+.language-gu .event-venue,
+.language-gu .event-details a,
+.language-gu .share-button,
+.language-gu .floating-share {
+  font-family: "Noto Serif Gujarati","Shruti","Nirmala UI",sans-serif;
+  letter-spacing: .04em;
+  text-transform: none;
+}
+.language-gu .inner-names span,
+.language-gu .hero h1 span,
+.language-gu .script-note,
+.language-gu .closing-names {
+  font-family: "Noto Serif Gujarati","Shruti","Nirmala UI",serif;
+  font-weight: 500;
+}
 .floating-share span { margin-left: 5px; }
 
 @keyframes openDoor { to { transform: translateX(-101%); } }
