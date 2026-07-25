@@ -141,8 +141,8 @@ export default function Home() {
       return;
     }
     setInvitationState("untying");
-    window.setTimeout(() => setInvitationState("opening"), 740);
-    window.setTimeout(() => setInvitationState("revealed"), 2050);
+    window.setTimeout(() => setInvitationState("opening"), 1750);
+    window.setTimeout(() => setInvitationState("revealed"), 3000);
   };
 
   const shareInvitation = async () => {
