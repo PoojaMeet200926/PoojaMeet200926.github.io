@@ -13,35 +13,55 @@ npm run dev
 
 Open the local address printed in the terminal.
 
-## Create personalized invitation links
+## Create personalized invitation links with Python
 
 Each personalized link contains one encrypted `i` token. Guest count and invited days are not readable from the URL.
 
-Numbered invitation:
+You host the website once. Run this program whenever you need a guest-specific link. It uses only Python’s standard library; no packages need to be installed.
+
+### Guided mode
+
+Run:
 
 ```powershell
-npm run invite:link -- --people 4 --days 2
+python create_invite_link.py
+```
+
+It will ask for:
+
+1. Your hosted website URL.
+2. Invited dates: `20`, `19,20`, or `18,19,20`.
+3. Number of invitees. Leave it blank for the whole family.
+
+### One-command mode
+
+Four people invited for 19 and 20 September:
+
+```powershell
+python create_invite_link.py --url "https://your-wedding-site.com" --days 19,20 --invitees 4
 ```
 
 Whole-family invitation, with no guest count shown:
 
 ```powershell
-npm run invite:link -- --family --days 3
+python create_invite_link.py --url "https://your-wedding-site.com" --days 18,19,20 --family
 ```
 
 Day selection:
 
-- `--days 1`: Sunday, 20 September
-- `--days 2`: Saturday–Sunday, 19–20 September
-- `--days 3`: Friday–Sunday, 18–20 September
+- `--days 20`: Sunday, 20 September
+- `--days 19,20`: Saturday–Sunday, 19–20 September
+- `--days 18,19,20`: Friday–Sunday, 18–20 September
 
-The generator uses the live invitation address by default. To use another address:
+The program prints the final encoded link. Copy that complete link and send it to the guest through WhatsApp, email, or another messaging service.
+
+The site shows only the events included in that link. For `--family`, it shows the invited dates but does not mention a guest count.
+
+### JavaScript alternative
 
 ```powershell
-npm run invite:link -- --people 2 --days 1 --url http://127.0.0.1:4194
+npm run invite:link -- --people 4 --days 2 --url "https://your-wedding-site.com"
 ```
-
-The site shows only the events included in the selected day range. For `--family`, it shows the invited dates but does not mention a guest count.
 
 The token prevents casual reading and detects URL modification. Because the invitation is public and decrypts in the guest’s browser, it should be treated as privacy-friendly obfuscation rather than access control.
 
