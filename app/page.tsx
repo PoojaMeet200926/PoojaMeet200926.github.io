@@ -141,7 +141,7 @@ export default function Home() {
       return;
     }
     setInvitationState("untying");
-    window.setTimeout(() => setInvitationState("opening"), 1750);
+    window.setTimeout(() => setInvitationState("opening"), 1020);
     window.setTimeout(() => setInvitationState("revealed"), 3000);
   };
 

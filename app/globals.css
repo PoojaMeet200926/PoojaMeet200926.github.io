@@ -54,8 +54,9 @@ button { font: inherit; }
   position: absolute; inset: 0; overflow: hidden; backface-visibility: hidden;
   background: url('/invitation-box-lid.png') center/cover no-repeat;
   box-shadow: inset 0 0 0 1px rgba(143,117,79,.18);
+  transform: translate3d(0,0,0);
   will-change: transform, opacity;
-  transition: transform 1.1s cubic-bezier(.36,.03,.16,1), opacity .42s ease .58s;
+  transition: transform 1.72s cubic-bezier(.36,.03,.16,1), opacity .55s ease 1.05s;
 }
 .cover-flap-top {
   clip-path: polygon(0 0,100% 0,76% 25%,50% 50%,24% 25%);
@@ -150,12 +151,12 @@ button { font: inherit; }
     url('/narayani-heights-venue.png') center/cover no-repeat;
   border: 1px solid rgba(162,132,87,.38); box-shadow: 0 26px 60px rgba(60,49,40,.2);
   opacity: 0; transform: translateZ(0) scale(.94); will-change: transform, opacity;
-  transition: opacity .22s ease .05s, transform .58s cubic-bezier(.2,.8,.2,1) .05s;
+  transition: opacity .5s ease .35s, transform 1.45s cubic-bezier(.16,.76,.18,1) .32s;
 }
 .gate-inner-card::before { content: ""; position: absolute; inset: 12px; border: 1px solid rgba(171,145,104,.32); pointer-events: none; }
 .gate-inner-card > * {
   position: relative; z-index: 1; opacity: 0; transform: translateY(12px);
-  transition: opacity .42s ease .62s, transform .52s cubic-bezier(.2,.8,.2,1) .62s;
+  transition: opacity .58s ease 1.05s, transform .72s cubic-bezier(.2,.8,.2,1) 1.05s;
 }
 .inner-floret { color: #ae8e60; font-size: 14px; }
 .gate-inner-card > p { margin: 22px 0 0; font: 600 8px/1.4 Arial,sans-serif; letter-spacing: .28em; text-transform: uppercase; }
