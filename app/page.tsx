@@ -1,13 +1,61 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { decodeInvitationToken } from "../lib/invitation-token.mjs";
 
 type Countdown = { days: number; hours: number; minutes: number; seconds: number };
+type InvitationDetails = { people: number | null; days: 1 | 2 | 3 };
 
 const TREMONT_LOCATION = "https://share.google/hWnrB6DVuauJ6YYIV";
 const NARAYANI_HEIGHTS_LOCATION = "https://share.google/VsfLgB1XlksNToBEJ";
 const TREMONT_ADDRESS = "B.1302, Tremont, Vaishnodevi Circle, Ahmedabad";
 const NARAYANI_HEIGHTS_ADDRESS = "Narayani Heights, Airport-Gandhinagar Road, Bhat, Ahmedabad";
+
+const INVITED_DAY_DETAILS = {
+  1: {
+    dates: ["20"],
+    firstDate: "20",
+    lastDate: null,
+    dateLine: "20 September 2026",
+    placeLine: "Narayani Heights",
+    openingNote: "One day of love · One beautiful beginning",
+    eventCopy: "One beautiful day of celebration, laughter, and love.",
+    invitationCopy: "You are warmly invited to celebrate with us on Sunday, 20 September.",
+    countdownTarget: "2026-09-20T00:00:00+05:30",
+    countdownLabel: "Sunday · 20 September",
+  },
+  2: {
+    dates: ["19", "20"],
+    firstDate: "19",
+    lastDate: "20",
+    dateLine: "19 — 20 September 2026",
+    placeLine: "Narayani Heights",
+    openingNote: "Two days of love · One beautiful beginning",
+    eventCopy: "Two days of tradition, music, laughter, and love.",
+    invitationCopy: "You are warmly invited for Saturday and Sunday, 19–20 September.",
+    countdownTarget: "2026-09-19T09:30:00+05:30",
+    countdownLabel: "Saturday · 19 September · 09:30 AM",
+  },
+  3: {
+    dates: ["18", "19", "20"],
+    firstDate: "18",
+    lastDate: "20",
+    dateLine: "18 — 20 September 2026",
+    placeLine: "Tremont · Narayani Heights",
+    openingNote: "Three days of love · One beautiful beginning",
+    eventCopy: "Three days of tradition, music, laughter, and love.",
+    invitationCopy: "You are warmly invited for the complete celebration, 18–20 September.",
+    countdownTarget: "2026-09-18T00:00:00+05:30",
+    countdownLabel: "Friday · 18 September",
+  },
+} as const;
+
+const DEFAULT_DISPLAY_DETAILS = {
+  ...INVITED_DAY_DETAILS[2],
+  dates: INVITED_DAY_DETAILS[3].dates,
+  eventCopy: INVITED_DAY_DETAILS[3].eventCopy,
+  placeLine: INVITED_DAY_DETAILS[3].placeLine,
+};
 
 const EVENTS = [
   {
@@ -76,8 +124,8 @@ const EVENTS = [
   },
 ];
 
-function getCountdown(): Countdown {
-  const distance = Math.max(0, new Date("2026-09-19T09:30:00+05:30").getTime() - Date.now());
+function getCountdown(target: string): Countdown {
+  const distance = Math.max(0, new Date(target).getTime() - Date.now());
   return {
     days: Math.floor(distance / 86_400_000),
     hours: Math.floor((distance / 3_600_000) % 24),
@@ -89,7 +137,24 @@ function getCountdown(): Countdown {
 export default function Home() {
   const [invitationState, setInvitationState] = useState<"sealed" | "untying" | "opening" | "revealed" | "open">("sealed");
   const [countdown, setCountdown] = useState<Countdown>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [invitationDetails, setInvitationDetails] = useState<InvitationDetails | null>(null);
   const [shareMessage, setShareMessage] = useState("");
+
+  const displayDetails = invitationDetails
+    ? INVITED_DAY_DETAILS[invitationDetails.days]
+    : DEFAULT_DISPLAY_DETAILS;
+
+  const visibleEvents = useMemo(() => {
+    if (!invitationDetails) return EVENTS;
+    const invitedDates = new Set<string>(INVITED_DAY_DETAILS[invitationDetails.days].dates);
+    return EVENTS.filter((event) => invitedDates.has(event.date));
+  }, [invitationDetails]);
+
+  const guestCopy = invitationDetails?.people
+    ? invitationDetails.people === 1
+      ? "This invitation is lovingly reserved for one guest."
+      : `This invitation is lovingly reserved for ${invitationDetails.people} guests.`
+    : null;
 
   useEffect(() => {
     document.body.style.overflow = invitationState === "open" ? "" : "hidden";
@@ -99,10 +164,24 @@ export default function Home() {
   }, [invitationState]);
 
   useEffect(() => {
-    setCountdown(getCountdown());
-    const timer = window.setInterval(() => setCountdown(getCountdown()), 1000);
-    return () => window.clearInterval(timer);
+    const token = new URLSearchParams(window.location.search).get("i");
+    if (!token) return;
+
+    let active = true;
+    void decodeInvitationToken(token).then((details) => {
+      if (active && details) setInvitationDetails(details);
+    });
+    return () => {
+      active = false;
+    };
   }, []);
+
+  useEffect(() => {
+    const target = displayDetails.countdownTarget;
+    setCountdown(getCountdown(target));
+    const timer = window.setInterval(() => setCountdown(getCountdown(target)), 1000);
+    return () => window.clearInterval(timer);
+  }, [displayDetails.countdownTarget]);
 
   useEffect(() => {
     if (invitationState !== "revealed") return;
@@ -148,7 +227,7 @@ export default function Home() {
   const shareInvitation = async () => {
     const shareData = {
       title: "Meet & Pooja — Wedding Invitation",
-      text: "Join us as Meet and Pooja begin their forever, 19–20 September 2026.",
+      text: `Join us as Meet and Pooja begin their forever, ${displayDetails.dateLine}.`,
       url: window.location.href,
     };
     try {
@@ -174,8 +253,12 @@ export default function Home() {
           <span className="inner-floret">✦</span>
           <p>Together with their families</p>
           <div className="inner-names"><span>Meet</span><i>&</i><span>Pooja</span></div>
-          <div className="inner-rule"><b>19</b><span>September</span><b>20</b></div>
-          <small>Two days of love · One beautiful beginning</small>
+          <div className={`inner-rule${displayDetails.lastDate ? "" : " inner-rule-single"}`}>
+            <b>{displayDetails.firstDate}</b>
+            <span>September</span>
+            {displayDetails.lastDate && <b>{displayDetails.lastDate}</b>}
+          </div>
+          <small>{displayDetails.openingNote}</small>
         </div>
         <button
           className="cover-button"
@@ -219,8 +302,8 @@ export default function Home() {
         <div className="hero-content">
           <p className="eyebrow">Together with their families</p>
           <h1><span>Meet</span><i>&</i><span>Pooja</span></h1>
-          <p className="hero-date">19 — 20 September 2026</p>
-          <p className="hero-place">Tremont · Narayani Heights</p>
+          <p className="hero-date">{displayDetails.dateLine}</p>
+          <p className="hero-place">{displayDetails.placeLine}</p>
           <a className="scroll-cue" href="#story" aria-label="Explore the invitation">
             <span>Explore our celebration</span>
             <b>↓</b>
@@ -240,6 +323,17 @@ export default function Home() {
         </p>
         <p className="script-note">Your presence will make our joy complete.</p>
       </section>
+
+      {invitationDetails && (
+        <section className="personal-invitation paper-section" aria-label="Your invitation details">
+          <div className="personal-invitation-card">
+            <span className="personal-floret" aria-hidden="true">✦</span>
+            <p className="section-kicker">Especially for you</p>
+            {guestCopy && <p className="guest-allocation">{guestCopy}</p>}
+            <p className="day-allocation">{displayDetails.invitationCopy}</p>
+          </div>
+        </section>
+      )}
 
       <section className="venue-reveal" aria-label="Narayani Heights wedding venue">
         <div className="venue-sticky">
@@ -264,17 +358,17 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <p className="countdown-date">Saturday · 19 September · 09:30 AM</p>
+        <p className="countdown-date">{displayDetails.countdownLabel}</p>
       </section>
 
       <section className="events-section" id="events">
         <div className="events-heading">
           <p className="section-kicker">The wedding weekend</p>
           <h2>Celebrate with us</h2>
-          <p>Three days of tradition, music, laughter, and love.</p>
+          <p>{displayDetails.eventCopy}</p>
         </div>
         <div className="event-list">
-          {EVENTS.map((event, index) => (
+          {visibleEvents.map((event, index) => (
             <article className={`event-card${event.featured ? " event-featured" : ""}`} key={`${event.title}-${index}`}>
               <div className="event-date-block">
                 <span>{event.day}</span>
