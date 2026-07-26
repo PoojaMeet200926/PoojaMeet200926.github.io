@@ -17,6 +17,43 @@ body { margin: 0; background: var(--ivory); color: var(--ink); font-family: "Iow
 button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; }
 
+.falling-botanicals {
+  position: fixed; inset: 0; z-index: 18; overflow: hidden; pointer-events: none;
+  opacity: 0; transition: opacity 1.2s ease;
+}
+.invitation-open .falling-botanicals { opacity: 1; }
+.falling-botanicals span {
+  --fall-time: 12s; --fall-delay: 0s; --sway: 28px; --end-drift: -14px;
+  position: absolute; top: -12vh; left: var(--start-x); display: block;
+  width: 11px; height: 17px; opacity: .48; will-change: transform;
+  animation: botanicalFall var(--fall-time) linear var(--fall-delay) infinite;
+}
+.falling-petal {
+  border-radius: 78% 22% 68% 32% / 70% 28% 72% 30%;
+  background: linear-gradient(145deg, rgba(255,251,244,.96), rgba(216,185,174,.76));
+  box-shadow: inset -2px -2px 4px rgba(177,140,124,.15), 0 2px 5px rgba(74,66,58,.08);
+}
+.falling-leaf {
+  width: 9px !important; height: 21px !important; opacity: .38 !important;
+  border-radius: 90% 8% 88% 10%;
+  background: linear-gradient(145deg, rgba(130,145,124,.86), rgba(74,92,76,.72));
+  box-shadow: inset 1px 0 rgba(255,255,255,.22), 0 2px 5px rgba(53,64,54,.1);
+}
+.falling-botanicals span:nth-child(1) { --start-x: 4%; --fall-time: 13.4s; --fall-delay: -8.1s; --sway: 34px; --end-drift: 12px; }
+.falling-botanicals span:nth-child(2) { --start-x: 12%; --fall-time: 10.8s; --fall-delay: -2.8s; --sway: -24px; --end-drift: 18px; }
+.falling-botanicals span:nth-child(3) { --start-x: 21%; --fall-time: 14.2s; --fall-delay: -11.4s; --sway: 42px; --end-drift: -21px; }
+.falling-botanicals span:nth-child(4) { --start-x: 29%; --fall-time: 12.1s; --fall-delay: -5.3s; --sway: -31px; --end-drift: 8px; }
+.falling-botanicals span:nth-child(5) { --start-x: 37%; --fall-time: 15.1s; --fall-delay: -13.7s; --sway: 26px; --end-drift: -18px; }
+.falling-botanicals span:nth-child(6) { --start-x: 45%; --fall-time: 11.4s; --fall-delay: -7.2s; --sway: -39px; --end-drift: 25px; }
+.falling-botanicals span:nth-child(7) { --start-x: 53%; --fall-time: 13.8s; --fall-delay: -1.6s; --sway: 31px; --end-drift: -12px; }
+.falling-botanicals span:nth-child(8) { --start-x: 61%; --fall-time: 10.6s; --fall-delay: -9.5s; --sway: -27px; --end-drift: 17px; }
+.falling-botanicals span:nth-child(9) { --start-x: 68%; --fall-time: 14.8s; --fall-delay: -4.1s; --sway: 38px; --end-drift: -23px; }
+.falling-botanicals span:nth-child(10) { --start-x: 75%; --fall-time: 12.7s; --fall-delay: -12.2s; --sway: -34px; --end-drift: 20px; }
+.falling-botanicals span:nth-child(11) { --start-x: 82%; --fall-time: 15.4s; --fall-delay: -6.4s; --sway: 29px; --end-drift: -16px; }
+.falling-botanicals span:nth-child(12) { --start-x: 89%; --fall-time: 11.7s; --fall-delay: -3.5s; --sway: -41px; --end-drift: 14px; }
+.falling-botanicals span:nth-child(13) { --start-x: 95%; --fall-time: 13.1s; --fall-delay: -10.6s; --sway: 22px; --end-drift: -26px; }
+.falling-botanicals span:nth-child(14) { --start-x: 57%; --fall-time: 16s; --fall-delay: -15.2s; --sway: -25px; --end-drift: 28px; }
+
 .language-toggle {
   position: fixed; z-index: 160;
   top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right));
@@ -441,6 +478,12 @@ button { font: inherit; }
 @keyframes arrow { 50% { transform: translateY(4px); } }
 @keyframes linePulse { 50% { width: 48px; opacity: .4; } }
 @keyframes dot { 50% { opacity: .25; transform: translateY(-2px); } }
+@keyframes botanicalFall {
+  0% { transform: translate3d(0,-10vh,0) rotate(0deg) rotateY(0deg); }
+  34% { transform: translate3d(var(--sway),39vh,0) rotate(155deg) rotateY(110deg); }
+  68% { transform: translate3d(var(--end-drift),78vh,0) rotate(310deg) rotateY(220deg); }
+  100% { transform: translate3d(var(--sway),122vh,0) rotate(520deg) rotateY(360deg); }
+}
 
 @media (min-width: 720px) {
   .event-card { grid-template-columns: 140px 1fr; min-height: 228px; }
@@ -451,6 +494,7 @@ button { font: inherit; }
 }
 
 @media (max-width: 520px) {
+  .falling-botanicals span:nth-child(n+11) { display: none; }
   .gate-kicker {
     top: max(18px, calc(env(safe-area-inset-top) + 8px)); left: 12px; right: 98px;
     text-align: left; white-space: nowrap;
@@ -467,5 +511,6 @@ button { font: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .falling-botanicals { display: none; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }

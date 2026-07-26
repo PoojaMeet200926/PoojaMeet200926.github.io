@@ -265,6 +265,11 @@ export default function Home() {
 
   return (
     <main className={`invitation-${invitationState} language-${language}`}>
+      <div className="falling-botanicals" aria-hidden="true">
+        {Array.from({ length: 14 }, (_, index) => (
+          <span className={index % 4 === 3 ? "falling-leaf" : "falling-petal"} key={index} />
+        ))}
+      </div>
       <button
         className="language-toggle"
         type="button"
