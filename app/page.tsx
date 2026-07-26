@@ -271,8 +271,8 @@ export default function Home() {
         onClick={toggleLanguage}
         aria-label={copy.switchLanguage}
       >
-        <span aria-hidden="true">{language === "en" ? "અ" : "A"}</span>
-        <b>{copy.targetLanguage}</b>
+        <span className={`language-option${language === "en" ? " is-active" : ""}`} aria-hidden="true">EN</span>
+        <span className={`language-option language-option-gu${language === "gu" ? " is-active" : ""}`} aria-hidden="true">ગુ</span>
       </button>
       <div className={`invitation-gate gate-${invitationState}`} aria-hidden={invitationState === "open"}>
         <div className="gate-atmosphere" />
@@ -404,8 +404,29 @@ export default function Home() {
               </div>
               <div className="event-details">
                 <p className="event-index">0{index + 1}</p>
-                <h3>{copy.eventTitles[event.key]}</h3>
-                <p className="event-time">{event.featured ? copy.weds(firstName, secondName) : copy.eventTimes[event.key]}</p>
+                {event.key === "haldi" ? (
+                  <div className="event-schedule-pair">
+                    <div className="event-schedule-item">
+                      <h3>{copy.eventTitles.haldi}</h3>
+                      <p className="event-time">{copy.eventTimes.haldi}</p>
+                    </div>
+                    <div className="event-schedule-item">
+                      <h3>{copy.lunchTitle}</h3>
+                      <p className="event-time">{copy.lunchTime}</p>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    {event.key === "ganesh" ? (
+                      <h3 className="event-title-lines">
+                        {copy.ganeshTitleLines.map((line) => <span key={line}>{line}</span>)}
+                      </h3>
+                    ) : (
+                      <h3>{copy.eventTitles[event.key]}</h3>
+                    )}
+                    <p className="event-time">{event.featured ? copy.weds(firstName, secondName) : copy.eventTimes[event.key]}</p>
+                  </>
+                )}
                 <p className="event-venue">{copy.venues[event.venue]}</p>
                 <a href={event.map} target="_blank" rel="noreferrer">{copy.directions}</a>
               </div>
