@@ -447,11 +447,14 @@ button { font: inherit; }
 }
 
 @media (max-width: 520px) {
-  .gate-kicker { top: max(58px, calc(env(safe-area-inset-top) + 46px)); }
+  .gate-kicker {
+    top: max(18px, calc(env(safe-area-inset-top) + 8px)); left: 12px; right: 98px;
+    text-align: left; white-space: nowrap;
+  }
+  .cover-button, .gate-inner-card { width: min(91vw, 40.5svh, 440px); }
 }
 
 @media (max-width: 380px) {
-  .cover-button, .gate-inner-card { width: 91vw; }
   .event-card { grid-template-columns: 78px 1fr; }
   .event-details { padding: 27px 21px; }
   .countdown-unit strong { font-size: 30px; }
