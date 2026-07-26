@@ -18,8 +18,8 @@ type InvitationDetails = {
   side: "meet" | "pooja";
 };
 
-const TREMONT_LOCATION = "https://share.google/hWnrB6DVuauJ6YYIV";
-const NARAYANI_HEIGHTS_LOCATION = "https://share.google/VsfLgB1XlksNToBEJ";
+const TREMONT_LOCATION = "https://maps.app.goo.gl/g4FNbs7ANbroAfxb8";
+const NARAYANI_HEIGHTS_LOCATION = "https://maps.app.goo.gl/7QJob2xzgw7PQsBF9";
 
 const INVITED_DAY_DETAILS = {
   1: {
@@ -428,7 +428,10 @@ export default function Home() {
                   </>
                 )}
                 <p className="event-venue">{copy.venues[event.venue]}</p>
-                <a href={event.map} target="_blank" rel="noreferrer">{copy.directions}</a>
+                <a href={event.map} target="_blank" rel="noreferrer">
+                  <span className="location-pin" aria-hidden="true" />
+                  <span>{copy.directions}</span>
+                </a>
               </div>
             </article>
           ))}
