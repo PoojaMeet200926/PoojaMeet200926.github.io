@@ -28,6 +28,7 @@ This document is now maintained as a living handoff. Commit `beee435` remains th
 - 1 August 2026: replace the final-page P&M initials with the localized full couple names (`Pooja & Meet` / `પૂજા & મીત`), increase compact Gujarati `સપ્ટેમ્બર` labels from 8px to 10px, and add `PYTHON_INVITE_LINK_GUIDE.md` with local, hosted, multiple-link, and troubleshooting instructions.
 - 1 August 2026: replace the formal Gujarati guest-allocation wording containing `અનામત` with natural welcome copy. Singular is `આપનું સહર્ષ સ્વાગત છે.` and plural is `આપ સહિત કુલ {count} મહેમાનોનું સહર્ષ સ્વાગત છે.`; encoded count behavior is unchanged.
 - 1 August 2026: correct the Narayani Heights Gujarati venue description from `હરિયાળાં લૉન` to `હરિયાળી લૉન`. On Pooja-side links, the revealed names card now shows only a centered Ganeshji emblem plus `॥ श्री गणेशाय नमः ॥`; OM SHANTI is omitted there. The first Narayani Heights hero keeps the combined Ganeshji/OM SHANTI panel, but the invocation has moved off that page and onto the revealed card.
+- 1 August 2026: simplify the Pooja-side Narayani Heights hero to a smaller centered OM SHANTI emblem with no Ganeshji and no white backing panel; the revealed card still keeps Ganeshji and the invocation. Correct Gujarati `નૈશા` to `નાયશા`, localize every displayed numeral to Gujarati digits in Gujarati mode, enlarge all eyebrow/section-kicker statements, add featured Vidai (`વિદાય`) on 20 September at 03:00 PM, pair Sangeet with Dinner at 08:00 PM, and pair Wedding Ceremony with Lunch at 12:30 PM.
 
 ---
 
@@ -61,7 +62,7 @@ When this source is opened on another laptop, Codex should do the following befo
 - A whole-family invitation does not display a guest count.
 - Meet-side links display Meet first; Pooja-side links display Pooja first throughout the invitation.
 - Pooja-side links show a centered Ganeshji emblem and `॥ श्री गणेशाय नमः ॥` at the start of the revealed card; OM SHANTI is deliberately omitted from this temporary card. Meet-side links show neither.
-- The same Pooja-side emblems remain prominently visible on the first full-height Narayani Heights page after the opening card disappears.
+- The first full-height Narayani Heights page shows only a small centered OM SHANTI emblem on the venue image, without Ganeshji, a white panel, or the invocation.
 - The OM SHANTI emblem must retain its red sunburst and black lettering. Do not apply a recolouring filter to the combined emblem asset.
 - Only events for the encoded invited day group are displayed.
 - All location actions use the approved Google Maps links and a visible map-pin symbol.
@@ -351,7 +352,7 @@ The first page section is a full-height Narayani Heights hero.
 - Hero text fades upward over 1.3 seconds after a 1.45 second delay.
 - Main venue image uses `narayani-heights-venue.png` with a dark bottom wash for contrast.
 - The displayed names respect sender side.
-- Pooja-side invitations render a separate persistent hero blessing panel containing `pooja-blessings.png` and `॥ श्री गणेशाय नमः ॥`; Meet-side invitations render neither. The panel is independent of the delayed hero-name fade, so it is visible as the doors reveal the venue. A translucent ivory backing keeps the approved gold, red, and black artwork legible over the photograph without applying a recoloring filter.
+- Pooja-side invitations render a separate `hero-om-shanti` crop from `pooja-blessings.png`; it shows only a smaller centered OM SHANTI emblem directly over the venue photograph. It is independent of the delayed hero-name fade and has no Ganeshji, backing panel, border, shadow, blur, or invocation. Meet-side invitations render neither hero emblem.
 - The date and place line respect the invited day group.
 - A localized, pill-shaped button near the bottom links to `#story`. Global smooth scrolling animates the transition, while the existing reduced-motion media query changes it to an immediate jump.
 
@@ -405,9 +406,9 @@ Targets:
 
 ### 5.11 Event filtering
 
-The event array contains seven entries. A valid token determines the invited dates, and the UI filters the array by each event’s `date` string.
+The event array contains eight entries. A valid token determines the invited dates, and the UI filters the array by each event’s `date` string.
 
-The visible event indexes are recalculated from `01` within the filtered list. Therefore a day-20-only invitation shows the wedding as event `01`, not `07`.
+The visible event indexes are recalculated from `01` within the filtered list. Therefore a day-20-only invitation shows Wedding Ceremony as event `01` and Vidai as event `02`. Gujarati mode displays these as `૦૧` and `૦૨`.
 
 ### 5.12 Sharing
 
@@ -430,7 +431,7 @@ Behavior:
 - Root `html` uses smooth scrolling unless reduced motion is requested.
 - Layout is designed around portrait phones first.
 - Event cards use a narrow date rail plus a flexible details column.
-- At 720 px and wider, event rail grows from 92 px to 140 px, details padding increases, and the Haldi/Lunch pair becomes two columns.
+- At 720 px and wider, event rail grows from 92 px to 140 px, details padding increases, and the Haldi/Lunch, Sangeet/Dinner, and Wedding/Lunch pairs become two columns.
 - At 520 px and below, cover size and gate heading position are adjusted and only the first ten botanical particles render.
 - At 380 px and below, event rail shrinks to 78 px, content padding shrinks, and countdown typography tightens.
 - Language and share controls account for safe-area insets where relevant.
@@ -515,8 +516,9 @@ Events:
 | Lunch | `બપોરનું ભોજન` | 12:30 PM / `બપોરે 12:30` |
 | Mameru | `મામેરું` | 03:00 PM / `બપોરે 03:00` |
 | Sangeet | `સંગીત સંધ્યા` | 07:30 PM / `સાંજે 07:30` |
+| Dinner | `રાત્રિભોજન` | 08:00 PM / `રાત્રે 08:00` |
 
-Haldi and Lunch intentionally share one event card. Each has the same heading style and a smaller italic time beneath it. They stack on narrow screens and use two columns at 720 px or wider.
+Haldi and Lunch intentionally share one event card, and Sangeet and Dinner share another. Each paired item uses the same heading style and a smaller italic time beneath it. They stack on narrow screens and use two columns at 720 px or wider.
 
 ### Sunday, 20 September 2026 — Narayani Heights
 
@@ -528,7 +530,15 @@ Event: Wedding Ceremony / `લગ્નવિધિ`
   - Meet side: `Meet weds Pooja`;
   - Pooja side: `Pooja weds Meet`;
   - Gujarati equivalent: `<first> અને <second>ના શુભ લગ્ન`.
-- No wedding ceremony clock time is stored at this commit.
+- Lunch appears in the same card at 12:30 PM / `બપોરે 12:30`.
+- No wedding ceremony clock time is stored.
+
+Event: Vidai / `વિદાય`
+
+- Date: Sunday, 20 September 2026.
+- Time: 03:00 PM / `બપોરે 03:00`.
+- Venue and map are the same Narayani Heights values above.
+- The Vidai card uses the same featured deep-sage/champagne treatment as the Wedding Ceremony card.
 
 ---
 
@@ -578,7 +588,7 @@ English names are `Meet` and `Pooja`. Gujarati names are `મીત` and `પૂ
 - Place: `Narayani Heights`
 - Opening note: `One day of love · One beautiful beginning`
 - Invitation: Sunday, 20 September only
-- Visible events: wedding ceremony only
+- Visible events: Wedding Ceremony and Vidai
 
 #### Two days
 
@@ -586,7 +596,7 @@ English names are `Meet` and `Pooja`. Gujarati names are `મીત` and `પૂ
 - Place: `Narayani Heights`
 - Opening note: `Two days of love · One beautiful beginning`
 - Invitation: Saturday and Sunday
-- Visible events: all 19 September events plus wedding
+- Visible events: all 19 September events plus Wedding Ceremony and Vidai
 
 #### Three days
 
@@ -594,7 +604,7 @@ English names are `Meet` and `Pooja`. Gujarati names are `મીત` and `પૂ
 - Place: `Tremont · Narayani Heights`
 - Opening note: `Three days of love · One beautiful beginning`
 - Invitation: complete Friday–Sunday celebration
-- Visible events: all seven events
+- Visible events: all eight events
 
 Equivalent Gujarati day-group copy lives in `app/invitation-copy.ts` and must be updated in parallel with English if dates or messaging change.
 
@@ -834,7 +844,7 @@ English script stack:
 Snell Roundhand, Segoe Script, cursive
 ```
 
-Gujarati mode removes English-style uppercase transformations and reduces letter spacing for labels.
+Gujarati mode removes English-style uppercase transformations, reduces letter spacing for labels, and uses Gujarati numerals for every visible numeric value. Eyebrow and section-kicker statements use larger responsive sizes so labels such as `WITH LOVE` and `સ્નેહ સાથે` remain clearly legible.
 
 ### 10.3 Approved terminology
 
@@ -848,7 +858,9 @@ Do not transliterate these back into English-sounding Gujarati:
 | Mameru | `મામેરું` |
 | Sangeet | `સંગીત સંધ્યા` |
 | Wedding Ceremony | `લગ્નવિધિ` |
+| Vidai | `વિદાય` |
 | Lunch | `બપોરનું ભોજન` |
+| Dinner | `રાત્રિભોજન` |
 
 ### 10.4 Three protected Ganesh title lines
 
@@ -1391,7 +1403,7 @@ With no valid `i` token:
 - cover/hero date line therefore says 19–20 September;
 - countdown targets 19 September at 09:30;
 - personal allocation card is absent;
-- all seven events are shown;
+- all eight events are shown;
 - event-section copy and place line are forcibly taken from the three-day group;
 - story selection falls through to the Pooja-side family paragraph because side is undefined.
 
@@ -1439,7 +1451,7 @@ These items exist at the baseline but are not part of the rendered invitation pa
 
 - `COPY.en.targetLanguage` and `COPY.gu.targetLanguage` are defined but the compact toggle renders fixed `EN` and `ગુ` labels instead.
 - `eventTitles.ganesh` exists, but the UI deliberately renders `ganeshTitleLines` to protect the three-line layout.
-- `eventTimes.wedding` is an empty string, and the featured wedding card uses the dynamic `weds()` copy instead.
+- `eventTimes.wedding` is an empty string, and the featured Wedding/Lunch card uses the dynamic `weds()` copy instead.
 - CSS tokens `--sage` and `--blush` are defined but not referenced by current rules.
 - `@keyframes breathe` is defined but no element uses it.
 - `public/invitation-cover-v2.png` and the starter SVGs are not referenced.
@@ -1560,7 +1572,7 @@ This is a new capability. Decide privacy, fields, authentication, spam protectio
 - [ ] No second ribbon flashes on the revealed card.
 - [ ] Names appear only after the box opens.
 - [ ] Pooja-side reveal shows only the centered Ganeshji emblem in champagne gold, followed by `॥ श्री गणेशाय नमः ॥`; OM SHANTI is absent from this card.
-- [ ] The first Narayani Heights hero shows the combined Ganeshji/OM SHANTI panel without the invocation, with OM SHANTI retaining its original red/black colours.
+- [ ] The first Narayani Heights hero shows only the smaller centered OM SHANTI emblem with no Ganeshji, white backing, or invocation, while retaining OM SHANTI's original red/black colours.
 - [ ] Meet-side reveal shows neither religious emblem and retains the small floret.
 - [ ] Pooja-side symbols remain fully inside the card at narrow phone heights.
 - [ ] Reveal waits for a second gesture.
@@ -1569,11 +1581,11 @@ This is a new capability. Decide privacy, fields, authentication, spam protectio
 
 ### Personalization
 
-- [ ] Two guests/day 20/Meet shows Meet first, guest count 2, only wedding.
+- [ ] Two guests/day 20/Meet shows Meet first, guest count 2, Wedding Ceremony, and Vidai.
 - [ ] Two guests/day 20/Pooja shows Pooja first and “Pooja weds Meet”.
 - [ ] Family link hides guest count.
 - [ ] Day group 2 shows only 19 and 20 events.
-- [ ] Day group 3 shows all seven events and both venues.
+- [ ] Day group 3 shows all eight events and both venues.
 - [ ] Tampered token does not expose partial decoded values.
 - [ ] Existing v1/v2 links still decode Meet first.
 
@@ -1585,6 +1597,10 @@ This is a new capability. Decide privacy, fields, authentication, spam protectio
 - [ ] `હલ્દી` is used for Haldi.
 - [ ] Three Ganesh ritual lines never merge or wrap internally.
 - [ ] Lunch has the same heading hierarchy as Haldi and a smaller time.
+- [ ] Sangeet shares its card with Dinner at 08:00 PM.
+- [ ] Wedding Ceremony shares its card with Lunch at 12:30 PM.
+- [ ] Vidai appears on 20 September at 03:00 PM in featured styling.
+- [ ] Gujarati mode uses Gujarati numerals for all visible dates, times, countdown values, indexes, guest counts, addresses, and pincodes.
 - [ ] Names, dates, directions, share feedback, and accessibility labels translate.
 
 ### Content and maps
@@ -1696,7 +1712,7 @@ Validation after the 1 August 2026 emblem change:
 Production build: PASS
 JavaScript invitation-token tests: 4 PASS / 0 FAIL
 Python invitation-link tests: 5 PASS / 0 FAIL
-Current feature tests: 7 PASS / 0 FAIL
+Current feature tests: 9 PASS / 0 FAIL
 Final emblem PNG: 1380 × 680, 32-bit RGBA, transparent corners
 Final emblem SHA-256: 7ec62fbe107edadcb9066515f8197821a041403e40b3028904333ea9890c8d19
 ```
@@ -1710,6 +1726,7 @@ app/globals.css
 app/invitation-copy.ts
 tests/pooja-blessings.test.mjs
 tests/family-compliments.test.mjs
+tests/event-details.test.mjs
 PYTHON_INVITE_LINK_GUIDE.md
 package.json
 README.md
@@ -1718,7 +1735,7 @@ PROJECT_HANDOFF_COMMIT_beee435.md
 
 The combined emblem was prepared from the two owner-supplied reference images. Ganeshji was changed to champagne gold, the OM SHANTI emblem was constrained to preserve red sunburst/black lettering, a flat temporary chroma background was removed, transparent bounds were cropped with padding, and only the final RGBA PNG was kept in the project.
 
-The same unchanged PNG supports two Pooja-side presentations. The temporary revealed opening card uses a CSS crop to show only centered Ganeshji, followed by the exact Devanagari invocation `॥ श्री गणेशाय नमः ॥` in deep sage. The separate persistent panel on the first Narayani Heights hero page shows the complete Ganeshji/OM SHANTI artwork without the invocation. The hero placement is conditional on the decoded side exactly matching `pooja`; missing, invalid, and Meet-side links do not display it there. CSS adds only a translucent ivory backing and does not recolor, filter, or alter the OM SHANTI artwork.
+The same unchanged PNG supports two Pooja-side presentations. The temporary revealed opening card uses a CSS crop to show only centered Ganeshji, followed by the exact Devanagari invocation `॥ श्री गणेशाय नमः ॥` in deep sage. The first Narayani Heights hero uses a separate right-side CSS crop to show only a smaller centered OM SHANTI emblem. It has no Ganeshji, border, white/ivory backing, shadow, blur, or invocation. Hero placement is conditional on the decoded side exactly matching `pooja`; missing, invalid, and Meet-side links do not display it there.
 
 The first-page navigation control is an accessible anchor styled as a button with `href="#story"`. It uses the existing localized `explore` and `exploreAria` copy. The global `html { scroll-behavior: smooth; }` rule provides the requested transition, and the project’s existing `prefers-reduced-motion` rule changes it to `auto` for guests who disable animation.
 
@@ -1769,7 +1786,7 @@ English mode keeps the supplied Latin spellings. Gujarati mode uses the followin
 Gujarati younger family names:
 
 ```text
-દેવ્યાંશી · નૈશા · ધ્રુવ · રૂહાની · રાધિકા
+દેવ્યાંશી · નાયશા · ધ્રુવ · રૂહાની · રાધિકા
 ```
 
 Both arrays are keyed by the live `language` state, so the list updates immediately with the existing English/Gujarati toggle without altering the encoded invitation URL. Gujarati list typography is explicitly forced to Noto Serif Gujarati, overriding the English Georgia list style. The former P&M initials have been replaced with localized full names: `Pooja & Meet` in English and `પૂજા & મીત` in Gujarati. The page uses a full-name script/signature treatment, deep-sage heading, champagne rules/accents, ivory inset card, quiet shadows, and pale sage botanical ornaments. It does not reuse the orange print-reference design.

@@ -13,20 +13,18 @@ test("shows the blessing emblems only for the decoded Pooja side", async () => {
   ]);
 
   assert.match(page, /invitationDetails\?\.side === "pooja"/);
-  assert.match(page, /src="\/pooja-blessings\.png"/);
-  assert.match(page, /unoptimized/);
   assert.match(page, /showPoojaBlessings[\s\S]*?className="pooja-ganesh-emblem"[\s\S]*?className="gate-blessing-invocation">\{copy\.ganeshInvocation\}<\/p>[\s\S]*?:[\s\S]*?<span className="inner-floret">✦<\/span>/);
-  assert.match(page, /showPoojaBlessings && \([\s\S]*?className="hero-blessing-panel"[\s\S]*?className="hero-blessing-emblems"/);
+  assert.match(page, /showPoojaBlessings && \([\s\S]*?className="hero-om-shanti"[\s\S]*?aria-label=\{copy\.omShantiAlt\}/);
   assert.doesNotMatch(page, /className="hero-blessing-invocation"/);
   assert.match(page, /className="hero-next-button" href="#story"/);
-  assert.match(copy, /poojaBlessingsAlt: "Ganeshji and OM SHANTI blessing symbols"/);
+  assert.match(copy, /omShantiAlt: "OM SHANTI blessing symbol"/);
   assert.match(copy, /ganeshBlessingAlt: "Ganeshji blessing symbol"/);
   assert.match(copy, /ganeshInvocation: "॥ श्री गणेशाय नमः ॥"/);
   assert.match(copy, /"હરિયાળી લૉન, ભવ્ય સમારંભ સ્થળો અને યાદગાર ઉજવણી માટેનું સુંદર વાતાવરણ\."/);
   assert.match(css, /\.pooja-ganesh-emblem\s*\{/);
   assert.match(css, /\.gate-inner-card-pooja > \.gate-blessing-invocation\s*\{/);
-  assert.match(css, /\.hero-blessing-panel\s*\{/);
-  assert.match(css, /\.hero-blessing-emblems\s*\{/);
+  assert.match(css, /\.hero-om-shanti\s*\{[\s\S]*?width: min\(96px,23vw\)[\s\S]*?background: url\('\/pooja-blessings\.png'\) right top \/ auto 100% no-repeat;/);
+  assert.doesNotMatch(css, /\.hero-om-shanti\s*\{[^}]*background-color/);
   assert.match(css, /\.hero-next-button\s*\{/);
   assert.match(css, /html \{ scroll-behavior: smooth;/);
 });

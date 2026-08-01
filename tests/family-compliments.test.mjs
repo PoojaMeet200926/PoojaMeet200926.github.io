@@ -25,12 +25,14 @@ test("shows the exact Modi family compliments only on Pooja-side invitations", a
   assert.match(page, /"ગં\.સ્વ\. સવિતાબેન અને સ્વ\. અમૃતભાઈ એમ\. મોદી"/);
   assert.match(page, /"સ્વ\. ચંદ્રિકાબેન અને શ્રી મનહરભાઈ એમ\. મોદી"/);
   assert.match(page, /"શ્રીમતી સૌમ્યા અને શ્રી ઈશાન એસ\. મોદી"/);
-  assert.match(page, /gu: \["દેવ્યાંશી", "નૈશા", "ધ્રુવ", "રૂહાની", "રાધિકા"\]/);
+  assert.match(page, /gu: \["દેવ્યાંશી", "નાયશા", "ધ્રુવ", "રૂહાની", "રાધિકા"\]/);
+  assert.doesNotMatch(page, /"નૈશા"/);
   assert.match(page, /POOJA_FAMILY_COMPLIMENTS\[language\]\.map/);
   assert.match(page, /POOJA_YOUNG_FAMILY\[language\]\.map/);
   assert.match(page, /className="compliments-monogram"[\s\S]*?copy\.names\.pooja[\s\S]*?copy\.names\.meet/);
   assert.match(copy, /complimentsHeading: "With Best Compliments From"/);
   assert.match(copy, /complimentsHeading: "શુભેચ્છા સહ"/);
+  assert.match(copy, /youngerFamilyAria: "દેવ્યાંશી, નાયશા, ધ્રુવ, રૂહાની અને રાધિકા તરફથી સ્નેહ સહ"/);
   assert.match(copy, /guestOne: "આપનું સહર્ષ સ્વાગત છે\."/);
   assert.match(copy, /`આપ સહિત કુલ \$\{count\} મહેમાનોનું સહર્ષ સ્વાગત છે\.`/);
   assert.doesNotMatch(copy, /અનામત/);

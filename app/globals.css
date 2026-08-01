@@ -359,17 +359,12 @@ button { font: inherit; }
 .invitation-open .door-right { animation: openDoorRight 2.25s cubic-bezier(.65,0,.2,1) .12s both; }
 .invitation-open .hero-content { animation: fadeRise 1.3s ease 1.45s both; }
 .hero-pooja .hero-content { margin-top: 12vh; }
-.hero-blessing-panel {
+.hero-om-shanti {
   position: absolute; z-index: 3; top: max(76px,calc(env(safe-area-inset-top) + 68px)); left: 50%;
-  width: min(68vw,280px); padding: 9px 14px 11px; transform: translateX(-50%);
-  text-align: center; border: 1px solid rgba(180,151,104,.42); border-radius: 16px;
-  background: rgba(255,252,246,.82); box-shadow: 0 12px 38px rgba(42,41,36,.16);
-  backdrop-filter: blur(8px);
+  width: min(96px,23vw); aspect-ratio: 600 / 680; transform: translateX(-50%);
+  background: url('/pooja-blessings.png') right top / auto 100% no-repeat;
 }
-.hero-blessing-emblems {
-  display: block; width: min(210px,100%); height: auto; margin: 0 auto; text-shadow: none;
-}
-.eyebrow, .section-kicker { margin: 0 0 18px; font: 600 10px/1.4 Arial,sans-serif; letter-spacing: .29em; text-transform: uppercase; }
+.eyebrow, .section-kicker { margin: 0 0 18px; font: 600 clamp(12px,3vw,14px)/1.4 Arial,sans-serif; letter-spacing: .25em; text-transform: uppercase; }
 .hero h1 { margin: 0; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; font-weight: 400; }
 .hero h1 span { font: 400 clamp(64px,20vw,118px)/.77 "Snell Roundhand","Segoe Script",cursive; }
 .hero h1 i { margin: 0 .1em; color: #ead8b7; font: italic 400 clamp(27px,7vw,40px)/1 Georgia,serif; }
@@ -544,6 +539,7 @@ button { font: inherit; }
 }
 .language-gu .inner-rule span { font-size: 10px; }
 .language-gu .event-date-block small { font-size: 10px; line-height: 1.25; }
+.language-gu .eyebrow, .language-gu .section-kicker { font-size: clamp(13px,3.2vw,15px); line-height: 1.5; }
 .floating-share span { margin-left: 5px; }
 
 @keyframes openDoor { to { transform: translateX(-101%); } }

@@ -10,7 +10,7 @@
     "build": "vinext build",
     "start": "vinext start",
     "invite:link": "node scripts/create-invite-link.mjs",
-    "test:features": "node --test tests/invitation-token.test.mjs tests/pooja-blessings.test.mjs tests/family-compliments.test.mjs",
+    "test:features": "node --test tests/invitation-token.test.mjs tests/pooja-blessings.test.mjs tests/family-compliments.test.mjs tests/event-details.test.mjs",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"
