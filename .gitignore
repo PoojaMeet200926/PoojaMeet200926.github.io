@@ -36,10 +36,16 @@ yarn-error.log*
 
 # typescript
 next-env.d.ts
+*.tsbuildinfo
 /dist/
 /.wrangler/
 /outputs/
 /work/
 /.site-git/
-/.dev-server.*.log
-/.dev-server.pid
+
+# local preview
+.preview-*.log
+
+# python
+__pycache__/
+*.py[cod]

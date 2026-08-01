@@ -1,79 +1,90 @@
-# Pooja & Meet Interactive Wedding Invitation
+# Meet & Pooja — Digital Wedding Invitation
 
-A mobile-first wedding invitation built with Next.js, React, TypeScript, Tailwind CSS, and the existing vinext/Cloudflare Sites setup.
+Interactive mobile wedding invitation for Meet and Pooja’s September 2026 celebration.
 
-## Before you begin
+## Run locally
 
-Install [Node.js](https://nodejs.org/) version `22.13.0` or newer.
+Requires Node.js 22.13 or newer.
 
-## Run the invitation on Windows
-
-1. Extract the project ZIP to a folder on your computer.
-2. Open that folder in Visual Studio Code.
-3. In Visual Studio Code, choose **Terminal > New Terminal**.
-4. Install the project packages:
-
-   ```text
-   npm install
-   ```
-
-5. Start the local website:
-
-   ```text
-   npm run dev
-   ```
-
-6. Open the exact `Local` address printed in the terminal. The port can vary, so use the address shown there.
-7. To stop the local website, return to the terminal and press `Ctrl+C`.
-
-## Ribbon opening video
-
-The realistic opening must be supplied at this exact path:
-
-```text
-public/ribbon-opening.mp4
+```powershell
+npm install
+npm run dev
 ```
 
-When the file is absent, blocked, or cannot play, the invitation uses a simple cover crossfade. It does not simulate realistic ribbon or fabric in CSS, SVG, canvas, DOM panels, or Three.js.
+Open the local address printed in the terminal.
 
-Recommended video export:
+## Create personalized invitation links with Python
 
-- MP4 with H.264 video
-- 9:16 aspect ratio
-- 1080 × 1920 master, or 720 × 1280 web version
-- 30 frames per second
-- 3–5 seconds
-- AAC audio only when needed
-- Web optimized / fast start enabled
-- Approximately 2–6 MB when quality permits
-- First and final visual handoff matched to `public/invitation-cover-v2.png`
+Each personalized link contains one encrypted `i` token. Guest count, invited days, and which family sent the invitation are not readable from the URL.
 
-More detail is available in `public/RIBBON-OPENING-INSTRUCTIONS.txt`.
+You host the website once. Run this program whenever you need a guest-specific link. It uses only Python’s standard library; no packages need to be installed.
 
-## Check the project
+For local testing, batch examples, every command option, hosted-link generation, and troubleshooting, see [PYTHON_INVITE_LINK_GUIDE.md](./PYTHON_INVITE_LINK_GUIDE.md).
 
-Run these commands in the project terminal:
+### Guided mode
 
-```text
-npm run lint
+Run:
+
+```powershell
+python create_invite_link.py
+```
+
+It will ask for:
+
+1. Your hosted website URL.
+2. Invited dates: `20`, `19,20`, or `18,19,20`.
+3. Number of invitees. Leave it blank for the whole family.
+4. Invitation side: `Pooja` or `Meet`.
+
+### One-command mode
+
+Four people invited for 19 and 20 September:
+
+```powershell
+python create_invite_link.py --url "https://your-wedding-site.com" --days 19,20 --invitees 4 --side pooja
+```
+
+Whole-family invitation, with no guest count shown:
+
+```powershell
+python create_invite_link.py --url "https://your-wedding-site.com" --days 18,19,20 --family --side meet
+```
+
+Day selection:
+
+- `--days 20`: Sunday, 20 September
+- `--days 19,20`: Saturday–Sunday, 19–20 September
+- `--days 18,19,20`: Friday–Sunday, 18–20 September
+
+Name order:
+
+- `--side pooja`: displays `Pooja & Meet` and `Pooja weds Meet`.
+- `--side meet`: displays `Meet & Pooja` and `Meet weds Pooja`.
+
+Pooja-side invitations show the Ganeshji and OM SHANTI blessing emblems both at the top of the revealed opening card and in a persistent blessing panel on the first Narayani Heights page. That first-page panel also displays `॥ श्री गणेशाय नमः ॥` in the invitation theme. Meet-side invitations keep the original minimal floret and do not show the emblems or invocation.
+
+The first Narayani Heights page includes a centered invitation button near the bottom. Pressing it smoothly scrolls to the next story section; reduced-motion browser preferences disable the smooth animation automatically.
+
+Pooja-side invitations end with a themed “With Best Compliments From” family page containing the supplied Modi family names. In English mode it preserves the supplied English spellings; in Gujarati mode the honorifics, names, initials, and younger family names switch to Gujarati in Noto Serif Gujarati. This final page is not shown on Meet-side links.
+
+The program prints the final encoded link. Copy that complete link and send it to the guest through WhatsApp, email, or another messaging service.
+
+The site shows only the events included in that link. For `--family`, it shows the invited dates but does not mention a guest count. The selected side controls name order throughout the invitation.
+
+## English and Gujarati
+
+Guests can switch the complete invitation between English and Gujarati using the fixed language button in the top-right corner. The selection is saved on that device and does not modify the guest's encoded invitation link, invited dates, guest count, or name order.
+
+### JavaScript alternative
+
+```powershell
+npm run invite:link -- --people 4 --days 2 --side pooja --url "https://your-wedding-site.com"
+```
+
+The token prevents casual reading and detects URL modification. Because the invitation is public and decrypts in the guest’s browser, it should be treated as privacy-friendly obfuscation rather than access control.
+
+## Build
+
+```powershell
 npm run build
-npm test
 ```
-
-## Wedding details awaiting confirmation
-
-The site labels these values as pending and does not present them as verified:
-
-- Ganesh Sthapan / Mandap Muhurat / Grah Shanti time and venue
-- Mehendi time
-- Mameru venue
-- Sangeet venue
-- Main wedding time and venue
-- Groom family wording
-- RSVP contact and attendance rules
-- Dress codes
-- Accommodation and travel recommendations
-- Gifts or registry wording
-- Gujarati translation
-
-Update confirmed facts in `app/data/invitation.ts`.

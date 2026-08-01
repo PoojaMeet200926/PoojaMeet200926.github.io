@@ -1,4 +1,0 @@
-1. Open this project folder in VS Code/Codex.
-2. Ask Codex to read PROMPT.md and WORKFLOW.md completely.
-3. Then paste: "Follow PROMPT.md and execute WORKFLOW.md, beginning with Phase 0."
-4. Place the realistic opening file at public/ribbon-opening.mp4 when available.
