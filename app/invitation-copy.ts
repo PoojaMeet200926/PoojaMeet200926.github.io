@@ -74,6 +74,7 @@ export const COPY = {
     switchLanguage: "Switch language to Gujarati",
     celebrationAwaits: "A celebration awaits",
     poojaBlessingsAlt: "Ganeshji and OM SHANTI blessing symbols",
+    ganeshInvocation: "॥ श्री गणेशाय नमः ॥",
     familyLine: "Together with their families",
     month: "September",
     tapPull: "Tap to pull the ribbon",
@@ -146,6 +147,10 @@ export const COPY = {
     invitationShared: "Invitation shared",
     linkCopied: "Link copied",
     shareFromBrowser: "Share this page from your browser",
+    complimentsAria: "Best compliments from Pooja's family",
+    complimentsKicker: "Our family",
+    complimentsHeading: "With Best Compliments From",
+    youngerFamilyAria: "With love from Devyanshi, Naisha, Dhruv, Roohani, and Radhika",
     shareTitle: (first: string, second: string) =>
       `${first} & ${second} — Wedding Invitation`,
     shareText: (first: string, second: string, date: string) =>
@@ -158,6 +163,7 @@ export const COPY = {
     switchLanguage: "ભાષા English પર બદલો",
     celebrationAwaits: "ઉત્સવ તમારી રાહ જુએ છે",
     poojaBlessingsAlt: "ગણેશજી અને OM SHANTI ના શુભ પ્રતીકો",
+    ganeshInvocation: "॥ श्री गणेशाय नमः ॥",
     familyLine: "બંને પરિવારોના આશીર્વાદ સાથે",
     month: "સપ્ટેમ્બર",
     tapPull: "રિબન ખોલવા માટે ટૅપ કરો",
@@ -178,9 +184,9 @@ export const COPY = {
     presence: "આપની ઉપસ્થિતિ અમારા આનંદને પૂર્ણ કરશે.",
     personalAria: "આપના આમંત્રણની વિગતો",
     especially: "ખાસ આપના માટે",
-    guestOne: "આ આમંત્રણ એક મહેમાન માટે પ્રેમપૂર્વક અનામત છે.",
+    guestOne: "આપનું સહર્ષ સ્વાગત છે.",
     guestMany: (count: number) =>
-      `આ આમંત્રણ ${count} મહેમાનો માટે પ્રેમપૂર્વક અનામત છે.`,
+      `આપ સહિત કુલ ${count} મહેમાનોનું સહર્ષ સ્વાગત છે.`,
     venueAria: "નારાયણી હાઇટ્સ લગ્ન સ્થળ",
     venueKicker: "ઉજવણીનું સ્થળ",
     narayani: "નારાયણી",
@@ -231,6 +237,10 @@ export const COPY = {
     invitationShared: "આમંત્રણ શેર થયું",
     linkCopied: "લિંક કૉપી થઈ",
     shareFromBrowser: "કૃપા કરીને બ્રાઉઝરમાંથી આ પેજ શેર કરો",
+    complimentsAria: "પૂજાના પરિવાર તરફથી શુભેચ્છાઓ",
+    complimentsKicker: "અમારો પરિવાર",
+    complimentsHeading: "શુભેચ્છા સહ",
+    youngerFamilyAria: "દેવ્યાંશી, નૈશા, ધ્રુવ, રૂહાની અને રાધિકા તરફથી સ્નેહ સહ",
     shareTitle: (first: string, second: string) =>
       `${first} & ${second} — લગ્ન આમંત્રણ`,
     shareText: (first: string, second: string, date: string) =>

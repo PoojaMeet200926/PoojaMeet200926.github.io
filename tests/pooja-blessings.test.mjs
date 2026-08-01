@@ -16,8 +16,16 @@ test("shows the blessing emblems only for the decoded Pooja side", async () => {
   assert.match(page, /src="\/pooja-blessings\.png"/);
   assert.match(page, /unoptimized/);
   assert.match(page, /showPoojaBlessings[\s\S]*?<Image[\s\S]*?:[\s\S]*?<span className="inner-floret">✦<\/span>/);
+  assert.match(page, /showPoojaBlessings && \([\s\S]*?className="hero-blessing-panel"[\s\S]*?className="hero-blessing-emblems"/);
+  assert.match(page, /className="hero-blessing-invocation">\{copy\.ganeshInvocation\}/);
+  assert.match(page, /className="hero-next-button" href="#story"/);
   assert.match(copy, /poojaBlessingsAlt: "Ganeshji and OM SHANTI blessing symbols"/);
+  assert.match(copy, /ganeshInvocation: "॥ श्री गणेशाय नमः ॥"/);
   assert.match(css, /\.pooja-blessing-emblems\s*\{/);
+  assert.match(css, /\.hero-blessing-panel\s*\{/);
+  assert.match(css, /\.hero-blessing-emblems\s*\{/);
+  assert.match(css, /\.hero-next-button\s*\{/);
+  assert.match(css, /html \{ scroll-behavior: smooth;/);
 });
 
 test("keeps the approved transparent emblem asset byte-for-byte", async () => {

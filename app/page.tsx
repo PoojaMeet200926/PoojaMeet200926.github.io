@@ -105,6 +105,36 @@ const EVENTS: WeddingEvent[] = [
   },
 ];
 
+const POOJA_FAMILY_COMPLIMENTS = {
+  en: [
+    "G.S. Savitaben & Late Amrutbhai M. Modi",
+    "Late Chandrikaben & Mr. Manaharbhai M. Modi",
+    "G.S. Jyotsnaben & Late Kiritbhai A. Modi",
+    "Mrs. Sangitaben & Mr. Sureshbhai A. Modi",
+    "Mrs. Komal & Mr. Brijesh M. Modi",
+    "Mrs. Kashish & Mr. Mitul K. Modi",
+    "Mrs. Somya & Mr. Ishan S. Modi",
+    "Mrs. Chinar & Mr. Monik S. Modi",
+    "Mr. Krunal K. Modi",
+  ],
+  gu: [
+    "ગં.સ્વ. સવિતાબેન અને સ્વ. અમૃતભાઈ એમ. મોદી",
+    "સ્વ. ચંદ્રિકાબેન અને શ્રી મનહરભાઈ એમ. મોદી",
+    "ગં.સ્વ. જ્યોત્સનાબેન અને સ્વ. કિરીટભાઈ એ. મોદી",
+    "શ્રીમતી સંગીતાબેન અને શ્રી સુરેશભાઈ એ. મોદી",
+    "શ્રીમતી કોમલ અને શ્રી બ્રિજેશ એમ. મોદી",
+    "શ્રીમતી કશિશ અને શ્રી મિતુલ કે. મોદી",
+    "શ્રીમતી સૌમ્યા અને શ્રી ઈશાન એસ. મોદી",
+    "શ્રીમતી ચિનાર અને શ્રી મોનિક એસ. મોદી",
+    "શ્રી કૃણાલ કે. મોદી",
+  ],
+} as const satisfies Record<Language, readonly string[]>;
+
+const POOJA_YOUNG_FAMILY = {
+  en: ["Devyanshi", "Naisha", "Dhruv", "Roohani", "Radhika"],
+  gu: ["દેવ્યાંશી", "નૈશા", "ધ્રુવ", "રૂહાની", "રાધિકા"],
+} as const satisfies Record<Language, readonly string[]>;
+
 function getCountdown(target: string): Countdown {
   const distance = Math.max(0, new Date(target).getTime() - Date.now());
   return {
@@ -344,21 +374,36 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="hero" id="home">
+      <section className={`hero${showPoojaBlessings ? " hero-pooja" : ""}`} id="home">
         <div className="hero-image" />
         <div className="hero-wash" />
         <div className="door door-left" />
         <div className="door door-right" />
+        {showPoojaBlessings && (
+          <div className="hero-blessing-panel">
+            <Image
+              className="hero-blessing-emblems"
+              src="/pooja-blessings.png"
+              alt={copy.poojaBlessingsAlt}
+              width={1380}
+              height={680}
+              sizes="(max-width: 520px) 58vw, 300px"
+              unoptimized
+              priority
+            />
+            <p className="hero-blessing-invocation">{copy.ganeshInvocation}</p>
+          </div>
+        )}
         <div className="hero-content">
           <p className="eyebrow">{copy.familyLine}</p>
           <h1><span>{firstName}</span><i>&</i><span>{secondName}</span></h1>
           <p className="hero-date">{displayDetails.dateLine}</p>
           <p className="hero-place">{displayDetails.placeLine}</p>
-          <a className="scroll-cue" href="#story" aria-label={copy.exploreAria}>
-            <span>{copy.explore}</span>
-            <b>↓</b>
-          </a>
         </div>
+        <a className="hero-next-button" href="#story" aria-label={copy.exploreAria}>
+          <span>{copy.explore}</span>
+          <b aria-hidden="true">↓</b>
+        </a>
       </section>
 
       <section className="story paper-section" id="story">
@@ -469,6 +514,27 @@ export default function Home() {
         </button>
         <p className="share-status" aria-live="polite">{shareMessage}</p>
       </section>
+
+      {showPoojaBlessings && (
+        <section className="family-compliments" aria-label={copy.complimentsAria}>
+          <div className="compliments-ornament compliments-ornament-left" aria-hidden="true">❦</div>
+          <div className="compliments-ornament compliments-ornament-right" aria-hidden="true">❦</div>
+          <div className="compliments-card">
+            <p className="compliments-monogram" aria-label={`${copy.names.pooja} & ${copy.names.meet}`}>
+              <span>{copy.names.pooja}</span><i aria-hidden="true">&</i><span>{copy.names.meet}</span>
+            </p>
+            <p className="section-kicker">{copy.complimentsKicker}</p>
+            <h2>{copy.complimentsHeading}</h2>
+            <div className="compliments-rule" aria-hidden="true"><span>✦</span></div>
+            <ul className="compliments-list">
+              {POOJA_FAMILY_COMPLIMENTS[language].map((name) => <li key={name}>{name}</li>)}
+            </ul>
+            <div className="compliments-younger" aria-label={copy.youngerFamilyAria}>
+              {POOJA_YOUNG_FAMILY[language].map((name) => <span key={name}>{name}</span>)}
+            </div>
+          </div>
+        </section>
+      )}
 
       <button className="floating-share" type="button" onClick={shareInvitation} aria-label={copy.shareAria}>
         ↗ <span>{copy.share}</span>

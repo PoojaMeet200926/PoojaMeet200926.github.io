@@ -21,6 +21,12 @@ The purpose of this document is to let another Codex session, developer, or desi
 This document is now maintained as a living handoff. Commit `beee435` remains the historical baseline, and the following approved forward change has been added after that baseline:
 
 - 1 August 2026: add Ganeshji and OM SHANTI blessing emblems at the top of the revealed card only for Pooja-side invitations. Ganeshji is champagne gold; OM SHANTI retains its original red sunburst and black lettering. Meet-side invitations continue to show the original small champagne floret instead.
+- 1 August 2026: keep the same Pooja-only blessing artwork visible on the first Narayani Heights hero page, not only on the temporary revealed opening card. The hero version uses a restrained translucent ivory backing for reliable contrast without recoloring either emblem.
+- 1 August 2026: make the first-page blessings a persistent hero panel independent of the delayed couple-name animation, add the Sanskrit invocation `॥ श्री गणेशाय नमः ॥` in sage, and replace the easily missed scroll cue with a prominent centered button that smoothly opens the next story section.
+- 1 August 2026: add a final Pooja-side-only “With Best Compliments From” page in the invitation’s ivory, sage, and champagne theme, preserving the exact supplied Modi family spellings. Meet-side, missing-token, and invalid-token links do not render this family page.
+- 1 August 2026: make every Pooja-side family name bilingual. English mode preserves the owner-supplied Latin spellings; Gujarati mode switches honorifics, names, initials, and younger family names to approved Gujarati-script strings rendered in Noto Serif Gujarati.
+- 1 August 2026: replace the final-page P&M initials with the localized full couple names (`Pooja & Meet` / `પૂજા & મીત`), increase compact Gujarati `સપ્ટેમ્બર` labels from 8px to 10px, and add `PYTHON_INVITE_LINK_GUIDE.md` with local, hosted, multiple-link, and troubleshooting instructions.
+- 1 August 2026: replace the formal Gujarati guest-allocation wording containing `અનામત` with natural welcome copy. Singular is `આપનું સહર્ષ સ્વાગત છે.` and plural is `આપ સહિત કુલ {count} મહેમાનોનું સહર્ષ સ્વાગત છે.`; encoded count behavior is unchanged.
 
 ---
 
@@ -54,6 +60,7 @@ When this source is opened on another laptop, Codex should do the following befo
 - A whole-family invitation does not display a guest count.
 - Meet-side links display Meet first; Pooja-side links display Pooja first throughout the invitation.
 - Pooja-side links show the Ganeshji and OM SHANTI blessing emblems at the start of the revealed card; Meet-side links do not show either emblem.
+- The same Pooja-side emblems remain prominently visible on the first full-height Narayani Heights page after the opening card disappears.
 - The OM SHANTI emblem must retain its red sunburst and black lettering. Do not apply a recolouring filter to the combined emblem asset.
 - Only events for the encoded invited day group are displayed.
 - All location actions use the approved Google Maps links and a visible map-pin symbol.
@@ -76,7 +83,8 @@ The experience is deliberately cinematic:
 7. The reveal pauses until the guest gives another gesture.
 8. The gate fades away and a pair of hero doors opens onto Narayani Heights.
 9. The guest scrolls through the story, personalized allocation, venue reveal, countdown, invited event cards, and sharing controls.
-10. Soft petals and leaves fall continuously over the opened invitation.
+10. Pooja-side links finish with the supplied Modi family compliments page; Meet-side links omit it.
+11. Soft petals and leaves fall continuously over the opened invitation.
 
 The same hosted site supports many guest-specific links. Each link can configure:
 
@@ -167,11 +175,13 @@ live-ribbon-v4/
 ├─ tests/
 │  ├─ invitation-token.test.mjs    Current token tests
 │  ├─ pooja-blessings.test.mjs     Pooja-side visibility and exact asset test
+│  ├─ family-compliments.test.mjs  Pooja-family localization/content test
 │  ├─ test_create_invite_link.py   Current Python generator tests
 │  └─ rendered-html.test.mjs       Stale starter tests; known failing baseline
 ├─ worker/
 │  └─ index.ts                     Cloudflare Worker/vinext request entry
 ├─ create_invite_link.py           Preferred standalone guest-link generator
+├─ PYTHON_INVITE_LINK_GUIDE.md     Detailed generator and multiple-link guide
 ├─ README.md                       Short end-user setup/link instructions
 ├─ package.json                    Scripts and dependencies
 ├─ vite.config.ts                  vinext + Sites + Cloudflare build config
@@ -342,8 +352,9 @@ The first page section is a full-height Narayani Heights hero.
 - Hero text fades upward over 1.3 seconds after a 1.45 second delay.
 - Main venue image uses `narayani-heights-venue.png` with a dark bottom wash for contrast.
 - The displayed names respect sender side.
+- Pooja-side invitations render a separate persistent hero blessing panel containing `pooja-blessings.png` and `॥ श्री गणेशाय नमः ॥`; Meet-side invitations render neither. The panel is independent of the delayed hero-name fade, so it is visible as the doors reveal the venue. A translucent ivory backing keeps the approved gold, red, and black artwork legible over the photograph without applying a recoloring filter.
 - The date and place line respect the invited day group.
-- A localized scroll cue links to `#story`.
+- A localized, pill-shaped button near the bottom links to `#story`. Global smooth scrolling animates the transition, while the existing reduced-motion media query changes it to an immediate jump.
 
 ### 5.7 Story section
 
@@ -906,8 +917,8 @@ Guest-count templates:
 ```text
 English singular: This invitation is lovingly reserved for one guest.
 English plural:   This invitation is lovingly reserved for {count} guests.
-Gujarati singular: આ આમંત્રણ એક મહેમાન માટે પ્રેમપૂર્વક અનામત છે.
-Gujarati plural:   આ આમંત્રણ {count} મહેમાનો માટે પ્રેમપૂર્વક અનામત છે.
+Gujarati singular: આપનું સહર્ષ સ્વાગત છે.
+Gujarati plural:   આપ સહિત કુલ {count} મહેમાનોનું સહર્ષ સ્વાગત છે.
 ```
 
 Whole-family behavior is represented by omitting this line, not by displaying the words “whole family”.
@@ -1044,7 +1055,8 @@ Do not make the effect dense, interactive, or visually dominant; its approved ro
 6. Countdown
 7. Filtered event cards
 8. Closing and share call-to-action
-9. Fixed share control
+9. Pooja-side family compliments page
+10. Fixed share control
 
 ### 12.4 z-index map
 
@@ -1684,7 +1696,7 @@ Validation after the 1 August 2026 emblem change:
 Production build: PASS
 JavaScript invitation-token tests: 4 PASS / 0 FAIL
 Python invitation-link tests: 5 PASS / 0 FAIL
-Current feature tests: 6 PASS / 0 FAIL
+Current feature tests: 7 PASS / 0 FAIL
 Final emblem PNG: 1380 × 680, 32-bit RGBA, transparent corners
 Final emblem SHA-256: 7ec62fbe107edadcb9066515f8197821a041403e40b3028904333ea9890c8d19
 ```
@@ -1697,11 +1709,73 @@ app/page.tsx
 app/globals.css
 app/invitation-copy.ts
 tests/pooja-blessings.test.mjs
+tests/family-compliments.test.mjs
+PYTHON_INVITE_LINK_GUIDE.md
 package.json
 README.md
 PROJECT_HANDOFF_COMMIT_beee435.md
 ```
 
 The combined emblem was prepared from the two owner-supplied reference images. Ganeshji was changed to champagne gold, the OM SHANTI emblem was constrained to preserve red sunburst/black lettering, a flat temporary chroma background was removed, transparent bounds were cropped with padding, and only the final RGBA PNG was kept in the project.
+
+The same unchanged PNG is now rendered in two Pooja-side locations: the temporary revealed opening card and a separate persistent panel on the first Narayani Heights hero page. The hero placement is conditional on the decoded side exactly matching `pooja`; missing, invalid, and Meet-side links do not display it there. CSS adds only a translucent ivory backing and does not recolor, filter, or alter the OM SHANTI artwork. The panel also renders the exact Devanagari invocation `॥ श्री गणेशाय नमः ॥` in the theme's deep sage tone.
+
+The first-page navigation control is an accessible anchor styled as a button with `href="#story"`. It uses the existing localized `explore` and `exploreAria` copy. The global `html { scroll-behavior: smooth; }` rule provides the requested transition, and the project’s existing `prefers-reduced-motion` rule changes it to `auto` for guests who disable animation.
+
+### Current approved forward state — Pooja-side family compliments
+
+The final page is rendered only inside the exact `showPoojaBlessings` condition, which itself is true only after a valid invitation token decodes with `side === "pooja"`. It appears after the existing closing/share call-to-action, making it the last scrolling section. Meet-side, missing-token, and invalid-token views do not show it.
+
+The exact adult family lines are:
+
+```text
+G.S. Savitaben & Late Amrutbhai M. Modi
+Late Chandrikaben & Mr. Manaharbhai M. Modi
+G.S. Jyotsnaben & Late Kiritbhai A. Modi
+Mrs. Sangitaben & Mr. Sureshbhai A. Modi
+Mrs. Komal & Mr. Brijesh M. Modi
+Mrs. Kashish & Mr. Mitul K. Modi
+Mrs. Somya & Mr. Ishan S. Modi
+Mrs. Chinar & Mr. Monik S. Modi
+Mr. Krunal K. Modi
+```
+
+The exact younger family names are:
+
+```text
+Devyanshi · Naisha · Dhruv · Roohani · Radhika
+```
+
+Do not “correct” or normalize any spelling without explicit owner approval. In particular, preserve `Manaharbhai`, `Monik`, `Roohani`, and all initials exactly. The `Qty...25` print-production note visible above the owner-supplied reference artwork is deliberately excluded from the invitation.
+
+English heading: `With Best Compliments From`
+
+Gujarati heading: `શુભેચ્છા સહ`
+
+English mode keeps the supplied Latin spellings. Gujarati mode uses the following exact adult lines:
+
+```text
+ગં.સ્વ. સવિતાબેન અને સ્વ. અમૃતભાઈ એમ. મોદી
+સ્વ. ચંદ્રિકાબેન અને શ્રી મનહરભાઈ એમ. મોદી
+ગં.સ્વ. જ્યોત્સનાબેન અને સ્વ. કિરીટભાઈ એ. મોદી
+શ્રીમતી સંગીતાબેન અને શ્રી સુરેશભાઈ એ. મોદી
+શ્રીમતી કોમલ અને શ્રી બ્રિજેશ એમ. મોદી
+શ્રીમતી કશિશ અને શ્રી મિતુલ કે. મોદી
+શ્રીમતી સૌમ્યા અને શ્રી ઈશાન એસ. મોદી
+શ્રીમતી ચિનાર અને શ્રી મોનિક એસ. મોદી
+શ્રી કૃણાલ કે. મોદી
+```
+
+Gujarati younger family names:
+
+```text
+દેવ્યાંશી · નૈશા · ધ્રુવ · રૂહાની · રાધિકા
+```
+
+Both arrays are keyed by the live `language` state, so the list updates immediately with the existing English/Gujarati toggle without altering the encoded invitation URL. Gujarati list typography is explicitly forced to Noto Serif Gujarati, overriding the English Georgia list style. The former P&M initials have been replaced with localized full names: `Pooja & Meet` in English and `પૂજા & મીત` in Gujarati. The page uses a full-name script/signature treatment, deep-sage heading, champagne rules/accents, ivory inset card, quiet shadows, and pale sage botanical ornaments. It does not reuse the orange print-reference design.
+
+Compact Gujarati month labels are deliberately larger than their English counterparts for legibility. `.language-gu .inner-rule span` and `.language-gu .event-date-block small` use 10px instead of the shared 8px base size. This affects `સપ્ટેમ્બર` on the revealed opening date rule and on the event-card date rails without enlarging unrelated English labels.
+
+`PYTHON_INVITE_LINK_GUIDE.md` is the dedicated owner-facing generator manual. It documents prerequisites, `--help`, guided mode, every CLI option, local testing on the development-server port, hosted link generation, several Pooja/Meet/date/count examples, appending multiple outputs to `test-invite-links.txt`, token behavior, and common errors. Keep it aligned with `create_invite_link.py` whenever the generator interface changes.
 
 This document describes both the historical `beee435` baseline and every approved forward change listed in its Living handoff status. Later changes must be appended rather than silently treated as part of the original baseline.
