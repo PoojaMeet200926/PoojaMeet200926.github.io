@@ -61,7 +61,7 @@ Name order:
 - `--side pooja`: displays `Pooja & Meet` and `Pooja weds Meet`.
 - `--side meet`: displays `Meet & Pooja` and `Meet weds Pooja`.
 
-Pooja-side invitations show a centered Ganeshji emblem and `॥ श्री गणेशाय नमः ॥` at the top of the revealed opening card. OM SHANTI is intentionally omitted from that card. The first Narayani Heights page retains the combined Ganeshji and OM SHANTI blessing panel without the invocation. Meet-side invitations keep the original minimal floret and do not show the emblems or invocation.
+Pooja-side invitations show a centered Ganeshji emblem and `॥ श्री गणेशाय नमः ॥` at the top of the revealed opening card. OM SHANTI is intentionally omitted from that card. The first Narayani Heights page shows only a smaller centered OM SHANTI emblem directly over the venue image, without Ganeshji, a white panel, or the invocation. Meet-side invitations keep the original minimal floret and do not show the emblems or invocation.
 
 The first Narayani Heights page includes a centered invitation button near the bottom. Pressing it smoothly scrolls to the next story section; reduced-motion browser preferences disable the smooth animation automatically.
 
@@ -74,6 +74,8 @@ The site shows only the events included in that link. For `--family`, it shows t
 ## English and Gujarati
 
 Guests can switch the complete invitation between English and Gujarati using the fixed language button in the top-right corner. The selection is saved on that device and does not modify the guest's encoded invitation link, invited dates, guest count, or name order.
+
+Gujarati mode converts dates, years, times, countdown values, event indexes, guest counts, address numbers, and pincodes to Gujarati numerals. The event schedule includes Sangeet with Dinner at 08:00 PM, Wedding Ceremony with Lunch at 12:30 PM, and a separate featured Vidai card for Sunday, 20 September at 03:00 PM.
 
 ### JavaScript alternative
 

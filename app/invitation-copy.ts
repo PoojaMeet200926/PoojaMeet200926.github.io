@@ -8,7 +8,8 @@ export type EventKey =
   | "haldi"
   | "mameru"
   | "sangeet"
-  | "wedding";
+  | "wedding"
+  | "vidai";
 export type WeekdayKey = "friday" | "saturday" | "sunday";
 export type VenueKey = "tremont" | "narayani";
 
@@ -73,7 +74,7 @@ export const COPY = {
     targetLanguage: "ગુજરાતી",
     switchLanguage: "Switch language to Gujarati",
     celebrationAwaits: "A celebration awaits",
-    poojaBlessingsAlt: "Ganeshji and OM SHANTI blessing symbols",
+    omShantiAlt: "OM SHANTI blessing symbol",
     ganeshBlessingAlt: "Ganeshji blessing symbol",
     ganeshInvocation: "॥ श्री गणेशाय नमः ॥",
     familyLine: "Together with their families",
@@ -120,6 +121,7 @@ export const COPY = {
       mameru: "Mameru",
       sangeet: "Sangeet",
       wedding: "Wedding Ceremony",
+      vidai: "Vidai",
     },
     ganeshTitleLines: ["Ganesh Sthapan", "Mandap Muhurat", "Grah Shanti"],
     eventTimes: {
@@ -130,9 +132,12 @@ export const COPY = {
       mameru: "03:00 PM",
       sangeet: "07:30 PM",
       wedding: "",
+      vidai: "03:00 PM",
     },
     lunchTitle: "Lunch",
     lunchTime: "12:30 PM",
+    dinnerTitle: "Dinner",
+    dinnerTime: "08:00 PM",
     venues: {
       tremont: "B.1302, Tremont, Vaishnodevi Circle, Ahmedabad, Gujarat 382421",
       narayani: "Narayani Heights, Airport-Gandhinagar Road, Bhat, Ahmedabad, Gujarat 382428",
@@ -163,7 +168,7 @@ export const COPY = {
     targetLanguage: "English",
     switchLanguage: "ભાષા English પર બદલો",
     celebrationAwaits: "ઉત્સવ તમારી રાહ જુએ છે",
-    poojaBlessingsAlt: "ગણેશજી અને OM SHANTI ના શુભ પ્રતીકો",
+    omShantiAlt: "OM SHANTI નું શુભ પ્રતીક",
     ganeshBlessingAlt: "ગણેશજીનું શુભ પ્રતીક",
     ganeshInvocation: "॥ श्री गणेशाय नमः ॥",
     familyLine: "બંને પરિવારોના આશીર્વાદ સાથે",
@@ -210,6 +215,7 @@ export const COPY = {
       mameru: "મામેરું",
       sangeet: "સંગીત સંધ્યા",
       wedding: "લગ્નવિધિ",
+      vidai: "વિદાય",
     },
     ganeshTitleLines: ["ગણેશ સ્થાપન", "મંડપ મુહૂર્ત", "ગ્રહ શાંતિ"],
     eventTimes: {
@@ -220,9 +226,12 @@ export const COPY = {
       mameru: "બપોરે 03:00",
       sangeet: "સાંજે 07:30",
       wedding: "",
+      vidai: "બપોરે 03:00",
     },
     lunchTitle: "બપોરનું ભોજન",
     lunchTime: "બપોરે 12:30",
+    dinnerTitle: "રાત્રિભોજન",
+    dinnerTime: "રાત્રે 08:00",
     venues: {
       tremont: "બી-1302, ટ્રેમોન્ટ, વૈષ્ણોદેવી સર્કલ, અમદાવાદ, ગુજરાત 382421",
       narayani: "નારાયણી હાઇટ્સ, એરપોર્ટ-ગાંધીનગર રોડ, ભાટ, અમદાવાદ, ગુજરાત 382428",
@@ -242,7 +251,7 @@ export const COPY = {
     complimentsAria: "પૂજાના પરિવાર તરફથી શુભેચ્છાઓ",
     complimentsKicker: "અમારો પરિવાર",
     complimentsHeading: "શુભેચ્છા સહ",
-    youngerFamilyAria: "દેવ્યાંશી, નૈશા, ધ્રુવ, રૂહાની અને રાધિકા તરફથી સ્નેહ સહ",
+    youngerFamilyAria: "દેવ્યાંશી, નાયશા, ધ્રુવ, રૂહાની અને રાધિકા તરફથી સ્નેહ સહ",
     shareTitle: (first: string, second: string) =>
       `${first} & ${second} — લગ્ન આમંત્રણ`,
     shareText: (first: string, second: string, date: string) =>

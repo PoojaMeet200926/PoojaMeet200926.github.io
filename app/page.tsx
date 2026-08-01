@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import {
   COPY,
@@ -50,6 +49,7 @@ type WeddingEvent = {
   venue: VenueKey;
   map: string;
   featured?: boolean;
+  meal?: "lunch" | "dinner";
 };
 
 const EVENTS: WeddingEvent[] = [
@@ -80,6 +80,7 @@ const EVENTS: WeddingEvent[] = [
     date: "19",
     venue: "narayani",
     map: NARAYANI_HEIGHTS_LOCATION,
+    meal: "lunch",
   },
   {
     key: "mameru",
@@ -94,9 +95,19 @@ const EVENTS: WeddingEvent[] = [
     date: "19",
     venue: "narayani",
     map: NARAYANI_HEIGHTS_LOCATION,
+    meal: "dinner",
   },
   {
     key: "wedding",
+    weekday: "sunday",
+    date: "20",
+    venue: "narayani",
+    map: NARAYANI_HEIGHTS_LOCATION,
+    featured: true,
+    meal: "lunch",
+  },
+  {
+    key: "vidai",
     weekday: "sunday",
     date: "20",
     venue: "narayani",
@@ -132,8 +143,16 @@ const POOJA_FAMILY_COMPLIMENTS = {
 
 const POOJA_YOUNG_FAMILY = {
   en: ["Devyanshi", "Naisha", "Dhruv", "Roohani", "Radhika"],
-  gu: ["દેવ્યાંશી", "નૈશા", "ધ્રુવ", "રૂહાની", "રાધિકા"],
+  gu: ["દેવ્યાંશી", "નાયશા", "ધ્રુવ", "રૂહાની", "રાધિકા"],
 } as const satisfies Record<Language, readonly string[]>;
+
+const GUJARATI_DIGITS = ["૦", "૧", "૨", "૩", "૪", "૫", "૬", "૭", "૮", "૯"] as const;
+
+function localizeDigits(value: string | number, language: Language) {
+  const text = String(value);
+  if (language !== "gu") return text;
+  return text.replace(/\d/g, (digit) => GUJARATI_DIGITS[Number(digit)]);
+}
 
 function getCountdown(target: string): Countdown {
   const distance = Math.max(0, new Date(target).getTime() - Date.now());
@@ -168,6 +187,7 @@ export default function Home() {
   const firstName = copy.names[firstPerson];
   const secondName = copy.names[secondPerson];
   const showPoojaBlessings = invitationDetails?.side === "pooja";
+  const formatDigits = (value: string | number) => localizeDigits(value, language);
 
   const visibleEvents = useMemo(() => {
     if (!invitationDetails) return EVENTS;
@@ -175,11 +195,12 @@ export default function Home() {
     return EVENTS.filter((event) => invitedDates.has(event.date));
   }, [invitationDetails]);
 
-  const guestCopy = invitationDetails?.people
+  const rawGuestCopy = invitationDetails?.people
     ? invitationDetails.people === 1
       ? copy.guestOne
       : copy.guestMany(invitationDetails.people)
     : null;
+  const guestCopy = rawGuestCopy ? formatDigits(rawGuestCopy) : null;
 
   useEffect(() => {
     try {
@@ -278,7 +299,7 @@ export default function Home() {
   const shareInvitation = async () => {
     const shareData = {
       title: copy.shareTitle(firstName, secondName),
-      text: copy.shareText(firstName, secondName, displayDetails.dateLine),
+      text: copy.shareText(firstName, secondName, formatDigits(displayDetails.dateLine)),
       url: window.location.href,
     };
     try {
@@ -333,9 +354,9 @@ export default function Home() {
           <p className="gate-family-line">{copy.familyLine}</p>
           <div className="inner-names"><span>{firstName}</span><i>&</i><span>{secondName}</span></div>
           <div className={`inner-rule${displayDetails.lastDate ? "" : " inner-rule-single"}`}>
-            <b>{displayDetails.firstDate}</b>
+            <b>{formatDigits(displayDetails.firstDate)}</b>
             <span>{copy.month}</span>
-            {displayDetails.lastDate && <b>{displayDetails.lastDate}</b>}
+            {displayDetails.lastDate && <b>{formatDigits(displayDetails.lastDate)}</b>}
           </div>
           <small>{displayDetails.openingNote}</small>
         </div>
@@ -379,23 +400,12 @@ export default function Home() {
         <div className="door door-left" />
         <div className="door door-right" />
         {showPoojaBlessings && (
-          <div className="hero-blessing-panel">
-            <Image
-              className="hero-blessing-emblems"
-              src="/pooja-blessings.png"
-              alt={copy.poojaBlessingsAlt}
-              width={1380}
-              height={680}
-              sizes="(max-width: 520px) 58vw, 300px"
-              unoptimized
-              priority
-            />
-          </div>
+          <div className="hero-om-shanti" role="img" aria-label={copy.omShantiAlt} />
         )}
         <div className="hero-content">
           <p className="eyebrow">{copy.familyLine}</p>
           <h1><span>{firstName}</span><i>&</i><span>{secondName}</span></h1>
-          <p className="hero-date">{displayDetails.dateLine}</p>
+          <p className="hero-date">{formatDigits(displayDetails.dateLine)}</p>
           <p className="hero-place">{displayDetails.placeLine}</p>
         </div>
         <a className="hero-next-button" href="#story" aria-label={copy.exploreAria}>
@@ -422,7 +432,7 @@ export default function Home() {
             <span className="personal-floret" aria-hidden="true">✦</span>
             <p className="section-kicker">{copy.especially}</p>
             {guestCopy && <p className="guest-allocation">{guestCopy}</p>}
-            <p className="day-allocation">{displayDetails.invitationCopy}</p>
+            <p className="day-allocation">{formatDigits(displayDetails.invitationCopy)}</p>
           </div>
         </section>
       )}
@@ -445,12 +455,12 @@ export default function Home() {
         <div className="countdown-grid" role="timer" aria-live="off">
           {countdownItems.map(([label, value]) => (
             <div className="countdown-unit" key={label}>
-              <strong>{String(value).padStart(2, "0")}</strong>
+              <strong>{formatDigits(String(value).padStart(2, "0"))}</strong>
               <span>{label}</span>
             </div>
           ))}
         </div>
-        <p className="countdown-date">{displayDetails.countdownLabel}</p>
+        <p className="countdown-date">{formatDigits(displayDetails.countdownLabel)}</p>
       </section>
 
       <section className="events-section" id="events">
@@ -464,20 +474,22 @@ export default function Home() {
             <article className={`event-card${event.featured ? " event-featured" : ""}`} key={event.key}>
               <div className="event-date-block">
                 <span>{copy.weekdays[event.weekday]}</span>
-                <strong>{event.date}</strong>
+                <strong>{formatDigits(event.date)}</strong>
                 <small>{copy.month}</small>
               </div>
               <div className="event-details">
-                <p className="event-index">0{index + 1}</p>
-                {event.key === "haldi" ? (
+                <p className="event-index">{formatDigits(String(index + 1).padStart(2, "0"))}</p>
+                {event.meal ? (
                   <div className="event-schedule-pair">
                     <div className="event-schedule-item">
-                      <h3>{copy.eventTitles.haldi}</h3>
-                      <p className="event-time">{copy.eventTimes.haldi}</p>
+                      <h3>{copy.eventTitles[event.key]}</h3>
+                      <p className="event-time">
+                        {formatDigits(event.key === "wedding" ? copy.weds(firstName, secondName) : copy.eventTimes[event.key])}
+                      </p>
                     </div>
                     <div className="event-schedule-item">
-                      <h3>{copy.lunchTitle}</h3>
-                      <p className="event-time">{copy.lunchTime}</p>
+                      <h3>{event.meal === "dinner" ? copy.dinnerTitle : copy.lunchTitle}</h3>
+                      <p className="event-time">{formatDigits(event.meal === "dinner" ? copy.dinnerTime : copy.lunchTime)}</p>
                     </div>
                   </div>
                 ) : (
@@ -489,10 +501,10 @@ export default function Home() {
                     ) : (
                       <h3>{copy.eventTitles[event.key]}</h3>
                     )}
-                    <p className="event-time">{event.featured ? copy.weds(firstName, secondName) : copy.eventTimes[event.key]}</p>
+                    <p className="event-time">{formatDigits(event.key === "wedding" ? copy.weds(firstName, secondName) : copy.eventTimes[event.key])}</p>
                   </>
                 )}
-                <p className="event-venue">{copy.venues[event.venue]}</p>
+                <p className="event-venue">{formatDigits(copy.venues[event.venue])}</p>
                 <a href={event.map} target="_blank" rel="noreferrer">
                   <span className="location-pin" aria-hidden="true" />
                   <span>{copy.directions}</span>
