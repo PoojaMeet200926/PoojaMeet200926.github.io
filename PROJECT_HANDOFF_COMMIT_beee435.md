@@ -27,6 +27,7 @@ This document is now maintained as a living handoff. Commit `beee435` remains th
 - 1 August 2026: make every Pooja-side family name bilingual. English mode preserves the owner-supplied Latin spellings; Gujarati mode switches honorifics, names, initials, and younger family names to approved Gujarati-script strings rendered in Noto Serif Gujarati.
 - 1 August 2026: replace the final-page P&M initials with the localized full couple names (`Pooja & Meet` / `પૂજા & મીત`), increase compact Gujarati `સપ્ટેમ્બર` labels from 8px to 10px, and add `PYTHON_INVITE_LINK_GUIDE.md` with local, hosted, multiple-link, and troubleshooting instructions.
 - 1 August 2026: replace the formal Gujarati guest-allocation wording containing `અનામત` with natural welcome copy. Singular is `આપનું સહર્ષ સ્વાગત છે.` and plural is `આપ સહિત કુલ {count} મહેમાનોનું સહર્ષ સ્વાગત છે.`; encoded count behavior is unchanged.
+- 1 August 2026: correct the Narayani Heights Gujarati venue description from `હરિયાળાં લૉન` to `હરિયાળી લૉન`. On Pooja-side links, the revealed names card now shows only a centered Ganeshji emblem plus `॥ श्री गणेशाय नमः ॥`; OM SHANTI is omitted there. The first Narayani Heights hero keeps the combined Ganeshji/OM SHANTI panel, but the invocation has moved off that page and onto the revealed card.
 
 ---
 
@@ -59,7 +60,7 @@ When this source is opened on another laptop, Codex should do the following befo
 - Invitation guest count, invited day group, and sender side are carried in a single opaque `?i=` token.
 - A whole-family invitation does not display a guest count.
 - Meet-side links display Meet first; Pooja-side links display Pooja first throughout the invitation.
-- Pooja-side links show the Ganeshji and OM SHANTI blessing emblems at the start of the revealed card; Meet-side links do not show either emblem.
+- Pooja-side links show a centered Ganeshji emblem and `॥ श्री गणेशाय नमः ॥` at the start of the revealed card; OM SHANTI is deliberately omitted from this temporary card. Meet-side links show neither.
 - The same Pooja-side emblems remain prominently visible on the first full-height Narayani Heights page after the opening card disappears.
 - The OM SHANTI emblem must retain its red sunburst and black lettering. Do not apply a recolouring filter to the combined emblem asset.
 - Only events for the encoded invited day group are displayed.
@@ -320,18 +321,16 @@ The reveal prompt reads “Tap or swipe to continue” or its Gujarati equivalen
 
 The top of the revealed names/dates card is sender-side specific:
 
-- When `invitationDetails.side === "pooja"`, the card renders `public/pooja-blessings.png` before the family line.
-- The combined transparent asset places Ganeshji on the left and OM SHANTI on the right.
+- When `invitationDetails.side === "pooja"`, the card uses the left portion of `public/pooja-blessings.png` to render only Ganeshji before the family line.
+- The Ganeshji crop is centered at `min(102px, 32%)`; OM SHANTI is not visible on this revealed card.
+- The invocation `॥ श्री गणेशाय नमः ॥` appears directly below Ganeshji in deep sage.
 - Ganeshji uses the invitation’s champagne-gold family, visually matching `--champagne: #b49768`.
-- OM SHANTI retains a red sunburst and black `OM SHANTI` text. The image has no CSS filter, blend mode, or opacity rule that changes those final colours.
-- The Next image component is explicitly `unoptimized`, so the browser receives the committed PNG directly instead of a lossy transformed variant that could shift the red.
-- The image replaces the original `✦` floret on Pooja-side cards so the top does not become visually crowded.
+- The Ganeshji crop replaces the original `✦` floret on Pooja-side cards so the top does not become visually crowded.
 - Meet-side, missing-token, and invalid-token invitations retain the original `✦` floret and do not request/render either religious emblem.
 - The condition depends on the successfully decoded token, not on language or name text.
-- The image has localized alternative text in `app/invitation-copy.ts`.
-- Display width is `min(210px, 68%)`, with automatic height and no stretching.
-- Pooja-side card spacing is compacted slightly: 34 px vertical padding, 14 px before the family line, 20 px before names, 30 px before the date rule, and 22 px before the opening note.
-- The emblems remain hidden behind the sealed cover and only become visible as the inner card is revealed, preserving the rule that no identifying/reveal content appears before the box opens.
+- The crop has localized accessible text in `app/invitation-copy.ts`.
+- Pooja-side card spacing is compacted slightly: 30 px vertical padding, 12 px before the family line, 17 px before names, 27 px before the date rule, and 20 px before the opening note.
+- Ganeshji and the invocation remain hidden behind the sealed cover and only become visible as the inner card is revealed, preserving the rule that no identifying/reveal content appears before the box opens.
 
 ### 5.5 Reduced-motion behavior
 
@@ -927,7 +926,7 @@ Venue descriptions:
 
 ```text
 English: Lush green lawns, grand gathering spaces, and an evening made for celebration.
-Gujarati: હરિયાળાં લૉન, ભવ્ય સમારંભ સ્થળો અને યાદગાર ઉજવણી માટેનું સુંદર વાતાવરણ.
+Gujarati: હરિયાળી લૉન, ભવ્ય સમારંભ સ્થળો અને યાદગાર ઉજવણી માટેનું સુંદર વાતાવરણ.
 ```
 
 Share templates:
@@ -1560,7 +1559,8 @@ This is a new capability. Decide privacy, fields, authentication, spam protectio
 - [ ] Four lid flaps move outward without a right-side glitch.
 - [ ] No second ribbon flashes on the revealed card.
 - [ ] Names appear only after the box opens.
-- [ ] Pooja-side reveal shows Ganeshji in champagne gold and OM SHANTI in its original red/black colours.
+- [ ] Pooja-side reveal shows only the centered Ganeshji emblem in champagne gold, followed by `॥ श्री गणेशाय नमः ॥`; OM SHANTI is absent from this card.
+- [ ] The first Narayani Heights hero shows the combined Ganeshji/OM SHANTI panel without the invocation, with OM SHANTI retaining its original red/black colours.
 - [ ] Meet-side reveal shows neither religious emblem and retains the small floret.
 - [ ] Pooja-side symbols remain fully inside the card at narrow phone heights.
 - [ ] Reveal waits for a second gesture.
@@ -1718,7 +1718,7 @@ PROJECT_HANDOFF_COMMIT_beee435.md
 
 The combined emblem was prepared from the two owner-supplied reference images. Ganeshji was changed to champagne gold, the OM SHANTI emblem was constrained to preserve red sunburst/black lettering, a flat temporary chroma background was removed, transparent bounds were cropped with padding, and only the final RGBA PNG was kept in the project.
 
-The same unchanged PNG is now rendered in two Pooja-side locations: the temporary revealed opening card and a separate persistent panel on the first Narayani Heights hero page. The hero placement is conditional on the decoded side exactly matching `pooja`; missing, invalid, and Meet-side links do not display it there. CSS adds only a translucent ivory backing and does not recolor, filter, or alter the OM SHANTI artwork. The panel also renders the exact Devanagari invocation `॥ श्री गणेशाय नमः ॥` in the theme's deep sage tone.
+The same unchanged PNG supports two Pooja-side presentations. The temporary revealed opening card uses a CSS crop to show only centered Ganeshji, followed by the exact Devanagari invocation `॥ श्री गणेशाय नमः ॥` in deep sage. The separate persistent panel on the first Narayani Heights hero page shows the complete Ganeshji/OM SHANTI artwork without the invocation. The hero placement is conditional on the decoded side exactly matching `pooja`; missing, invalid, and Meet-side links do not display it there. CSS adds only a translucent ivory backing and does not recolor, filter, or alter the OM SHANTI artwork.
 
 The first-page navigation control is an accessible anchor styled as a button with `href="#story"`. It uses the existing localized `explore` and `exploreAria` copy. The global `html { scroll-behavior: smooth; }` rule provides the requested transition, and the project’s existing `prefers-reduced-motion` rule changes it to `auto` for guests who disable animation.
 

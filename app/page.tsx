@@ -319,19 +319,18 @@ export default function Home() {
           aria-hidden={invitationState !== "revealed"}
         >
           {showPoojaBlessings ? (
-            <Image
-              className="pooja-blessing-emblems"
-              src="/pooja-blessings.png"
-              alt={copy.poojaBlessingsAlt}
-              width={1380}
-              height={680}
-              sizes="(max-width: 520px) 60vw, 220px"
-              unoptimized
-            />
+            <>
+              <div
+                className="pooja-ganesh-emblem"
+                role="img"
+                aria-label={copy.ganeshBlessingAlt}
+              />
+              <p className="gate-blessing-invocation">{copy.ganeshInvocation}</p>
+            </>
           ) : (
             <span className="inner-floret">✦</span>
           )}
-          <p>{copy.familyLine}</p>
+          <p className="gate-family-line">{copy.familyLine}</p>
           <div className="inner-names"><span>{firstName}</span><i>&</i><span>{secondName}</span></div>
           <div className={`inner-rule${displayDetails.lastDate ? "" : " inner-rule-single"}`}>
             <b>{displayDetails.firstDate}</b>
@@ -391,7 +390,6 @@ export default function Home() {
               unoptimized
               priority
             />
-            <p className="hero-blessing-invocation">{copy.ganeshInvocation}</p>
           </div>
         )}
         <div className="hero-content">

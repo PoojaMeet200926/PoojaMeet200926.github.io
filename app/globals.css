@@ -213,15 +213,20 @@ button { font: inherit; }
   position: relative; z-index: 1; opacity: 0; transform: translateY(12px);
   transition: opacity .58s ease 1.05s, transform .72s cubic-bezier(.2,.8,.2,1) 1.05s;
 }
-.gate-inner-card-pooja { padding-top: 34px; padding-bottom: 34px; }
-.pooja-blessing-emblems {
-  display: block; width: min(210px,68%); height: auto; margin: 0 auto;
-  object-fit: contain;
+.gate-inner-card-pooja { padding-top: 30px; padding-bottom: 30px; }
+.pooja-ganesh-emblem {
+  width: min(102px,32%); aspect-ratio: 600 / 680; margin: 0 auto;
+  background: url('/pooja-blessings.png') left top / auto 100% no-repeat;
 }
-.gate-inner-card-pooja > p { margin-top: 14px; }
-.gate-inner-card-pooja .inner-names { margin-top: 20px; }
-.gate-inner-card-pooja .inner-rule { margin-top: 30px; }
-.gate-inner-card-pooja small { margin-top: 22px; }
+.gate-inner-card-pooja > .gate-blessing-invocation {
+  margin: 7px 0 0; color: var(--sage-deep); text-transform: none;
+  font: 600 clamp(13px,3.8vw,17px)/1.25 "Noto Serif Devanagari","Nirmala UI",serif;
+  letter-spacing: .012em;
+}
+.gate-inner-card-pooja > .gate-family-line { margin-top: 12px; }
+.gate-inner-card-pooja .inner-names { margin-top: 17px; }
+.gate-inner-card-pooja .inner-rule { margin-top: 27px; }
+.gate-inner-card-pooja small { margin-top: 20px; }
 .inner-floret { color: #ae8e60; font-size: 14px; }
 .gate-inner-card > p { margin: 22px 0 0; font: 600 8px/1.4 Arial,sans-serif; letter-spacing: .28em; text-transform: uppercase; }
 .inner-names { margin-top: 28px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
@@ -363,11 +368,6 @@ button { font: inherit; }
 }
 .hero-blessing-emblems {
   display: block; width: min(210px,100%); height: auto; margin: 0 auto; text-shadow: none;
-}
-.hero-blessing-invocation {
-  margin: 4px 0 0; color: var(--sage-deep);
-  font: 600 clamp(16px,4.3vw,21px)/1.25 "Noto Serif Devanagari","Nirmala UI",serif;
-  letter-spacing: .015em; text-shadow: none;
 }
 .eyebrow, .section-kicker { margin: 0 0 18px; font: 600 10px/1.4 Arial,sans-serif; letter-spacing: .29em; text-transform: uppercase; }
 .hero h1 { margin: 0; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; font-weight: 400; }

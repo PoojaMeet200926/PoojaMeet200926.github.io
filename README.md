@@ -61,7 +61,7 @@ Name order:
 - `--side pooja`: displays `Pooja & Meet` and `Pooja weds Meet`.
 - `--side meet`: displays `Meet & Pooja` and `Meet weds Pooja`.
 
-Pooja-side invitations show the Ganeshji and OM SHANTI blessing emblems both at the top of the revealed opening card and in a persistent blessing panel on the first Narayani Heights page. That first-page panel also displays `॥ श्री गणेशाय नमः ॥` in the invitation theme. Meet-side invitations keep the original minimal floret and do not show the emblems or invocation.
+Pooja-side invitations show a centered Ganeshji emblem and `॥ श्री गणेशाय नमः ॥` at the top of the revealed opening card. OM SHANTI is intentionally omitted from that card. The first Narayani Heights page retains the combined Ganeshji and OM SHANTI blessing panel without the invocation. Meet-side invitations keep the original minimal floret and do not show the emblems or invocation.
 
 The first Narayani Heights page includes a centered invitation button near the bottom. Pressing it smoothly scrolls to the next story section; reduced-motion browser preferences disable the smooth animation automatically.
 
