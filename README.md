@@ -59,6 +59,8 @@ Name order:
 - `--side pooja`: displays `Pooja & Meet` and `Pooja weds Meet`.
 - `--side meet`: displays `Meet & Pooja` and `Meet weds Pooja`.
 
+Pooja-side invitations also show the Ganeshji and OM SHANTI blessing emblems at the top of the revealed card. Meet-side invitations keep the original minimal floret and do not show those two emblems.
+
 The program prints the final encoded link. Copy that complete link and send it to the guest through WhatsApp, email, or another messaging service.
 
 The site shows only the events included in that link. For `--family`, it shows the invited dates but does not mention a guest count. The selected side controls name order throughout the invitation.

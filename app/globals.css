@@ -213,6 +213,15 @@ button { font: inherit; }
   position: relative; z-index: 1; opacity: 0; transform: translateY(12px);
   transition: opacity .58s ease 1.05s, transform .72s cubic-bezier(.2,.8,.2,1) 1.05s;
 }
+.gate-inner-card-pooja { padding-top: 34px; padding-bottom: 34px; }
+.pooja-blessing-emblems {
+  display: block; width: min(210px,68%); height: auto; margin: 0 auto;
+  object-fit: contain;
+}
+.gate-inner-card-pooja > p { margin-top: 14px; }
+.gate-inner-card-pooja .inner-names { margin-top: 20px; }
+.gate-inner-card-pooja .inner-rule { margin-top: 30px; }
+.gate-inner-card-pooja small { margin-top: 22px; }
 .inner-floret { color: #ae8e60; font-size: 14px; }
 .gate-inner-card > p { margin: 22px 0 0; font: 600 8px/1.4 Arial,sans-serif; letter-spacing: .28em; text-transform: uppercase; }
 .inner-names { margin-top: 28px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }

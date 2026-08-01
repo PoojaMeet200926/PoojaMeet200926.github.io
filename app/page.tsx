@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import {
   COPY,
@@ -136,6 +137,7 @@ export default function Home() {
   const secondPerson = firstPerson === "pooja" ? "meet" : "pooja";
   const firstName = copy.names[firstPerson];
   const secondName = copy.names[secondPerson];
+  const showPoojaBlessings = invitationDetails?.side === "pooja";
 
   const visibleEvents = useMemo(() => {
     if (!invitationDetails) return EVENTS;
@@ -282,8 +284,23 @@ export default function Home() {
       <div className={`invitation-gate gate-${invitationState}`} aria-hidden={invitationState === "open"}>
         <div className="gate-atmosphere" />
         <p className="gate-kicker">{copy.celebrationAwaits}</p>
-        <div className="gate-inner-card" aria-hidden={invitationState !== "revealed"}>
-          <span className="inner-floret">✦</span>
+        <div
+          className={`gate-inner-card${showPoojaBlessings ? " gate-inner-card-pooja" : ""}`}
+          aria-hidden={invitationState !== "revealed"}
+        >
+          {showPoojaBlessings ? (
+            <Image
+              className="pooja-blessing-emblems"
+              src="/pooja-blessings.png"
+              alt={copy.poojaBlessingsAlt}
+              width={1380}
+              height={680}
+              sizes="(max-width: 520px) 60vw, 220px"
+              unoptimized
+            />
+          ) : (
+            <span className="inner-floret">✦</span>
+          )}
           <p>{copy.familyLine}</p>
           <div className="inner-names"><span>{firstName}</span><i>&</i><span>{secondName}</span></div>
           <div className={`inner-rule${displayDetails.lastDate ? "" : " inner-rule-single"}`}>
