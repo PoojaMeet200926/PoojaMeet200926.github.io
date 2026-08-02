@@ -1036,14 +1036,16 @@ Do not make the effect dense, interactive, or visually dominant; its approved ro
 ### 12.1 CSS color tokens
 
 ```css
---ivory: #f8f4ed;
---paper: #fffdf9;
---ink: #373630;
---sage: #788174;
---sage-deep: #4f5b50;
---champagne: #b49768;
---blush: #dcc9bf;
---hairline: rgba(83, 78, 66, 0.18);
+--ivory: #f7f3eb;
+--paper: #fffdf8;
+--paper-soft: #eee8dd;
+--ink: #383a35;
+--sage: #7f8d7b;
+--sage-deep: #46564a;
+--eucalyptus: #a8b3a1;
+--champagne: #b9975b;
+--blush: #dec9c0;
+--hairline: rgba(70, 86, 74, 0.18);
 ```
 
 ### 12.2 Design direction
@@ -1057,6 +1059,13 @@ Do not make the effect dense, interactive, or visually dominant; its approved ro
 - Script typography is reserved for names and emotional accents.
 - Sans serif is used for small uppercase/navigation labels.
 - Narayani Heights image provides the site-specific visual anchor.
+- The approved theme name is **Narayani Garden**.
+- Story and closing sections use oversized low-opacity botanical corner forms.
+- Editorial surfaces use layered CSS gradients to suggest handmade ivory paper grain.
+- Personalized invitation and countdown sections use selective silk-light highlights.
+- Event and compliments sections use faint geometric jaali lattice patterns.
+- Pattern contrast must remain subordinate to English and Gujarati text.
+- The red-and-black OM SHANTI emblem is intentionally excluded from palette recoloring.
 
 ### 12.3 Section order
 
@@ -1799,3 +1808,27 @@ Compact Gujarati month labels are deliberately larger than their English counter
 `PYTHON_INVITE_LINK_GUIDE.md` is the dedicated owner-facing generator manual. It documents prerequisites, `--help`, guided mode, every CLI option, local testing on the development-server port, hosted link generation, several Pooja/Meet/date/count examples, appending multiple outputs to `test-invite-links.txt`, token behavior, and common errors. Keep it aligned with `create_invite_link.py` whenever the generator interface changes.
 
 This document describes both the historical `beee435` baseline and every approved forward change listed in its Living handoff status. Later changes must be appended rather than silently treated as part of the original baseline.
+
+### Current approved forward state — Narayani Garden theme
+
+The site-wide palette has been updated to the owner-approved **Narayani Garden** direction. The canonical tokens are warm ivory `#f7f3eb`, paper `#fffdf8`, soft paper `#eee8dd`, charcoal ink `#383a35`, garden sage `#7f8d7b`, deep sage `#46564a`, eucalyptus `#a8b3a1`, antique champagne `#b9975b`, and blush `#dec9c0`. The OM SHANTI source asset remains unchanged and continues to display in its protected red-and-black colors.
+
+Background treatment is deliberately varied but coordinated:
+
+- Story: handmade-paper grain, soft illumination, and enlarged eucalyptus botanical corners.
+- Personalized invitation: warm paper field with a diagonal silk highlight, organic color blooms, one quiet botanical corner, and a textured inset card.
+- Countdown: restrained diagonal silk-light sweep over ivory paper.
+- Event schedule: low-contrast geometric jaali lattice, warm paper field, soft radial highlights, and ivory event cards.
+- Closing: matching oversized eucalyptus botanical corners over ivory paper.
+- Pooja-side compliments: a lighter jaali field, silk highlight, paper-grain card, and strengthened botanical corner ornaments.
+
+All motifs are implemented with CSS gradients and typographic ornaments; no new raster or SVG asset was added. Pattern opacity is intentionally kept below the copy hierarchy so Gujarati and English remain readable on phones, tablets, and desktops. Venue photography, the opening interaction, invitation-token behavior, bilingual content, event filtering, maps, and sharing behavior were not changed.
+
+Validation after the Narayani Garden change:
+
+```text
+Production build: PASS
+JavaScript current feature tests: 9 PASS / 0 FAIL
+Python invitation-link tests: 5 PASS / 0 FAIL
+Git diff whitespace check: PASS
+```
