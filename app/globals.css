@@ -226,7 +226,12 @@ button { font: inherit; }
   opacity: 0; transform: translateZ(0) scale(.94); will-change: transform, opacity;
   transition: opacity .5s ease .35s, transform 1.45s cubic-bezier(.16,.76,.18,1) .32s;
 }
-.gate-inner-card::before { content: ""; position: absolute; inset: 12px; border: 1px solid rgba(171,145,104,.32); pointer-events: none; }
+.gate-inner-card::before { content: ""; position: absolute; z-index: 2; inset: 12px; border: 1px solid rgba(171,145,104,.32); pointer-events: none; }
+.gate-inner-card::after {
+  content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none; opacity: .44;
+  background: url('/festive-floral-frame.webp') center / 100% 100% no-repeat;
+}
+.gate-inner-card-pooja::after { opacity: .28; }
 .gate-inner-card > * {
   position: relative; z-index: 1; opacity: 0; transform: translateY(12px);
   transition: opacity .58s ease 1.05s, transform .72s cubic-bezier(.2,.8,.2,1) 1.05s;
@@ -417,7 +422,7 @@ button { font: inherit; }
     radial-gradient(ellipse at 15% 82%, rgba(229,161,44,.1), transparent 34%),
     radial-gradient(ellipse at 86% 70%, rgba(216,88,130,.065), transparent 36%);
 }
-.story > :not(.botanical) { position: relative; z-index: 1; }
+.story > :not(.botanical):not(.floral-frame) { position: relative; z-index: 2; }
 .section-kicker { color: var(--sage-deep); }
 .story h2, .countdown-section h2, .events-heading h2, .closing h2, .venue-copy h2 { margin: 0; font-weight: 400; font-size: clamp(42px,12vw,78px); line-height: .98; letter-spacing: -.035em; }
 .story h2 em, .venue-copy h2 em { color: var(--champagne); font: 400 .85em/1.2 "Snell Roundhand","Segoe Script",cursive; }
@@ -453,7 +458,12 @@ button { font: inherit; }
   background-size: 100% 100%, 19px 19px;
   box-shadow: 0 24px 65px rgba(95,64,33,.1);
 }
-.personal-invitation-card::before { content: ""; position: absolute; inset: 10px; border: 1px solid rgba(197,139,45,.2); pointer-events: none; }
+.personal-invitation-card::before { content: ""; position: absolute; z-index: 3; inset: 10px; border: 1px solid rgba(197,139,45,.2); pointer-events: none; }
+.personal-invitation-card::after {
+  content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none; opacity: .34;
+  background: url('/festive-floral-frame.webp') center / 100% 100% no-repeat;
+}
+.personal-invitation-card > * { position: relative; z-index: 2; }
 .personal-floret { display: block; margin-bottom: 20px; color: var(--lotus); font-size: 14px; }
 .guest-allocation { margin: 25px auto 0; color: var(--ink); font-size: clamp(21px,5vw,30px); line-height: 1.35; }
 .day-allocation { max-width: 520px; margin: 22px auto 0; color: #675b50; font-size: clamp(16px,4vw,20px); line-height: 1.65; }
@@ -544,7 +554,13 @@ button { font: inherit; }
   transform: rotate(5deg);
 }
 .events-section > * { position: relative; z-index: 1; }
-.events-heading { width: min(650px,100%); margin: 0 auto 65px; text-align: center; }
+.event-garland {
+  position: absolute; z-index: 1; top: -1.5vw; left: 50%; width: min(1100px,126vw); aspect-ratio: 3 / 1;
+  transform: translateX(-50%); pointer-events: none; opacity: .84;
+  background: url('/festive-floral-garland.webp') center top / contain no-repeat;
+}
+.events-heading { z-index: 2; width: min(650px,100%); margin: 0 auto 65px; padding-top: clamp(68px,16vw,126px); text-align: center; }
+.event-list { z-index: 2; }
 .events-heading h2 { font-size: clamp(48px,13vw,82px); }
 .events-heading > p:last-child { margin: 22px auto 0; max-width: 420px; color: #706e66; font-size: 17px; line-height: 1.55; }
 .event-list { width: min(820px,100%); margin: auto; display: grid; gap: 13px; }
@@ -587,7 +603,7 @@ button { font: inherit; }
 }
 .closing::before { left: -13vw; top: -4vh; transform: rotate(-25deg); }
 .closing::after { right: -13vw; bottom: -5vh; transform: rotate(154deg); }
-.closing > * { position: relative; z-index: 1; }
+.closing > :not(.floral-frame) { position: relative; z-index: 2; }
 .closing h2 { font-size: clamp(42px,11vw,76px); }
 .closing-names { margin: 55px 0 48px; color: var(--sage-deep); font: 400 clamp(45px,13vw,82px)/1 "Snell Roundhand","Segoe Script",cursive; }
 .closing-names i { color: var(--champagne); font-size: .65em; }
@@ -616,7 +632,12 @@ button { font: inherit; }
   background-size: 100% 100%, 21px 21px;
   border: 1px solid rgba(197,139,45,.26); box-shadow: 0 22px 70px rgba(95,64,33,.11);
 }
-.compliments-card::before { content: ""; position: absolute; inset: 10px; border: 1px solid rgba(197,139,45,.2); pointer-events: none; }
+.compliments-card::before { content: ""; position: absolute; z-index: 3; inset: 10px; border: 1px solid rgba(197,139,45,.2); pointer-events: none; }
+.compliments-card::after {
+  content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none; opacity: .24;
+  background: url('/festive-floral-frame.webp') center / 100% 100% no-repeat;
+}
+.compliments-card > * { position: relative; z-index: 2; }
 .compliments-monogram { margin: 0 0 25px; display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap; color: var(--champagne); font: 400 clamp(38px,10vw,64px)/.88 "Snell Roundhand","Segoe Script",cursive; }
 .compliments-monogram span { display: inline-block; }
 .compliments-monogram i { margin: 0 .08em; color: var(--sage-deep); font: italic 400 .42em/1 Georgia,serif; }
@@ -649,6 +670,22 @@ button { font: inherit; }
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.floral-frame {
+  position: absolute; z-index: 1; top: 0; bottom: 0; left: 50%; width: min(100%,780px);
+  transform: translateX(-50%); pointer-events: none;
+  background: url('/festive-floral-frame.webp') center / 100% 100% no-repeat;
+}
+.floral-frame-story { opacity: .5; }
+.floral-frame-countdown { opacity: .38; }
+.floral-frame-closing { opacity: .54; }
+
+.botanical,
+.countdown-botanical,
+.compliments-ornament,
+.personal-invitation::after,
+.closing::before,
+.closing::after { display: none; }
 
 .language-gu {
   font-family: "Noto Serif Gujarati","Shruti","Nirmala UI",serif;

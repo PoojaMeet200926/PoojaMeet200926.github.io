@@ -73,15 +73,16 @@ The site shows only the events included in that link. For `--family`, it shows t
 
 ## Festive Narayani Garden visual theme
 
-The invitation uses the approved Festive Narayani Garden palette: warm festive ivory, peacock green, mehendi, marigold, coral, lotus pink, antique gold, and a restrained indigo accent. The richer Indian celebration colors are inspired by floral mandaps, festive garlands, lotus arrangements, and painted architectural borders without copying any supplied reference artwork. Backgrounds intentionally rotate by section instead of repeating a single solid color:
+The invitation uses the approved Festive Narayani Garden palette: warm festive ivory, peacock green, mehendi, marigold, coral, lotus pink, antique gold, and a restrained indigo accent. The richer Indian celebration colors are inspired by floral mandaps, festive garlands, lotus arrangements, and painted architectural borders without copying any supplied reference artwork. Backgrounds intentionally rotate by section instead of repeating a single solid color. Two original, project-specific watercolor assets extend that system:
 
-- oversized pale botanical corners on the story and closing pages;
+- `public/festive-floral-frame.webp`, a transparent portrait floral frame, appears on the revealed opening card, story, personalized invitation, countdown, closing, and Pooja-side family compliments card;
+- `public/festive-floral-garland.webp`, a transparent horizontal floral garland with three small brass bells, introduces the event schedule;
 - ivory handmade-paper grain on editorial content and cards;
-- a soft silk-light sweep on the personalized invitation, plus botanical corners and an edge-faded jaali veil on the countdown;
+- a soft silk-light sweep on the personalized invitation and an edge-faded jaali veil on the countdown;
 - a faint geometric jaali lattice behind the event schedule;
-- botanical and lattice details on the Pooja-side family compliments page.
+- lattice and paper-grain details on the Pooja-side family compliments page.
 
-Patterns remain low contrast so English and Gujarati copy stays readable. Countdown numerals and event-date rails use controlled color rotation for a more celebratory rhythm. The red-and-black OM SHANTI emblem is not recolored by the theme.
+Both artwork files are alpha WebP assets sized for mobile delivery. They remain decorative, ignore pointer input, and stay behind all invitation copy. Their opacity is intentionally restrained so English and Gujarati text remains readable. Countdown numerals and event-date rails use controlled color rotation for a more celebratory rhythm. The red-and-black OM SHANTI emblem is not recolored by the theme.
 
 ## English and Gujarati
 

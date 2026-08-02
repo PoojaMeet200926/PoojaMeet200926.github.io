@@ -20,6 +20,7 @@ The purpose of this document is to let another Codex session, developer, or desi
 
 This document is now maintained as a living handoff. Commit `beee435` remains the historical baseline, and the following approved forward change has been added after that baseline:
 
+- 2 August 2026: add original transparent watercolor floral artwork throughout the Festive Narayani Garden theme: a portrait floral frame for the editorial/card sections and a horizontal floral-and-bell garland above the event schedule. The artwork was generated specifically for this project; the supplied screenshots were used only for visual direction and were not embedded or copied.
 - 1 August 2026: add Ganeshji and OM SHANTI blessing emblems at the top of the revealed card only for Pooja-side invitations. Ganeshji is champagne gold; OM SHANTI retains its original red sunburst and black lettering. Meet-side invitations continue to show the original small champagne floret instead.
 - 1 August 2026: keep the same Pooja-only blessing artwork visible on the first Narayani Heights hero page, not only on the temporary revealed opening card. The hero version uses a restrained translucent ivory backing for reliable contrast without recoloring either emblem.
 - 1 August 2026: make the first-page blessings a persistent hero panel independent of the delayed couple-name animation, add the Sanskrit invocation `॥ श्री गणेशाय नमः ॥` in sage, and replace the easily missed scroll cue with a prominent centered button that smoothly opens the next story section.
@@ -1108,6 +1109,8 @@ Hashes below identify the exact files at commit `beee435`.
 | `narayani-heights-venue.png` | 941 × 1672 | 2,115,219 | `106e705d7960fa78acd9fd4e28e1e02d574cefe34700b0b734f76528e51db8db` | Revealed card, hero, venue reveal |
 | `invitation-cover-v2.png` | 941 × 1672 | 2,878,127 | `eea6407ed593c6874faa71927689ebbaf6fec5e9b0135d03646d867c91756268` | Preserved older cover, currently unused |
 | `og.png` | 1722 × 913 | 2,202,941 | `73eeadb770d0d278ce8cb40c70a4a0a2fddff3e1abb4f8269918f00e888106f6` | Open Graph/Twitter social card |
+| `festive-floral-frame.webp` | 941 × 1672 | 398,592 | `7192596f35ff706010e8163d30b1be3a5bafd5005da5ccee09dac7a45421f35b` | Transparent portrait frame on opening and editorial/card sections |
+| `festive-floral-garland.webp` | 2172 × 724 | 372,702 | `0b98ec2ef1487ec7e85dcb47ec07cd49dd71998158e9ed20343fa26ddcc9971f` | Transparent floral-and-bell garland above the event schedule |
 | `favicon.svg` | vector | 718 | `3e8863288c2d43dd33d2a71de317dcf9198f09932ea8d61e0def1b846a865435` | Browser icon |
 | `file.svg` | vector | 391 | `2b67812c325c199a02536cdbeea0c593a72f707d323b72ee3e08dbab06753bd4` | Unused starter asset |
 | `globe.svg` | vector | 1035 | `b614b9bf183925957661ac851498fe1d8029fd43a62fbfed86f9e2624a57e7cf` | Unused starter asset |
@@ -1863,6 +1866,35 @@ Visible application:
 The layout, venue photography, copy, bilingual behavior, invitation-token decoding, invited-day filtering, invited-person logic, map links, opening transition, accessibility labels, and share behavior are unchanged by this color-only evolution.
 
 Validation after the Festive Narayani Garden change:
+
+```text
+Production build: PASS
+JavaScript current feature tests: 9 PASS / 0 FAIL
+Git diff whitespace check: PASS
+```
+
+### Current approved forward state — Original watercolor floral assets
+
+On 2 August 2026, the Festive Narayani Garden design moved from purely CSS/typographic corner ornaments to two original transparent watercolor assets generated specifically for this invitation. The owner-supplied floral invitation screenshots informed only the desired softness, botanical density, paper-friendly composition, and colorful Indian wedding mood. Their layouts, text, logos, figures, religious artwork, and individual illustrations were not copied or embedded. The supplied screen recording was likewise not bundled into the site.
+
+Final production assets:
+
+- `public/festive-floral-frame.webp`: 941 × 1672 pixels, alpha WebP, 398,592 bytes. It contains ivory roses, jasmine, restrained marigold and lotus-pink accents, peacock/mehendi foliage, eucalyptus, antique-gold linework, and a very small indigo counter-accent around a deliberately clear reading area.
+- `public/festive-floral-garland.webp`: 2172 × 724 pixels, alpha WebP, 372,702 bytes. It contains a shallow watercolor foliage-and-flower garland with three small antique-brass bells and a transparent lower field.
+
+The source images were generated on a chroma-key field, converted to transparency with the official ImageGen chroma-key helper, visually inspected, and then encoded as alpha WebP at quality 88 for mobile delivery. Do not replace them with the user's screenshots or screen recording; those files are references only.
+
+Integration details:
+
+- The portrait frame is rendered at 44% opacity on the ordinary revealed opening card and 28% on the Pooja-side version so the blessing artwork and names retain priority.
+- The same frame is a full-section decorative layer on Story (50%), Countdown (38%), and Closing (54%).
+- Personalized invitation cards use it at 34%; Pooja-side family compliments cards use it at 24%.
+- The horizontal garland is centered above the events heading, sized up to 1100 pixels (or 126 viewport-width units on narrow screens), and rendered at 84% opacity.
+- All new artwork is `aria-hidden`, ignores pointer input, and remains behind text and interactive controls.
+- The former large typographic `❦` background ornaments are hidden. The existing animated falling petals/leaves remain unchanged.
+- No invitation URL encoding, guest/date filtering, sender-side logic, bilingual copy, event details, maps, share behavior, opening motion, or OM SHANTI color treatment changed with this artwork revision.
+
+Validation after the original watercolor floral asset revision:
 
 ```text
 Production build: PASS

@@ -415,6 +415,7 @@ export default function Home() {
       </section>
 
       <section className="story paper-section" id="story">
+        <div className="floral-frame floral-frame-story" aria-hidden="true" />
         <div className="botanical botanical-left" aria-hidden="true">❦</div>
         <div className="botanical botanical-right" aria-hidden="true">❦</div>
         <p className="section-kicker">{copy.chapter}</p>
@@ -451,6 +452,7 @@ export default function Home() {
 
       <section className="countdown-section paper-section" aria-label={copy.countdownAria}>
         <div className="countdown-jaali" aria-hidden="true" />
+        <div className="floral-frame floral-frame-countdown" aria-hidden="true" />
         <div className="countdown-botanical countdown-botanical-left" aria-hidden="true">❦</div>
         <div className="countdown-botanical countdown-botanical-right" aria-hidden="true">❦</div>
         <p className="section-kicker">{copy.countdownKicker}</p>
@@ -467,6 +469,7 @@ export default function Home() {
       </section>
 
       <section className="events-section" id="events">
+        <div className="event-garland" aria-hidden="true" />
         <div className="events-heading">
           <p className="section-kicker">{copy.weekend}</p>
           <h2>{copy.celebrate}</h2>
@@ -536,6 +539,7 @@ export default function Home() {
       </section>
 
       <section className="closing paper-section">
+        <div className="floral-frame floral-frame-closing" aria-hidden="true" />
         <p className="section-kicker">{copy.withLove}</p>
         <h2>{copy.closingLineOne}<br />{copy.closingLineTwo}</h2>
         <p className="closing-names">{firstName} <i>&</i> {secondName}</p>
