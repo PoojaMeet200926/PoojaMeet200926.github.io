@@ -23,6 +23,13 @@ test("adds Vidai and the requested meal pairings", async () => {
   assert.match(copy, /dinnerTime: "08:00 PM"/);
   assert.match(copy, /dinnerTitle: "રાત્રિભોજન"/);
   assert.match(copy, /dinnerTime: "રાત્રે 08:00"/);
+  assert.match(copy, /ganesh: "08:00 AM"/);
+  assert.match(copy, /ganesh: "સવારે 08:00"/);
+  assert.match(page, /event\.key === "wedding" \? \([\s\S]*?className="event-schedule-stack"[\s\S]*?copy\.hastaMelapTitle[\s\S]*?copy\.hastaMelapTime[\s\S]*?copy\.lunchTitle[\s\S]*?copy\.lunchTime/);
+  assert.match(copy, /hastaMelapTitle: "Hast Melap"/);
+  assert.match(copy, /hastaMelapTime: "11:00 AM"/);
+  assert.match(copy, /hastaMelapTitle: "હસ્ત મેળાપ"/);
+  assert.match(copy, /hastaMelapTime: "સવારે 11:00"/);
 });
 
 test("localizes every rendered number for Gujarati and enlarges statement labels", async () => {

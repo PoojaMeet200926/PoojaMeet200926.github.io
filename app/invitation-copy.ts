@@ -125,7 +125,7 @@ export const COPY = {
     },
     ganeshTitleLines: ["Ganesh Sthapan", "Mandap Muhurat", "Grah Shanti"],
     eventTimes: {
-      ganesh: "An auspicious beginning",
+      ganesh: "08:00 AM",
       mehendi: "An afternoon of henna & happiness",
       ring: "09:30 AM",
       haldi: "11:00 AM",
@@ -138,6 +138,8 @@ export const COPY = {
     lunchTime: "12:30 PM",
     dinnerTitle: "Dinner",
     dinnerTime: "08:00 PM",
+    hastaMelapTitle: "Hast Melap",
+    hastaMelapTime: "11:00 AM",
     venues: {
       tremont: "B.1302, Tremont, Vaishnodevi Circle, Ahmedabad, Gujarat 382421",
       narayani: "Narayani Heights, Airport-Gandhinagar Road, Bhat, Ahmedabad, Gujarat 382428",
@@ -219,7 +221,7 @@ export const COPY = {
     },
     ganeshTitleLines: ["ગણેશ સ્થાપન", "મંડપ મુહૂર્ત", "ગ્રહ શાંતિ"],
     eventTimes: {
-      ganesh: "શુભ શરૂઆત",
+      ganesh: "સવારે 08:00",
       mehendi: "મહેંદી અને આનંદની બપોર",
       ring: "સવારે 09:30",
       haldi: "સવારે 11:00",
@@ -232,6 +234,8 @@ export const COPY = {
     lunchTime: "બપોરે 12:30",
     dinnerTitle: "રાત્રિભોજન",
     dinnerTime: "રાત્રે 08:00",
+    hastaMelapTitle: "હસ્ત મેળાપ",
+    hastaMelapTime: "સવારે 11:00",
     venues: {
       tremont: "બી-1302, ટ્રેમોન્ટ, વૈષ્ણોદેવી સર્કલ, અમદાવાદ, ગુજરાત 382421",
       narayani: "નારાયણી હાઇટ્સ, એરપોર્ટ-ગાંધીનગર રોડ, ભાટ, અમદાવાદ, ગુજરાત 382428",
