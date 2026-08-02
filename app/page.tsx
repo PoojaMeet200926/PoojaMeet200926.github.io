@@ -108,6 +108,25 @@ const EVENTS: WeddingEvent[] = [
   },
 ];
 
+const MEET_EVENTS: WeddingEvent[] = [
+  {
+    key: "ganesh",
+    weekday: "sunday",
+    date: "20",
+    venue: "narayani",
+    map: NARAYANI_HEIGHTS_LOCATION,
+  },
+  {
+    key: "wedding",
+    weekday: "sunday",
+    date: "20",
+    venue: "narayani",
+    map: NARAYANI_HEIGHTS_LOCATION,
+    featured: true,
+    meal: "lunch",
+  },
+];
+
 const POOJA_FAMILY_COMPLIMENTS = {
   en: [
     "G.S. Savitaben & Late Amrutbhai M. Modi",
@@ -182,7 +201,8 @@ export default function Home() {
   const [shareMessage, setShareMessage] = useState("");
 
   const copy = COPY[language];
-  const selectedDays: DayCount = invitationDetails?.days ?? 2;
+  const isMeetSide = invitationDetails?.side === "meet";
+  const selectedDays: DayCount = isMeetSide ? 1 : invitationDetails?.days ?? 2;
   const selectedDayDetails = INVITED_DAY_DETAILS[selectedDays];
   const selectedDayCopy = copy.days[selectedDays];
   const displayDetails = {
@@ -200,6 +220,7 @@ export default function Home() {
   const formatDigits = (value: string | number) => localizeDigits(value, language);
 
   const visibleEvents = useMemo(() => {
+    if (invitationDetails?.side === "meet") return MEET_EVENTS;
     if (!invitationDetails) return EVENTS;
     const invitedDates = new Set<string>(INVITED_DAY_DETAILS[invitationDetails.days].dates);
     return EVENTS.filter((event) => invitedDates.has(event.date));
@@ -490,11 +511,9 @@ export default function Home() {
       <section className="events-section" id="events">
         <div className="event-garland" aria-hidden="true" />
         <div className="events-heading">
-          <p className="section-kicker">
-            {invitationDetails ? copy.weekendFor(firstName) : copy.weekend}
-          </p>
-          <h2>{invitationDetails ? copy.celebrateFor(firstName) : copy.celebrate}</h2>
-          <p>{displayDetails.eventCopy}</p>
+          <p className="section-kicker">{copy.weekend}</p>
+          <h2>{copy.celebrate}</h2>
+          <p>{formatDigits(isMeetSide ? copy.meetEventCopy : displayDetails.eventCopy)}</p>
         </div>
         <div className="event-list">
           {visibleEvents.map((event, index) => (
@@ -507,12 +526,8 @@ export default function Home() {
               <div className="event-details">
                 <p className="event-index">{formatDigits(String(index + 1).padStart(2, "0"))}</p>
                 {event.key === "wedding" ? (
-                  <div className="event-schedule-pair event-schedule-pair-wedding">
-                    <div className="event-schedule-item">
-                      <h3>{copy.eventTitles.wedding}</h3>
-                      <p className="event-time">{copy.weds(firstName, secondName)}</p>
-                    </div>
-                    <div className="event-schedule-stack">
+                  isMeetSide ? (
+                    <div className="event-schedule-pair event-schedule-pair-wedding">
                       <div className="event-schedule-item">
                         <h3>{copy.hastaMelapTitle}</h3>
                         <p className="event-time">{formatDigits(copy.hastaMelapTime)}</p>
@@ -521,12 +536,29 @@ export default function Home() {
                         <h3>{copy.lunchTitle}</h3>
                         <p className="event-time">{formatDigits(copy.lunchTime)}</p>
                       </div>
+                    </div>
+                  ) : (
+                    <div className="event-schedule-pair event-schedule-pair-wedding">
                       <div className="event-schedule-item">
-                        <h3>{copy.eventTitles.vidai}</h3>
-                        <p className="event-time">{formatDigits(copy.eventTimes.vidai)}</p>
+                        <h3>{copy.eventTitles.wedding}</h3>
+                        <p className="event-time">{copy.weds(firstName, secondName)}</p>
+                      </div>
+                      <div className="event-schedule-stack">
+                        <div className="event-schedule-item">
+                          <h3>{copy.hastaMelapTitle}</h3>
+                          <p className="event-time">{formatDigits(copy.hastaMelapTime)}</p>
+                        </div>
+                        <div className="event-schedule-item">
+                          <h3>{copy.lunchTitle}</h3>
+                          <p className="event-time">{formatDigits(copy.lunchTime)}</p>
+                        </div>
+                        <div className="event-schedule-item">
+                          <h3>{copy.eventTitles.vidai}</h3>
+                          <p className="event-time">{formatDigits(copy.eventTimes.vidai)}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )
                 ) : event.meal ? (
                   <div className="event-schedule-pair">
                     <div className="event-schedule-item">
@@ -543,13 +575,15 @@ export default function Home() {
                 ) : (
                   <>
                     {event.key === "ganesh" ? (
-                      <h3 className="event-title-lines">
-                        {copy.ganeshTitleLines.map((line) => <span key={line}>{line}</span>)}
+                      <h3 className={`event-title-lines${isMeetSide ? " event-title-lines-meet" : ""}`}>
+                        {(isMeetSide ? copy.meetGaneshTitleLines : copy.ganeshTitleLines).map((line) => <span key={line}>{line}</span>)}
                       </h3>
                     ) : (
                       <h3>{copy.eventTitles[event.key]}</h3>
                     )}
-                    <p className="event-time">{formatDigits(event.key === "wedding" ? copy.weds(firstName, secondName) : copy.eventTimes[event.key])}</p>
+                    <p className="event-time">
+                      {formatDigits(isMeetSide && event.key === "ganesh" ? copy.meetGaneshTime : copy.eventTimes[event.key])}
+                    </p>
                   </>
                 )}
                 <p className="event-venue">{formatDigits(copy.venues[event.venue])}</p>

@@ -47,7 +47,7 @@ python create_invite_link.py --url "https://your-wedding-site.com" --days 19,20 
 Whole-family invitation, with no guest count shown:
 
 ```powershell
-python create_invite_link.py --url "https://your-wedding-site.com" --days 18,19,20 --family --side meet
+python create_invite_link.py --url "https://your-wedding-site.com" --days 20 --family --side meet
 ```
 
 Day selection:
@@ -61,6 +61,8 @@ Name order:
 - `--side pooja`: displays `Pooja & Meet` and `Pooja weds Meet`.
 - `--side meet`: displays `Meet & Pooja` and `Meet weds Pooja`.
 
+Meet-side invitations are for Sunday, 20 September only. Their event section keeps the original “The Wedding Weekend / Celebrate with us” heading and shows only the Vighnaharta arrival and Grah Shanti at 8:00 AM, followed by Hast Melap at 11:00 AM and lunch at 12:30 PM. Pooja-side invitations retain their selected one-, two-, or three-day schedule.
+
 Pooja-side invitations show a centered Ganeshji emblem and `॥ श्री गणेशाय नमः ॥` at the top of the revealed opening card. OM SHANTI is intentionally omitted from that card. The first Narayani Heights page shows only a smaller centered OM SHANTI emblem directly over the venue image, without Ganeshji, a white panel, or the invocation. Meet-side invitations keep the original minimal floret and do not show the emblems or invocation.
 
 The first Narayani Heights page includes a centered invitation button near the bottom. Pressing it smoothly scrolls to the next story section; reduced-motion browser preferences disable the smooth animation automatically.
@@ -69,7 +71,7 @@ Pooja-side invitations end with a themed “With Best Compliments From” family
 
 The program prints the final encoded link. Copy that complete link and send it to the guest through WhatsApp, email, or another messaging service.
 
-The site shows only the events included in that link. For `--family`, it shows the invited dates but does not mention a guest count. The selected side controls name order throughout the invitation.
+For Pooja-side links, the site shows only the dates included in that link. Meet-side links always show Sunday, 20 September because there are no Meet-side functions on 18 or 19 September. For `--family`, the invitation does not mention a guest count. The selected side controls name order throughout the invitation.
 
 ## Festive Narayani Garden visual theme
 

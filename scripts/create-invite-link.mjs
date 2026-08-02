@@ -25,16 +25,18 @@ const side = values.get("side")?.toLowerCase();
 if (
   ![1, 2, 3].includes(days)
   || !["meet", "pooja"].includes(side)
+  || (side === "meet" && days !== 1)
   || (!isFamily && (!Number.isInteger(people) || people < 1 || people > 250))
 ) {
   console.error(
     [
       "Create a personalized wedding invitation link:",
       "  npm run invite:link -- --people 4 --days 2 --side pooja",
-      "  npm run invite:link -- --family --days 3 --side meet",
+      "  npm run invite:link -- --family --days 1 --side meet",
       "",
       "Days: 1 = 20 Sep, 2 = 19–20 Sep, 3 = 18–20 Sep.",
       "Side: pooja = Pooja first, meet = Meet first.",
+      "Meet-side invitations support only day 1 (20 September).",
       "Use --url https://example.com to override the live invitation address.",
     ].join("\n"),
   );

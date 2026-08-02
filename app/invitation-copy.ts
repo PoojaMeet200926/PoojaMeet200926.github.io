@@ -111,9 +111,11 @@ export const COPY = {
     countdownHeading: "Until we celebrate",
     countdownUnits: ["Days", "Hours", "Minutes", "Seconds"],
     weekend: "The wedding weekend",
-    weekendFor: (name: string) => `${name}'s wedding weekend`,
     celebrate: "Celebrate with us",
-    celebrateFor: (name: string) => `Celebrate ${name}'s wedding`,
+    meetEventCopy:
+      "On the auspicious day of Bhadarva Nom, Vikram Samvat 2082 — Sunday, 20 September 2026.",
+    meetGaneshTitleLines: ["Arrival of Vighnaharta", "and Grah Shanti"],
+    meetGaneshTime: "08:00 AM",
     weekdays: { friday: "Friday", saturday: "Saturday", sunday: "Sunday" },
     eventTitles: {
       ganesh: "Ganesh Sthapan · Mandap Muhurat · Grah Shanti",
@@ -209,9 +211,11 @@ export const COPY = {
     countdownHeading: "ઉજવણી સુધી",
     countdownUnits: ["દિવસ", "કલાક", "મિનિટ", "સેકન્ડ"],
     weekend: "લગ્નોત્સવ",
-    weekendFor: (name: string) => `${name}નો લગ્નોત્સવ`,
     celebrate: "અમારી સાથે ઉજવો",
-    celebrateFor: (name: string) => `${name}ના લગ્નની ઉજવણી`,
+    meetEventCopy:
+      "વિક્રમ સંવત 2082ના ભાદરવાના નોમ, રવિવાર, 20/09/2026ના શુભ દિવસે શુભ મુહૂર્ત.",
+    meetGaneshTitleLines: ["વિઘ્નહર્તાનું આગમન", "તથા ગ્રહ શાંતિ"],
+    meetGaneshTime: "સવારે 08:00 કલાકે",
     weekdays: { friday: "શુક્રવાર", saturday: "શનિવાર", sunday: "રવિવાર" },
     eventTitles: {
       ganesh: "ગણેશ સ્થાપન · મંડપ મુહૂર્ત · ગ્રહ શાંતિ",

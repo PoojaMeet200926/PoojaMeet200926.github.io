@@ -61,6 +61,15 @@ class InviteLinkTests(unittest.TestCase):
         pooja_token = create_token(2, (19, 20), "pooja", nonce=nonce)
         self.assertNotEqual(meet_token, pooja_token)
 
+    def test_meet_side_url_accepts_only_twentieth_september(self):
+        with self.assertRaisesRegex(ValueError, "only 20 September"):
+            build_invitation_url(
+                "https://example.com/invite",
+                (18, 19, 20),
+                None,
+                "meet",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

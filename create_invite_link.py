@@ -98,6 +98,8 @@ def build_invitation_url(
     parsed = urlsplit(website_url.strip())
     if parsed.scheme not in {"http", "https"} or not parsed.netloc:
         raise ValueError("Website URL must start with http:// or https://.")
+    if side.strip().lower() == "meet" and dates != (20,):
+        raise ValueError("Meet-side invitations support only 20 September 2026.")
 
     token = create_token(invitees, dates, side)
     query = [

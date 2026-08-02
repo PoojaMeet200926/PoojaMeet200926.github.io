@@ -50,16 +50,20 @@ test("localizes every rendered number for Gujarati and enlarges statement labels
   assert.match(css, /\.language-gu \.eyebrow, \.language-gu \.section-kicker \{ font-size: clamp\(13px,3\.2vw,15px\)/);
 });
 
-test("personalizes the celebrations heading for the encoded invitation side", async () => {
+test("keeps the original heading and gives Meet a Sunday-only schedule", async () => {
   const [page, copy] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/invitation-copy.ts", root), "utf8"),
   ]);
 
-  assert.match(page, /invitationDetails \? copy\.weekendFor\(firstName\) : copy\.weekend/);
-  assert.match(page, /invitationDetails \? copy\.celebrateFor\(firstName\) : copy\.celebrate/);
-  assert.match(copy, /weekendFor: \(name: string\) => `\$\{name\}'s wedding weekend`/);
-  assert.match(copy, /celebrateFor: \(name: string\) => `Celebrate \$\{name\}'s wedding`/);
-  assert.match(copy, /weekendFor: \(name: string\) => `\$\{name\}નો લગ્નોત્સવ`/);
-  assert.match(copy, /celebrateFor: \(name: string\) => `\$\{name\}ના લગ્નની ઉજવણી`/);
+  assert.match(page, /<p className="section-kicker">\{copy\.weekend\}<\/p>/);
+  assert.match(page, /<h2>\{copy\.celebrate\}<\/h2>/);
+  assert.match(page, /const selectedDays: DayCount = isMeetSide \? 1 : invitationDetails\?\.days \?\? 2/);
+  assert.match(page, /if \(invitationDetails\?\.side === "meet"\) return MEET_EVENTS/);
+  assert.match(page, /const MEET_EVENTS:[\s\S]*?key: "ganesh",[\s\S]*?weekday: "sunday",[\s\S]*?date: "20",[\s\S]*?key: "wedding",[\s\S]*?weekday: "sunday",[\s\S]*?date: "20"/);
+  assert.match(page, /isMeetSide \? copy\.meetEventCopy : displayDetails\.eventCopy/);
+  assert.match(page, /isMeetSide && event\.key === "ganesh" \? copy\.meetGaneshTime/);
+  assert.match(copy, /meetGaneshTitleLines: \["વિઘ્નહર્તાનું આગમન", "તથા ગ્રહ શાંતિ"\]/);
+  assert.match(copy, /meetGaneshTime: "સવારે 08:00 કલાકે"/);
+  assert.match(copy, /meetEventCopy:[\s\S]*?"વિક્રમ સંવત 2082ના ભાદરવાના નોમ, રવિવાર, 20\/09\/2026ના શુભ દિવસે શુભ મુહૂર્ત\."/);
 });
