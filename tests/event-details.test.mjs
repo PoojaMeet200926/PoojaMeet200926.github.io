@@ -24,6 +24,8 @@ test("keeps Vidai within the Wedding Ceremony card and preserves meal pairings",
   assert.match(copy, /dinnerTitle: "રાત્રિભોજન"/);
   assert.match(copy, /dinnerTime: "રાત્રે 08:00"/);
   assert.match(copy, /ganesh: "08:00 AM"/);
+  assert.match(copy, /mehendi: "મહેંદી"/);
+  assert.doesNotMatch(copy, /મહેંદી અને આનંદની બપોર/);
   assert.match(copy, /ganesh: "સવારે 08:00"/);
   assert.match(page, /event\.key === "wedding" \? \([\s\S]*?className="event-schedule-stack"[\s\S]*?copy\.hastaMelapTitle[\s\S]*?copy\.hastaMelapTime[\s\S]*?copy\.lunchTitle[\s\S]*?copy\.lunchTime[\s\S]*?copy\.eventTitles\.vidai[\s\S]*?copy\.eventTimes\.vidai/);
   assert.match(copy, /hastaMelapTitle: "Hast Melap"/);

@@ -222,7 +222,7 @@ export const COPY = {
     ganeshTitleLines: ["ગણેશ સ્થાપન", "મંડપ મુહૂર્ત", "ગ્રહ શાંતિ"],
     eventTimes: {
       ganesh: "સવારે 08:00",
-      mehendi: "મહેંદી અને આનંદની બપોર",
+      mehendi: "મહેંદી",
       ring: "સવારે 09:30",
       haldi: "સવારે 11:00",
       mameru: "બપોરે 03:00",
