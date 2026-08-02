@@ -1817,7 +1817,7 @@ Background treatment is deliberately varied but coordinated:
 
 - Story: handmade-paper grain, soft illumination, and enlarged eucalyptus botanical corners.
 - Personalized invitation: warm paper field with a diagonal silk highlight, organic color blooms, one quiet botanical corner, and a textured inset card.
-- Countdown: restrained diagonal silk-light sweep over ivory paper.
+- Countdown: a warmer garden-paper field, restrained diagonal silk-light sweep, inset champagne frame, edge-faded jaali veil, and matching oversized eucalyptus botanical corners. The central countdown grid retains a quiet translucent paper backing for numeral legibility.
 - Event schedule: low-contrast geometric jaali lattice, warm paper field, soft radial highlights, and ivory event cards.
 - Closing: matching oversized eucalyptus botanical corners over ivory paper.
 - Pooja-side compliments: a lighter jaali field, silk highlight, paper-grain card, and strengthened botanical corner ornaments.

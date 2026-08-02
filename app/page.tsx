@@ -450,6 +450,9 @@ export default function Home() {
       </section>
 
       <section className="countdown-section paper-section" aria-label={copy.countdownAria}>
+        <div className="countdown-jaali" aria-hidden="true" />
+        <div className="countdown-botanical countdown-botanical-left" aria-hidden="true">❦</div>
+        <div className="countdown-botanical countdown-botanical-right" aria-hidden="true">❦</div>
         <p className="section-kicker">{copy.countdownKicker}</p>
         <h2>{copy.countdownHeading}</h2>
         <div className="countdown-grid" role="timer" aria-live="off">

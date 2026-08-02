@@ -454,17 +454,50 @@ button { font: inherit; }
 .venue-copy .light { color: #f2e2c7; }
 .venue-copy p:last-child { max-width: 480px; margin: 28px auto 0; font-size: 17px; line-height: 1.65; }
 
-.countdown-section { isolation: isolate; padding: 13vh 6vw 12vh; text-align: center; }
+.countdown-section {
+  isolation: isolate; padding: 13vh 6vw 12vh; text-align: center;
+  background-color: #f1ede3;
+  background-image:
+    radial-gradient(ellipse at 50% 44%, rgba(255,253,248,.98) 0%, rgba(255,253,248,.84) 38%, rgba(247,243,235,.58) 65%, rgba(168,179,161,.2) 100%),
+    radial-gradient(circle at 18% 17%, rgba(70,86,74,.045) 0 .7px, transparent .9px),
+    radial-gradient(circle at 78% 68%, rgba(185,151,91,.05) 0 .7px, transparent 1px);
+  background-size: 100% 100%, 18px 18px, 23px 23px;
+}
 .countdown-section::before {
   content: ""; position: absolute; z-index: 0; inset: -24%; pointer-events: none;
   background:
-    linear-gradient(116deg, transparent 29%, rgba(255,255,255,.73) 43%, rgba(185,151,91,.045) 50%, rgba(255,255,255,.2) 57%, transparent 70%),
-    radial-gradient(ellipse at 50% 50%, rgba(168,179,161,.08), transparent 53%);
+    linear-gradient(116deg, transparent 27%, rgba(255,255,255,.78) 42%, rgba(185,151,91,.07) 50%, rgba(255,255,255,.24) 58%, transparent 72%),
+    radial-gradient(ellipse at 50% 50%, rgba(168,179,161,.11), transparent 55%);
   transform: rotate(-3deg);
 }
-.countdown-section > * { position: relative; z-index: 1; }
+.countdown-section::after {
+  content: ""; position: absolute; z-index: 1; inset: clamp(18px,4.5vw,52px); pointer-events: none;
+  border: 1px solid rgba(185,151,91,.18);
+  box-shadow: inset 0 0 60px rgba(255,255,255,.34);
+}
+.countdown-jaali {
+  position: absolute; z-index: 0; inset: -12px; pointer-events: none; opacity: .62;
+  background-image:
+    linear-gradient(45deg, transparent 46%, rgba(70,86,74,.055) 47%, rgba(70,86,74,.055) 49%, transparent 50%),
+    linear-gradient(-45deg, transparent 46%, rgba(185,151,91,.045) 47%, rgba(185,151,91,.045) 49%, transparent 50%);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,.25) 48%, #000 82%);
+  mask-image: radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,.25) 48%, #000 82%);
+}
+.countdown-botanical {
+  position: absolute; z-index: 1; color: var(--eucalyptus); opacity: .16;
+  font-size: min(45vw,310px); line-height: 1; pointer-events: none;
+}
+.countdown-botanical-left { left: -12vw; top: -5vh; transform: rotate(-26deg); }
+.countdown-botanical-right { right: -12vw; bottom: -6vh; transform: rotate(154deg); }
+.countdown-section > :not(.countdown-jaali):not(.countdown-botanical) { position: relative; z-index: 2; }
 .countdown-section h2 { font-size: clamp(45px,11vw,74px); }
-.countdown-grid { width: min(690px,100%); margin: 55px auto 0; display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
+.countdown-grid {
+  width: min(690px,100%); margin: 55px auto 0; display: grid; grid-template-columns: repeat(4,1fr);
+  border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
+  background: rgba(255,253,248,.42); box-shadow: 0 16px 48px rgba(70,86,74,.035);
+  backdrop-filter: blur(2px);
+}
 .countdown-unit { padding: 25px 4px 21px; border-right: 1px solid var(--hairline); }
 .countdown-unit:last-child { border-right: 0; }
 .countdown-unit strong { display: block; font-weight: 400; font-size: clamp(32px,10vw,64px); line-height: 1; font-variant-numeric: tabular-nums; }

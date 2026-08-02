@@ -77,7 +77,7 @@ The invitation uses the approved Narayani Garden palette: warm ivory paper, deep
 
 - oversized pale botanical corners on the story and closing pages;
 - ivory handmade-paper grain on editorial content and cards;
-- a soft silk-light sweep on the personalized invitation and countdown;
+- a soft silk-light sweep on the personalized invitation, plus botanical corners and an edge-faded jaali veil on the countdown;
 - a faint geometric jaali lattice behind the event schedule;
 - botanical and lattice details on the Pooja-side family compliments page.
 
