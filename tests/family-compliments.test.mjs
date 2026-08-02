@@ -30,6 +30,7 @@ test("shows the exact Modi family compliments only on Pooja-side invitations", a
   assert.match(page, /POOJA_FAMILY_COMPLIMENTS\[language\]\.map/);
   assert.match(page, /POOJA_YOUNG_FAMILY\[language\]\.map/);
   assert.match(page, /className="compliments-monogram"[\s\S]*?copy\.names\.pooja[\s\S]*?copy\.names\.meet/);
+  assert.match(page, /className="compliments-heading-panel"[\s\S]*?className="compliments-monogram"/);
   assert.match(copy, /complimentsHeading: "With Best Compliments From"/);
   assert.match(copy, /complimentsHeading: "શુભેચ્છા સહ"/);
   assert.match(copy, /youngerFamilyAria: "દેવ્યાંશી, નાયશા, ધ્રુવ, રૂહાની અને રાધિકા તરફથી સ્નેહ સહ"/);
@@ -38,6 +39,7 @@ test("shows the exact Modi family compliments only on Pooja-side invitations", a
   assert.doesNotMatch(copy, /અનામત/);
   assert.match(css, /\.family-compliments\s*\{/);
   assert.match(css, /\.compliments-card\s*\{/);
+  assert.match(css, /\.compliments-heading-panel\s*\{[\s\S]*?backdrop-filter: blur\(7px\)/);
   assert.match(css, /\.language-gu \.compliments-list li,[\s\S]*?"Noto Serif Gujarati"/);
   assert.match(css, /\.language-gu \.compliments-monogram[\s\S]*?"Noto Serif Gujarati"/);
   assert.match(css, /\.language-gu \.inner-rule span \{ font-size: 10px; \}/);

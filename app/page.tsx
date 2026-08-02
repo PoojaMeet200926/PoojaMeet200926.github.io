@@ -106,14 +106,6 @@ const EVENTS: WeddingEvent[] = [
     featured: true,
     meal: "lunch",
   },
-  {
-    key: "vidai",
-    weekday: "sunday",
-    date: "20",
-    venue: "narayani",
-    map: NARAYANI_HEIGHTS_LOCATION,
-    featured: true,
-  },
 ];
 
 const POOJA_FAMILY_COMPLIMENTS = {
@@ -518,6 +510,10 @@ export default function Home() {
                         <h3>{copy.lunchTitle}</h3>
                         <p className="event-time">{formatDigits(copy.lunchTime)}</p>
                       </div>
+                      <div className="event-schedule-item">
+                        <h3>{copy.eventTitles.vidai}</h3>
+                        <p className="event-time">{formatDigits(copy.eventTimes.vidai)}</p>
+                      </div>
                     </div>
                   </div>
                 ) : event.meal ? (
@@ -572,12 +568,14 @@ export default function Home() {
           <div className="compliments-ornament compliments-ornament-left" aria-hidden="true">❦</div>
           <div className="compliments-ornament compliments-ornament-right" aria-hidden="true">❦</div>
           <div className="compliments-card">
-            <p className="compliments-monogram" aria-label={`${copy.names.pooja} & ${copy.names.meet}`}>
-              <span>{copy.names.pooja}</span><i aria-hidden="true">&</i><span>{copy.names.meet}</span>
-            </p>
-            <p className="section-kicker">{copy.complimentsKicker}</p>
-            <h2>{copy.complimentsHeading}</h2>
-            <div className="compliments-rule" aria-hidden="true"><span>✦</span></div>
+            <div className="compliments-heading-panel">
+              <p className="compliments-monogram" aria-label={`${copy.names.pooja} & ${copy.names.meet}`}>
+                <span>{copy.names.pooja}</span><i aria-hidden="true">&</i><span>{copy.names.meet}</span>
+              </p>
+              <p className="section-kicker">{copy.complimentsKicker}</p>
+              <h2>{copy.complimentsHeading}</h2>
+              <div className="compliments-rule" aria-hidden="true"><span>✦</span></div>
+            </div>
             <ul className="compliments-list">
               {POOJA_FAMILY_COMPLIMENTS[language].map((name) => <li key={name}>{name}</li>)}
             </ul>

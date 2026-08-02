@@ -23,7 +23,7 @@ test("shows the blessing emblems only for the decoded Pooja side", async () => {
   assert.match(copy, /"હરિયાળી લૉન, ભવ્ય સમારંભ સ્થળો અને યાદગાર ઉજવણી માટેનું સુંદર વાતાવરણ\."/);
   assert.match(css, /\.pooja-ganesh-emblem\s*\{/);
   assert.match(css, /\.gate-inner-card-pooja > \.gate-blessing-invocation\s*\{/);
-  assert.match(css, /\.hero-om-shanti\s*\{[\s\S]*?width: min\(80px,19vw\)[\s\S]*?aspect-ratio: 640 \/ 680[\s\S]*?background: url\('\/pooja-blessings\.png'\) right top \/ auto 100% no-repeat;/);
+  assert.match(css, /\.hero-om-shanti\s*\{[\s\S]*?top: max\(58px,calc\(env\(safe-area-inset-top\) \+ 50px\)\)[\s\S]*?width: min\(70px,16\.5vw\)[\s\S]*?aspect-ratio: 640 \/ 680[\s\S]*?background: url\('\/pooja-blessings\.png'\) right top \/ auto 100% no-repeat;/);
   assert.doesNotMatch(css, /\.hero-om-shanti\s*\{[^}]*background-color/);
   assert.match(css, /\.hero-next-button\s*\{/);
   assert.match(css, /html \{ scroll-behavior: smooth;/);

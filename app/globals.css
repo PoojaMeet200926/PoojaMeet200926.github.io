@@ -383,8 +383,8 @@ button { font: inherit; }
 .invitation-open .hero-content { animation: fadeRise 1.3s ease 1.45s both; }
 .hero-pooja .hero-content { margin-top: 12vh; }
 .hero-om-shanti {
-  position: absolute; z-index: 3; top: max(76px,calc(env(safe-area-inset-top) + 68px)); left: 50%;
-  width: min(80px,19vw); aspect-ratio: 640 / 680; transform: translateX(-50%);
+  position: absolute; z-index: 3; top: max(58px,calc(env(safe-area-inset-top) + 50px)); left: 50%;
+  width: min(70px,16.5vw); aspect-ratio: 640 / 680; transform: translateX(-50%);
   background: url('/pooja-blessings.png') right top / auto 100% no-repeat;
 }
 .eyebrow, .section-kicker { margin: 0 0 18px; font: 600 clamp(12px,3vw,14px)/1.4 Arial,sans-serif; letter-spacing: .25em; text-transform: uppercase; }
@@ -630,6 +630,12 @@ button { font: inherit; }
   background: url('/festive-floral-frame.webp') center / 100% 100% no-repeat;
 }
 .compliments-card > * { position: relative; z-index: 2; }
+.compliments-heading-panel {
+  width: min(590px,calc(100% - 8px)); padding: clamp(24px,5vw,34px) clamp(17px,5vw,36px) 2px;
+  background: linear-gradient(145deg,rgba(255,253,246,.92),rgba(255,248,235,.84));
+  border: 1px solid rgba(197,139,45,.28); border-radius: 18px; box-shadow: 0 12px 34px rgba(91,62,35,.13);
+  -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px);
+}
 .compliments-monogram { margin: 0 0 25px; display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap; color: var(--champagne); font: 400 clamp(38px,10vw,64px)/.88 "Snell Roundhand","Segoe Script",cursive; }
 .compliments-monogram span { display: inline-block; }
 .compliments-monogram i { margin: 0 .08em; color: var(--sage-deep); font: italic 400 .42em/1 Georgia,serif; }
