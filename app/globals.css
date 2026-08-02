@@ -624,17 +624,17 @@ button { font: inherit; }
   background-size: 100% 100%, 21px 21px;
   border: 0; box-shadow: none;
 }
-.compliments-card::before { content: ""; position: absolute; z-index: 3; inset: clamp(18px,4.5vw,52px); border: 1px solid rgba(197,139,45,.22); pointer-events: none; }
+.compliments-card::before {
+  content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg,rgba(255,250,240,.16),rgba(255,250,240,.78) 15%,rgba(255,250,240,.94) 27%,rgba(255,250,240,.94) 73%,rgba(255,250,240,.78) 85%,rgba(255,250,240,.16));
+}
 .compliments-card::after {
   content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none; opacity: .54;
   background: url('/festive-floral-frame.webp') center / 100% 100% no-repeat;
 }
 .compliments-card > * { position: relative; z-index: 2; }
 .compliments-heading-panel {
-  width: min(590px,calc(100% - 8px)); padding: clamp(24px,5vw,34px) clamp(17px,5vw,36px) 2px;
-  background: linear-gradient(145deg,rgba(255,253,246,.92),rgba(255,248,235,.84));
-  border: 1px solid rgba(197,139,45,.28); border-radius: 18px; box-shadow: 0 12px 34px rgba(91,62,35,.13);
-  -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px);
+  width: min(590px,100%); padding: 0; background: none; border: 0; border-radius: 0; box-shadow: none;
 }
 .compliments-monogram { margin: 0 0 25px; display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap; color: var(--champagne); font: 400 clamp(38px,10vw,64px)/.88 "Snell Roundhand","Segoe Script",cursive; }
 .compliments-monogram span { display: inline-block; }
@@ -652,15 +652,13 @@ button { font: inherit; }
 }
 .compliments-younger span:not(:last-child)::after { content: "·"; margin-left: 10px; color: var(--champagne); }
 .compliments-contact {
-  width: min(530px,calc(100% - 20px)); margin: 34px auto 0; padding: clamp(22px,5vw,30px) clamp(16px,5vw,34px);
-  color: #59252b; background: linear-gradient(145deg,rgba(255,253,246,.94),rgba(255,248,235,.88));
-  border: 1px solid rgba(197,139,45,.3); border-radius: 18px; box-shadow: 0 12px 32px rgba(91,62,35,.14);
-  -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); text-align: center;
+  width: min(530px,100%); margin: 40px auto 0; padding: 0; color: #59252b;
+  background: none; border: 0; border-radius: 0; box-shadow: none; text-align: center;
 }
 .compliments-contact-heading {
   margin: 0 0 15px; color: #114c39; font-size: clamp(22px,5.6vw,30px); font-weight: 700; line-height: 1.2;
 }
-.compliments-contact-names p { margin: 6px 0; font-size: clamp(17px,4.2vw,22px); font-weight: 500; line-height: 1.42; }
+.compliments-contact-names p { margin: 6px 0; font-size: clamp(17px,4.2vw,22px); font-weight: 500; line-height: 1.42; text-shadow: 0 1px 0 rgba(255,255,255,.85); }
 .compliments-contact-phones { margin: 15px 0 0; color: #6b1f2c; font-size: clamp(17px,4vw,21px); font-weight: 700; letter-spacing: .065em; line-height: 1.45; }
 .compliments-contact-phones a { color: inherit; text-decoration: none; text-underline-offset: 4px; }
 .compliments-contact-phones a:hover { text-decoration: underline; text-underline-offset: 4px; }

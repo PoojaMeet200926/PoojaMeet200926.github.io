@@ -39,7 +39,9 @@ test("shows the exact Modi family compliments only on Pooja-side invitations", a
   assert.doesNotMatch(copy, /અનામત/);
   assert.match(css, /\.family-compliments\s*\{/);
   assert.match(css, /\.compliments-card\s*\{/);
-  assert.match(css, /\.compliments-heading-panel\s*\{[\s\S]*?backdrop-filter: blur\(7px\)/);
+  assert.match(css, /\.compliments-card::before\s*\{[\s\S]*?linear-gradient\(90deg/);
+  assert.match(css, /\.compliments-heading-panel\s*\{[\s\S]*?background: none; border: 0/);
+  assert.match(css, /\.compliments-contact\s*\{[\s\S]*?background: none; border: 0/);
   assert.match(css, /\.language-gu \.compliments-list li,[\s\S]*?"Noto Serif Gujarati"/);
   assert.match(css, /\.language-gu \.compliments-monogram[\s\S]*?"Noto Serif Gujarati"/);
   assert.match(css, /\.language-gu \.inner-rule span \{ font-size: 10px; \}/);
