@@ -600,7 +600,7 @@ export default function Home() {
                 <span>{POOJA_INVITERS[language].phoneLabel}</span>{" "}
                 {POOJA_CONTACT_NUMBERS.map((phone, index) => (
                   <span key={phone.display}>
-                    <a href={phone.href} aria-label={`Call ${phone.display}`}>{phone.display}</a>
+                    <a href={phone.href} aria-label={`Call ${phone.display}`}>{formatDigits(phone.display)}</a>
                     {index < POOJA_CONTACT_NUMBERS.length - 1 && ", "}
                   </span>
                 ))}

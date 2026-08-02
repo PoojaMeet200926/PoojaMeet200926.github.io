@@ -29,6 +29,7 @@ test("shows the exact Modi family compliments only on Pooja-side invitations", a
   assert.doesNotMatch(page, /"નૈશા"/);
   assert.match(page, /POOJA_FAMILY_COMPLIMENTS\[language\]\.map/);
   assert.match(page, /POOJA_YOUNG_FAMILY\[language\]\.map/);
+  assert.match(page, /aria-label=\{`Call \$\{phone\.display\}`\}>\{formatDigits\(phone\.display\)\}<\/a>/);
   assert.match(page, /className="compliments-monogram"[\s\S]*?copy\.names\.pooja[\s\S]*?copy\.names\.meet/);
   assert.match(page, /className="compliments-heading-panel"[\s\S]*?className="compliments-monogram"/);
   assert.match(copy, /complimentsHeading: "With Best Compliments From"/);
