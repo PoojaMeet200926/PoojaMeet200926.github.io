@@ -146,6 +146,24 @@ const POOJA_YOUNG_FAMILY = {
   gu: ["દેવ્યાંશી", "નાયશા", "ધ્રુવ", "રૂહાની", "રાધિકા"],
 } as const satisfies Record<Language, readonly string[]>;
 
+const POOJA_INVITERS = {
+  en: {
+    heading: "Inviters",
+    phoneLabel: "Mo.",
+    names: ["Mr. Ketan Amrutlal Modi", "Mrs. Dharmishtha Ketan Modi"],
+  },
+  gu: {
+    heading: "નિમંત્રક",
+    phoneLabel: "મો.",
+    names: ["શ્રી કેતન અમૃતલાલ મોદી", "શ્રીમતી ધર્મિષ્ઠા કેતન મોદી"],
+  },
+} as const satisfies Record<Language, { heading: string; phoneLabel: string; names: readonly string[] }>;
+
+const POOJA_CONTACT_NUMBERS = [
+  { display: "9892701070", href: "tel:+919892701070" },
+  { display: "9223375075", href: "tel:+919223375075" },
+] as const;
+
 const GUJARATI_DIGITS = ["૦", "૧", "૨", "૩", "૪", "૫", "૬", "૭", "૮", "૯"] as const;
 
 function localizeDigits(value: string | number, language: Language) {
@@ -565,6 +583,21 @@ export default function Home() {
             </ul>
             <div className="compliments-younger" aria-label={copy.youngerFamilyAria}>
               {POOJA_YOUNG_FAMILY[language].map((name) => <span key={name}>{name}</span>)}
+            </div>
+            <div className="compliments-contact">
+              <p className="compliments-contact-heading">{POOJA_INVITERS[language].heading}</p>
+              <div className="compliments-contact-names">
+                {POOJA_INVITERS[language].names.map((name) => <p key={name}>{name}</p>)}
+              </div>
+              <p className="compliments-contact-phones">
+                <span>{POOJA_INVITERS[language].phoneLabel}</span>{" "}
+                {POOJA_CONTACT_NUMBERS.map((phone, index) => (
+                  <span key={phone.display}>
+                    <a href={phone.href} aria-label={`Call ${phone.display}`}>{phone.display}</a>
+                    {index < POOJA_CONTACT_NUMBERS.length - 1 && ", "}
+                  </span>
+                ))}
+              </p>
             </div>
           </div>
         </section>
