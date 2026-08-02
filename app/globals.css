@@ -436,31 +436,29 @@ button { font: inherit; }
 .botanical-right { right: -12vw; bottom: 1vh; transform: rotate(153deg); }
 
 .personal-invitation {
-  position: relative; isolation: isolate; padding: 9vh 6vw; text-align: center;
-  background-color: var(--paper-soft);
-  background-image:
-    linear-gradient(123deg, transparent 15%, rgba(255,255,255,.7) 42%, rgba(255,255,255,.12) 58%, transparent 78%),
-    radial-gradient(circle at 8% 12%, rgba(229,161,44,.2), transparent 25%),
-    radial-gradient(circle at 92% 15%, rgba(216,88,130,.11), transparent 22%),
-    radial-gradient(circle at 88% 88%, rgba(47,96,72,.15), transparent 28%);
+  position: relative; isolation: isolate; min-height: 100svh; padding: 0; text-align: center;
+  display: grid; place-items: center; background-color: var(--paper);
+  background-image: linear-gradient(118deg, rgba(255,255,255,.72), rgba(255,255,255,.08) 34%, rgba(197,139,45,.035) 56%, rgba(255,255,255,.36));
 }
 .personal-invitation::after {
   content: "❦"; position: absolute; z-index: -1; right: -11vw; top: -8vh;
   color: var(--eucalyptus); opacity: .18; font-size: min(48vw,330px); line-height: 1; transform: rotate(142deg);
 }
 .personal-invitation-card {
-  position: relative; width: min(680px,100%); margin: auto; padding: 60px 28px 55px;
-  border: 1px solid rgba(197,139,45,.34);
+  position: relative; width: min(780px,100%); min-height: 100svh; margin: 0 auto;
+  padding: clamp(82px,14vh,142px) clamp(32px,8vw,82px);
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  border: 0;
   background-color: rgba(255,250,240,.92);
   background-image:
     linear-gradient(112deg, rgba(255,255,255,.66), transparent 42%, rgba(229,161,44,.035)),
     radial-gradient(circle, rgba(47,96,72,.035) 0 .65px, transparent .8px);
   background-size: 100% 100%, 19px 19px;
-  box-shadow: 0 24px 65px rgba(95,64,33,.1);
+  box-shadow: none;
 }
-.personal-invitation-card::before { content: ""; position: absolute; z-index: 3; inset: 10px; border: 1px solid rgba(197,139,45,.2); pointer-events: none; }
+.personal-invitation-card::before { content: ""; position: absolute; z-index: 3; inset: clamp(18px,4.5vw,52px); border: 1px solid rgba(197,139,45,.22); pointer-events: none; }
 .personal-invitation-card::after {
-  content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none; opacity: .34;
+  content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none; opacity: .54;
   background: url('/festive-floral-frame.webp') center / 100% 100% no-repeat;
 }
 .personal-invitation-card > * { position: relative; z-index: 2; }
@@ -478,21 +476,20 @@ button { font: inherit; }
 .venue-copy p:last-child { max-width: 480px; margin: 28px auto 0; font-size: 17px; line-height: 1.65; }
 
 .countdown-section {
-  isolation: isolate; padding: 13vh 6vw 12vh; text-align: center;
-  background-color: #f4e7ce;
+  isolation: isolate; min-height: 100svh; padding: clamp(92px,14vh,142px) 6vw; text-align: center;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  background-color: var(--paper);
   background-image:
-    radial-gradient(ellipse at 50% 44%, rgba(255,250,240,.99) 0%, rgba(255,250,240,.88) 38%, rgba(255,247,232,.62) 64%, transparent 82%),
-    radial-gradient(circle at 8% 12%, rgba(229,161,44,.2), transparent 30%),
-    radial-gradient(circle at 92% 18%, rgba(216,88,130,.12), transparent 27%),
-    radial-gradient(circle at 86% 88%, rgba(47,96,72,.18), transparent 31%);
+    radial-gradient(ellipse at 50% 50%, rgba(255,250,240,.98) 0%, rgba(255,250,240,.88) 42%, rgba(255,250,240,.34) 72%, transparent 88%),
+    linear-gradient(118deg, rgba(255,255,255,.72), rgba(255,255,255,.08) 34%, rgba(197,139,45,.035) 56%, rgba(255,255,255,.36));
   background-size: 100% 100%;
 }
 .countdown-section::before {
-  content: ""; position: absolute; z-index: 0; inset: -24%; pointer-events: none;
+  content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none;
   background:
-    linear-gradient(116deg, transparent 27%, rgba(255,255,255,.8) 42%, rgba(229,161,44,.09) 50%, rgba(255,255,255,.25) 58%, transparent 72%),
-    radial-gradient(ellipse at 50% 50%, rgba(149,173,105,.12), transparent 55%);
-  transform: rotate(-3deg);
+    radial-gradient(circle at 10% 14%, rgba(229,161,44,.1), transparent 26%),
+    radial-gradient(circle at 91% 18%, rgba(216,88,130,.07), transparent 25%),
+    radial-gradient(circle at 86% 88%, rgba(47,96,72,.09), transparent 29%);
 }
 .countdown-section::after {
   content: ""; position: absolute; z-index: 1; inset: clamp(18px,4.5vw,52px); pointer-events: none;
@@ -500,13 +497,7 @@ button { font: inherit; }
   box-shadow: inset 0 0 60px rgba(255,255,255,.34);
 }
 .countdown-jaali {
-  position: absolute; z-index: 0; inset: -12px; pointer-events: none; opacity: .62;
-  background-image:
-    linear-gradient(45deg, transparent 46%, rgba(47,96,72,.07) 47%, rgba(47,96,72,.07) 49%, transparent 50%),
-    linear-gradient(-45deg, transparent 46%, rgba(217,101,79,.055) 47%, rgba(197,139,45,.055) 49%, transparent 50%);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,.25) 48%, #000 82%);
-  mask-image: radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,.25) 48%, #000 82%);
+  display: none;
 }
 .countdown-botanical {
   position: absolute; z-index: 1; color: var(--eucalyptus); opacity: .2;
@@ -514,7 +505,7 @@ button { font: inherit; }
 }
 .countdown-botanical-left { left: -12vw; top: -5vh; transform: rotate(-26deg); }
 .countdown-botanical-right { right: -12vw; bottom: -6vh; transform: rotate(154deg); }
-.countdown-section > :not(.countdown-jaali):not(.countdown-botanical) { position: relative; z-index: 2; }
+.countdown-section > :not(.countdown-jaali):not(.countdown-botanical):not(.floral-frame) { position: relative; z-index: 2; }
 .countdown-section h2 { font-size: clamp(45px,11vw,74px); }
 .countdown-grid {
   width: min(690px,100%); margin: 55px auto 0; display: grid; grid-template-columns: repeat(4,1fr);
@@ -612,29 +603,24 @@ button { font: inherit; }
 .share-button b { font-size: 17px; font-weight: 400; }
 .share-status { min-height: 20px; margin: 15px 0 0; color: #77736a; font: 500 10px/1.4 Arial,sans-serif; letter-spacing: .08em; }
 .family-compliments {
-  position: relative; min-height: 100svh; padding: 11vh 5vw 12vh; overflow: hidden;
-  display: grid; place-items: center; background-color: var(--paper-soft);
-  background-image:
-    linear-gradient(124deg, transparent 18%, rgba(255,255,255,.66) 43%, transparent 68%),
-    radial-gradient(circle at 8% 10%, rgba(229,161,44,.2), transparent 27%),
-    radial-gradient(circle at 92% 20%, rgba(216,88,130,.11), transparent 25%),
-    radial-gradient(circle at 86% 90%, rgba(47,96,72,.16), transparent 29%),
-    linear-gradient(45deg, transparent 47%, rgba(47,96,72,.045) 48%, transparent 50%),
-    linear-gradient(-45deg, transparent 47%, rgba(217,101,79,.04) 48%, transparent 50%);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 68px 68px, 68px 68px;
+  position: relative; min-height: 100svh; padding: 0; overflow: hidden;
+  display: grid; place-items: center; background-color: var(--paper);
+  background-image: linear-gradient(118deg, rgba(255,255,255,.72), rgba(255,255,255,.08) 34%, rgba(197,139,45,.035) 56%, rgba(255,255,255,.36));
 }
 .compliments-card {
-  position: relative; z-index: 1; width: min(760px,100%); padding: clamp(48px,8vw,76px) clamp(24px,7vw,70px);
+  position: relative; z-index: 1; width: min(780px,100%); min-height: 100svh;
+  padding: clamp(82px,11vh,120px) clamp(30px,7vw,70px);
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
   color: var(--ink); text-align: center; background-color: rgba(255,250,240,.95);
   background-image:
     linear-gradient(118deg, rgba(255,255,255,.6), transparent 48%, rgba(229,161,44,.04)),
     radial-gradient(circle, rgba(47,96,72,.03) 0 .65px, transparent .8px);
   background-size: 100% 100%, 21px 21px;
-  border: 1px solid rgba(197,139,45,.26); box-shadow: 0 22px 70px rgba(95,64,33,.11);
+  border: 0; box-shadow: none;
 }
-.compliments-card::before { content: ""; position: absolute; z-index: 3; inset: 10px; border: 1px solid rgba(197,139,45,.2); pointer-events: none; }
+.compliments-card::before { content: ""; position: absolute; z-index: 3; inset: clamp(18px,4.5vw,52px); border: 1px solid rgba(197,139,45,.22); pointer-events: none; }
 .compliments-card::after {
-  content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none; opacity: .24;
+  content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none; opacity: .54;
   background: url('/festive-floral-frame.webp') center / 100% 100% no-repeat;
 }
 .compliments-card > * { position: relative; z-index: 2; }
@@ -645,7 +631,7 @@ button { font: inherit; }
 .compliments-rule { display: flex; align-items: center; gap: 12px; width: min(310px,78%); margin: 31px auto 28px; color: var(--champagne); }
 .compliments-rule::before, .compliments-rule::after { content: ""; height: 1px; flex: 1; background: var(--hairline); }
 .compliments-rule span { color: var(--lotus); font-size: 10px; }
-.compliments-list { margin: 0; padding: 0; list-style: none; color: #565a53; }
+.compliments-list { width: 100%; margin: 0; padding: 0; list-style: none; color: #565a53; }
 .compliments-list li { margin: 7px 0; font: 400 clamp(14px,3.8vw,21px)/1.42 Georgia,"Times New Roman",serif; text-wrap: balance; }
 .compliments-younger {
   display: flex; flex-wrap: wrap; justify-content: center; gap: 7px 10px; max-width: 520px;
@@ -677,7 +663,7 @@ button { font: inherit; }
   background: url('/festive-floral-frame.webp') center / 100% 100% no-repeat;
 }
 .floral-frame-story { opacity: .5; }
-.floral-frame-countdown { opacity: .38; }
+.floral-frame-countdown { opacity: .58; }
 .floral-frame-closing { opacity: .54; }
 
 .botanical,
