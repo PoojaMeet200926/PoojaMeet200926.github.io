@@ -71,9 +71,9 @@ The program prints the final encoded link. Copy that complete link and send it t
 
 The site shows only the events included in that link. For `--family`, it shows the invited dates but does not mention a guest count. The selected side controls name order throughout the invitation.
 
-## Narayani Garden visual theme
+## Festive Narayani Garden visual theme
 
-The invitation uses the approved Narayani Garden palette: warm ivory paper, deep garden sage, eucalyptus, antique champagne gold, charcoal ink, and restrained blush details. Backgrounds intentionally rotate by section instead of repeating a single solid color:
+The invitation uses the approved Festive Narayani Garden palette: warm festive ivory, peacock green, mehendi, marigold, coral, lotus pink, antique gold, and a restrained indigo accent. The richer Indian celebration colors are inspired by floral mandaps, festive garlands, lotus arrangements, and painted architectural borders without copying any supplied reference artwork. Backgrounds intentionally rotate by section instead of repeating a single solid color:
 
 - oversized pale botanical corners on the story and closing pages;
 - ivory handmade-paper grain on editorial content and cards;
@@ -81,7 +81,7 @@ The invitation uses the approved Narayani Garden palette: warm ivory paper, deep
 - a faint geometric jaali lattice behind the event schedule;
 - botanical and lattice details on the Pooja-side family compliments page.
 
-Patterns remain low contrast so English and Gujarati copy stays readable. The red-and-black OM SHANTI emblem is not recolored by the theme.
+Patterns remain low contrast so English and Gujarati copy stays readable. Countdown numerals and event-date rails use controlled color rotation for a more celebratory rhythm. The red-and-black OM SHANTI emblem is not recolored by the theme.
 
 ## English and Gujarati
 

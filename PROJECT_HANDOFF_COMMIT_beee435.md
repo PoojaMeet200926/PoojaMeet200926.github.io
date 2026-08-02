@@ -1036,16 +1036,20 @@ Do not make the effect dense, interactive, or visually dominant; its approved ro
 ### 12.1 CSS color tokens
 
 ```css
---ivory: #f7f3eb;
---paper: #fffdf8;
---paper-soft: #eee8dd;
---ink: #383a35;
---sage: #7f8d7b;
---sage-deep: #46564a;
---eucalyptus: #a8b3a1;
---champagne: #b9975b;
---blush: #dec9c0;
---hairline: rgba(70, 86, 74, 0.18);
+--ivory: #fff7e8;
+--paper: #fffaf0;
+--paper-soft: #f3e4c9;
+--ink: #3f342d;
+--sage: #788b3f;
+--sage-deep: #2f6048;
+--eucalyptus: #95ad69;
+--champagne: #c58b2d;
+--blush: #efad9a;
+--marigold: #e5a12c;
+--coral: #d9654f;
+--lotus: #d85882;
+--indigo: #57478c;
+--hairline: rgba(151, 105, 36, 0.22);
 ```
 
 ### 12.2 Design direction
@@ -1059,7 +1063,7 @@ Do not make the effect dense, interactive, or visually dominant; its approved ro
 - Script typography is reserved for names and emotional accents.
 - Sans serif is used for small uppercase/navigation labels.
 - Narayani Heights image provides the site-specific visual anchor.
-- The approved theme name is **Narayani Garden**.
+- The approved current theme name is **Festive Narayani Garden**.
 - Story and closing sections use oversized low-opacity botanical corner forms.
 - Editorial surfaces use layered CSS gradients to suggest handmade ivory paper grain.
 - Personalized invitation and countdown sections use selective silk-light highlights.
@@ -1809,9 +1813,9 @@ Compact Gujarati month labels are deliberately larger than their English counter
 
 This document describes both the historical `beee435` baseline and every approved forward change listed in its Living handoff status. Later changes must be appended rather than silently treated as part of the original baseline.
 
-### Current approved forward state — Narayani Garden theme
+### Previous approved forward state — Narayani Garden neutral foundation
 
-The site-wide palette has been updated to the owner-approved **Narayani Garden** direction. The canonical tokens are warm ivory `#f7f3eb`, paper `#fffdf8`, soft paper `#eee8dd`, charcoal ink `#383a35`, garden sage `#7f8d7b`, deep sage `#46564a`, eucalyptus `#a8b3a1`, antique champagne `#b9975b`, and blush `#dec9c0`. The OM SHANTI source asset remains unchanged and continues to display in its protected red-and-black colors.
+At that stage, the site-wide palette used the owner-approved **Narayani Garden** neutral direction. Its then-current tokens were warm ivory `#f7f3eb`, paper `#fffdf8`, soft paper `#eee8dd`, charcoal ink `#383a35`, garden sage `#7f8d7b`, deep sage `#46564a`, eucalyptus `#a8b3a1`, antique champagne `#b9975b`, and blush `#dec9c0`. These historical values are superseded by the Festive Narayani Garden section below. The OM SHANTI source asset remained unchanged in its protected red-and-black colors.
 
 Background treatment is deliberately varied but coordinated:
 
@@ -1830,5 +1834,38 @@ Validation after the Narayani Garden change:
 Production build: PASS
 JavaScript current feature tests: 9 PASS / 0 FAIL
 Python invitation-link tests: 5 PASS / 0 FAIL
+Git diff whitespace check: PASS
+```
+
+### Current approved forward state — Festive Narayani Garden color evolution
+
+The neutral Narayani Garden foundation above remains part of the design history, but its former canonical token values are superseded by the current palette in section 12.1. The owner requested a more colorful Indian celebration character inspired by supplied examples featuring painted arches, festive foliage, marigold garlands, lotus flowers, and ceremonial color. The implementation deliberately borrows only the color mood, not the reference illustrations, borders, layouts, figures, or religious artwork.
+
+Current color roles:
+
+- Peacock green `#2f6048`: primary structure, buttons, links, invocation, and featured surfaces.
+- Mehendi `#788b3f` and leaf green `#95ad69`: botanical transitions and garden foliage.
+- Marigold `#e5a12c` and antique gold `#c58b2d`: festive highlights, time details, frames, and rules.
+- Coral `#d9654f` and lotus pink `#d85882`: petals, small ornaments, soft color blooms, and selected accents.
+- Indigo `#57478c`: a restrained counter-accent used in the falling botanicals and schedule/countdown rhythm.
+- Festive ivory `#fff7e8`, paper `#fffaf0`, and warm paper `#f3e4c9`: readable editorial surfaces that prevent the richer accents from overwhelming English or Gujarati text.
+
+Visible application:
+
+- Falling petals now rotate through marigold, lotus, coral, and indigo while leaves remain green.
+- Opening-card names use peacock green with a coral ampersand; Ganeshji remains gold.
+- Story, invitation, countdown, events, closing, and compliments backgrounds include different combinations of marigold, lotus, coral, peacock, and indigo color blooms.
+- Botanical corner glyphs use one shared peacock–mehendi–marigold–lotus–indigo gradient.
+- Countdown numbers rotate through peacock, dark marigold, deep lotus, and indigo.
+- Non-featured event date rails rotate through peacock, ochre, deep lotus, and indigo; featured cards retain a deep garden surface with a marigold-gold date rail.
+- The OM SHANTI emblem asset and its protected red-and-black colors remain unchanged.
+
+The layout, venue photography, copy, bilingual behavior, invitation-token decoding, invited-day filtering, invited-person logic, map links, opening transition, accessibility labels, and share behavior are unchanged by this color-only evolution.
+
+Validation after the Festive Narayani Garden change:
+
+```text
+Production build: PASS
+JavaScript current feature tests: 9 PASS / 0 FAIL
 Git diff whitespace check: PASS
 ```
