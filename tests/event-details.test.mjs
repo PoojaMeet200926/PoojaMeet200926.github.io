@@ -49,3 +49,17 @@ test("localizes every rendered number for Gujarati and enlarges statement labels
   assert.match(css, /\.eyebrow, \.section-kicker \{[^}]*clamp\(12px,3vw,14px\)/);
   assert.match(css, /\.language-gu \.eyebrow, \.language-gu \.section-kicker \{ font-size: clamp\(13px,3\.2vw,15px\)/);
 });
+
+test("personalizes the celebrations heading for the encoded invitation side", async () => {
+  const [page, copy] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/invitation-copy.ts", root), "utf8"),
+  ]);
+
+  assert.match(page, /invitationDetails \? copy\.weekendFor\(firstName\) : copy\.weekend/);
+  assert.match(page, /invitationDetails \? copy\.celebrateFor\(firstName\) : copy\.celebrate/);
+  assert.match(copy, /weekendFor: \(name: string\) => `\$\{name\}'s wedding weekend`/);
+  assert.match(copy, /celebrateFor: \(name: string\) => `Celebrate \$\{name\}'s wedding`/);
+  assert.match(copy, /weekendFor: \(name: string\) => `\$\{name\}નો લગ્નોત્સવ`/);
+  assert.match(copy, /celebrateFor: \(name: string\) => `\$\{name\}ના લગ્નની ઉજવણી`/);
+});

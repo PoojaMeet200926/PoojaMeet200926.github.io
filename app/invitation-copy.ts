@@ -111,7 +111,9 @@ export const COPY = {
     countdownHeading: "Until we celebrate",
     countdownUnits: ["Days", "Hours", "Minutes", "Seconds"],
     weekend: "The wedding weekend",
+    weekendFor: (name: string) => `${name}'s wedding weekend`,
     celebrate: "Celebrate with us",
+    celebrateFor: (name: string) => `Celebrate ${name}'s wedding`,
     weekdays: { friday: "Friday", saturday: "Saturday", sunday: "Sunday" },
     eventTitles: {
       ganesh: "Ganesh Sthapan · Mandap Muhurat · Grah Shanti",
@@ -207,7 +209,9 @@ export const COPY = {
     countdownHeading: "ઉજવણી સુધી",
     countdownUnits: ["દિવસ", "કલાક", "મિનિટ", "સેકન્ડ"],
     weekend: "લગ્નોત્સવ",
+    weekendFor: (name: string) => `${name}નો લગ્નોત્સવ`,
     celebrate: "અમારી સાથે ઉજવો",
+    celebrateFor: (name: string) => `${name}ના લગ્નની ઉજવણી`,
     weekdays: { friday: "શુક્રવાર", saturday: "શનિવાર", sunday: "રવિવાર" },
     eventTitles: {
       ganesh: "ગણેશ સ્થાપન · મંડપ મુહૂર્ત · ગ્રહ શાંતિ",

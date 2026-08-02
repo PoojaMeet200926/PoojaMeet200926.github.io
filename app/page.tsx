@@ -490,8 +490,10 @@ export default function Home() {
       <section className="events-section" id="events">
         <div className="event-garland" aria-hidden="true" />
         <div className="events-heading">
-          <p className="section-kicker">{copy.weekend}</p>
-          <h2>{copy.celebrate}</h2>
+          <p className="section-kicker">
+            {invitationDetails ? copy.weekendFor(firstName) : copy.weekend}
+          </p>
+          <h2>{invitationDetails ? copy.celebrateFor(firstName) : copy.celebrate}</h2>
           <p>{displayDetails.eventCopy}</p>
         </div>
         <div className="event-list">
