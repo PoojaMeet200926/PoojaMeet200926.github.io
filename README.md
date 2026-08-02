@@ -75,7 +75,7 @@ The site shows only the events included in that link. For `--family`, it shows t
 
 Guests can switch the complete invitation between English and Gujarati using the fixed language button in the top-right corner. The selection is saved on that device and does not modify the guest's encoded invitation link, invited dates, guest count, or name order.
 
-Gujarati mode converts dates, years, times, countdown values, event indexes, guest counts, address numbers, and pincodes to Gujarati numerals. The event schedule includes Sangeet with Dinner at 08:00 PM, Wedding Ceremony with Lunch at 12:30 PM, and a separate featured Vidai card for Sunday, 20 September at 03:00 PM.
+Gujarati mode converts dates, years, times, countdown values, event indexes, guest counts, address numbers, and pincodes to Gujarati numerals. The event schedule includes the Ganesh rituals at 08:00 AM, Sangeet with Dinner at 08:00 PM, Wedding Ceremony with Hast Melap at 11:00 AM above Lunch at 12:30 PM, and a separate featured Vidai card for Sunday, 20 September at 03:00 PM.
 
 ### JavaScript alternative
 

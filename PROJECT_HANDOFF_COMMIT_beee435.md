@@ -29,6 +29,7 @@ This document is now maintained as a living handoff. Commit `beee435` remains th
 - 1 August 2026: replace the formal Gujarati guest-allocation wording containing `અનામત` with natural welcome copy. Singular is `આપનું સહર્ષ સ્વાગત છે.` and plural is `આપ સહિત કુલ {count} મહેમાનોનું સહર્ષ સ્વાગત છે.`; encoded count behavior is unchanged.
 - 1 August 2026: correct the Narayani Heights Gujarati venue description from `હરિયાળાં લૉન` to `હરિયાળી લૉન`. On Pooja-side links, the revealed names card now shows only a centered Ganeshji emblem plus `॥ श्री गणेशाय नमः ॥`; OM SHANTI is omitted there. The first Narayani Heights hero keeps the combined Ganeshji/OM SHANTI panel, but the invocation has moved off that page and onto the revealed card.
 - 1 August 2026: simplify the Pooja-side Narayani Heights hero to a smaller centered OM SHANTI emblem with no Ganeshji and no white backing panel; the revealed card still keeps Ganeshji and the invocation. Correct Gujarati `નૈશા` to `નાયશા`, localize every displayed numeral to Gujarati digits in Gujarati mode, enlarge all eyebrow/section-kicker statements, add featured Vidai (`વિદાય`) on 20 September at 03:00 PM, pair Sangeet with Dinner at 08:00 PM, and pair Wedding Ceremony with Lunch at 12:30 PM.
+- 2 August 2026: reduce the hero OM SHANTI crop to `min(80px, 19vw)` and widen its crop window to a `640 / 680` aspect ratio so the complete lettering remains visible. Set the 18 September Ganesh rituals to 08:00 AM / `સવારે 08:00`, and add Hast Melap / `હસ્ત મેળાપ` at 11:00 AM inside the Wedding Ceremony card, directly above Lunch.
 
 ---
 
@@ -477,9 +478,9 @@ https://maps.app.goo.gl/g4FNbs7ANbroAfxb8
 Events:
 
 1. Ganesh Sthapan / Mandap Muhurat / Grah Shanti
-   - English supporting copy: “An auspicious beginning”
+   - English time: 08:00 AM
    - Gujarati title lines: `ગણેશ સ્થાપન`, `મંડપ મુહૂર્ત`, `ગ્રહ શાંતિ`
-   - Gujarati supporting copy: `શુભ શરૂઆત`
+   - Gujarati time: `સવારે 08:00` (rendered with Gujarati numerals in Gujarati mode)
 2. Mehendi
    - English supporting copy: “An afternoon of henna & happiness”
    - Gujarati title: `મહેંદી`
@@ -530,7 +531,8 @@ Event: Wedding Ceremony / `લગ્નવિધિ`
   - Meet side: `Meet weds Pooja`;
   - Pooja side: `Pooja weds Meet`;
   - Gujarati equivalent: `<first> અને <second>ના શુભ લગ્ન`.
-- Lunch appears in the same card at 12:30 PM / `બપોરે 12:30`.
+- Hast Melap / `હસ્ત મેળાપ` appears at 11:00 AM / `સવારે 11:00`.
+- Lunch appears directly below Hast Melap at 12:30 PM / `બપોરે 12:30`.
 - No wedding ceremony clock time is stored.
 
 Event: Vidai / `વિદાય`
@@ -1599,6 +1601,7 @@ This is a new capability. Decide privacy, fields, authentication, spam protectio
 - [ ] Lunch has the same heading hierarchy as Haldi and a smaller time.
 - [ ] Sangeet shares its card with Dinner at 08:00 PM.
 - [ ] Wedding Ceremony shares its card with Lunch at 12:30 PM.
+- [ ] Wedding Ceremony shows Hast Melap / `હસ્ત મેળાપ` at 11:00 AM directly above Lunch.
 - [ ] Vidai appears on 20 September at 03:00 PM in featured styling.
 - [ ] Gujarati mode uses Gujarati numerals for all visible dates, times, countdown values, indexes, guest counts, addresses, and pincodes.
 - [ ] Names, dates, directions, share feedback, and accessibility labels translate.
@@ -1735,7 +1738,7 @@ PROJECT_HANDOFF_COMMIT_beee435.md
 
 The combined emblem was prepared from the two owner-supplied reference images. Ganeshji was changed to champagne gold, the OM SHANTI emblem was constrained to preserve red sunburst/black lettering, a flat temporary chroma background was removed, transparent bounds were cropped with padding, and only the final RGBA PNG was kept in the project.
 
-The same unchanged PNG supports two Pooja-side presentations. The temporary revealed opening card uses a CSS crop to show only centered Ganeshji, followed by the exact Devanagari invocation `॥ श्री गणेशाय नमः ॥` in deep sage. The first Narayani Heights hero uses a separate right-side CSS crop to show only a smaller centered OM SHANTI emblem. It has no Ganeshji, border, white/ivory backing, shadow, blur, or invocation. Hero placement is conditional on the decoded side exactly matching `pooja`; missing, invalid, and Meet-side links do not display it there.
+The same unchanged PNG supports two Pooja-side presentations. The temporary revealed opening card uses a CSS crop to show only centered Ganeshji, followed by the exact Devanagari invocation `॥ श्री गणेशाय नमः ॥` in deep sage. The first Narayani Heights hero uses a separate right-side CSS crop to show only a smaller centered OM SHANTI emblem. Its width is `min(80px, 19vw)` and its `640 / 680` crop window includes the complete `OM SHANTI` lettering without clipping. It has no Ganeshji, border, white/ivory backing, shadow, blur, or invocation. Hero placement is conditional on the decoded side exactly matching `pooja`; missing, invalid, and Meet-side links do not display it there.
 
 The first-page navigation control is an accessible anchor styled as a button with `href="#story"`. It uses the existing localized `explore` and `exploreAria` copy. The global `html { scroll-behavior: smooth; }` rule provides the requested transition, and the project’s existing `prefers-reduced-motion` rule changes it to `auto` for guests who disable animation.
 

@@ -479,7 +479,24 @@ export default function Home() {
               </div>
               <div className="event-details">
                 <p className="event-index">{formatDigits(String(index + 1).padStart(2, "0"))}</p>
-                {event.meal ? (
+                {event.key === "wedding" ? (
+                  <div className="event-schedule-pair event-schedule-pair-wedding">
+                    <div className="event-schedule-item">
+                      <h3>{copy.eventTitles.wedding}</h3>
+                      <p className="event-time">{copy.weds(firstName, secondName)}</p>
+                    </div>
+                    <div className="event-schedule-stack">
+                      <div className="event-schedule-item">
+                        <h3>{copy.hastaMelapTitle}</h3>
+                        <p className="event-time">{formatDigits(copy.hastaMelapTime)}</p>
+                      </div>
+                      <div className="event-schedule-item">
+                        <h3>{copy.lunchTitle}</h3>
+                        <p className="event-time">{formatDigits(copy.lunchTime)}</p>
+                      </div>
+                    </div>
+                  </div>
+                ) : event.meal ? (
                   <div className="event-schedule-pair">
                     <div className="event-schedule-item">
                       <h3>{copy.eventTitles[event.key]}</h3>
