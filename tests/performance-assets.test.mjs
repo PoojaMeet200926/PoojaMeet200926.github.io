@@ -1,0 +1,23 @@
+import assert from "node:assert/strict";
+import { readFile, stat } from "node:fs/promises";
+import test from "node:test";
+
+const root = new URL("../", import.meta.url);
+
+test("keeps the opening screen lightweight and defers noncritical assets", async () => {
+  const [layout, page, css, lid, bow] = await Promise.all([
+    readFile(new URL("app/layout.tsx", root), "utf8"),
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/globals.css", root), "utf8"),
+    stat(new URL("public/invitation-box-lid.webp", root)),
+    stat(new URL("public/satin-bow-v2.webp", root)),
+  ]);
+
+  assert.ok(lid.size + bow.size < 400 * 1024, "critical opening images must remain under 400 KB");
+  assert.match(layout, /rel="preload"[\s\S]*?href="\/invitation-box-lid\.webp"[\s\S]*?fetchPriority="high"/);
+  assert.match(layout, /rel="preload" href="\/satin-bow-v2\.webp"/);
+  assert.doesNotMatch(layout, /fonts\.googleapis\.com/);
+  assert.match(page, /language !== "gu"[\s\S]*?fonts\.googleapis\.com/);
+  assert.match(css, /\.gate-untying \.gate-inner-card[\s\S]*?url\('\/narayani-heights-venue\.webp'\)/);
+  assert.match(css, /\.invitation-open \.event-garland \{ background-image: url\('\/festive-floral-garland-optimized\.webp'\); \}/);
+});

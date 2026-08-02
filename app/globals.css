@@ -124,7 +124,7 @@ button { font: inherit; }
 }
 .cover-flap {
   position: absolute; inset: 0; overflow: hidden; backface-visibility: hidden;
-  background: url('/invitation-box-lid.png') center/cover no-repeat;
+  background: url('/invitation-box-lid.webp') center/cover no-repeat;
   box-shadow: inset 0 0 0 1px rgba(143,117,79,.18);
   transform: translate3d(0,0,0);
   will-change: transform, opacity;
@@ -188,7 +188,7 @@ button { font: inherit; }
 }
 .bow-piece {
   position: absolute; inset: 0; display: block;
-  background: url('/satin-bow-v2.png') center/contain no-repeat;
+  background: url('/satin-bow-v2.webp') center/contain no-repeat;
   backface-visibility: hidden; will-change: transform, opacity;
 }
 .bow-loop-left {
@@ -219,9 +219,7 @@ button { font: inherit; }
 .gate-inner-card {
   position: absolute; z-index: 3; display: flex; align-items: center; justify-content: center; flex-direction: column;
   padding: 48px 28px; color: #4b4c45; text-align: center;
-  background:
-    linear-gradient(rgba(255,253,248,.88),rgba(249,244,236,.92)),
-    url('/narayani-heights-venue.png') center/cover no-repeat;
+  background: linear-gradient(rgba(255,253,248,.88),rgba(249,244,236,.92));
   border: 1px solid rgba(162,132,87,.38); box-shadow: 0 26px 60px rgba(60,49,40,.2);
   opacity: 0; transform: translateZ(0) scale(.94); will-change: transform, opacity;
   transition: opacity .5s ease .35s, transform 1.45s cubic-bezier(.16,.76,.18,1) .32s;
@@ -229,7 +227,20 @@ button { font: inherit; }
 .gate-inner-card::before { content: ""; position: absolute; z-index: 2; inset: 12px; border: 1px solid rgba(171,145,104,.32); pointer-events: none; }
 .gate-inner-card::after {
   content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none; opacity: .44;
-  background: url('/festive-floral-frame.webp') center / 100% 100% no-repeat;
+  background-position: center; background-size: 100% 100%; background-repeat: no-repeat;
+}
+.gate-untying .gate-inner-card,
+.gate-opening .gate-inner-card,
+.gate-revealed .gate-inner-card {
+  background-image:
+    linear-gradient(rgba(255,253,248,.88),rgba(249,244,236,.92)),
+    url('/narayani-heights-venue.webp');
+  background-position: center; background-size: 100% 100%, cover; background-repeat: no-repeat;
+}
+.gate-untying .gate-inner-card::after,
+.gate-opening .gate-inner-card::after,
+.gate-revealed .gate-inner-card::after {
+  background-image: url('/festive-floral-frame-optimized.webp');
 }
 .gate-inner-card-pooja::after { opacity: .28; }
 .gate-inner-card > * {
@@ -239,8 +250,11 @@ button { font: inherit; }
 .gate-inner-card-pooja { padding-top: 30px; padding-bottom: 30px; }
 .pooja-ganesh-emblem {
   width: min(102px,32%); aspect-ratio: 600 / 680; margin: 0 auto;
-  background: url('/pooja-blessings.png') left top / auto 100% no-repeat;
+  background-position: left top; background-size: auto 100%; background-repeat: no-repeat;
 }
+.gate-untying .pooja-ganesh-emblem,
+.gate-opening .pooja-ganesh-emblem,
+.gate-revealed .pooja-ganesh-emblem { background-image: url('/pooja-blessings.webp'); }
 .gate-inner-card-pooja > .gate-blessing-invocation {
   margin: 7px 0 0; color: var(--sage-deep); text-transform: none;
   font: 600 clamp(13px,3.8vw,17px)/1.25 "Noto Serif Devanagari","Nirmala UI",serif;
@@ -370,7 +384,15 @@ button { font: inherit; }
 }
 
 .hero { position: relative; min-height: 100svh; display: grid; place-items: center; overflow: hidden; isolation: isolate; }
-.hero-image, .venue-image { position: absolute; inset: 0; background: url('/narayani-heights-venue.png') center/cover no-repeat; }
+.hero-image, .venue-image {
+  position: absolute; inset: 0; background-color: #7e806f;
+  background-position: center; background-size: cover; background-repeat: no-repeat;
+}
+.invitation-untying .hero-image,
+.invitation-opening .hero-image,
+.invitation-revealed .hero-image,
+.invitation-open .hero-image,
+.invitation-open .venue-image { background-image: url('/narayani-heights-venue.webp'); }
 .hero-image { transform: scale(1.035); animation: heroZoom 12s ease-out both; }
 .hero-wash { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg,rgba(255,247,232,.1),rgba(47,96,72,.03) 52%,rgba(31,56,41,.37)); }
 .door { position: absolute; top: 0; bottom: 0; z-index: 5; width: 51%; background: linear-gradient(90deg,#f0dfc4,#fffaf0 52%,#e2cfae); box-shadow: 0 0 50px rgba(91,67,34,.24); }
@@ -385,8 +407,9 @@ button { font: inherit; }
 .hero-om-shanti {
   position: absolute; z-index: 3; top: max(58px,calc(env(safe-area-inset-top) + 50px)); left: 50%;
   width: min(70px,16.5vw); aspect-ratio: 640 / 680; transform: translateX(-50%);
-  background: url('/pooja-blessings.png') right top / auto 100% no-repeat;
+  background-position: right top; background-size: auto 100%; background-repeat: no-repeat;
 }
+.invitation-open .hero-om-shanti { background-image: url('/pooja-blessings.webp'); }
 .eyebrow, .section-kicker { margin: 0 0 18px; font: 600 clamp(12px,3vw,14px)/1.4 Arial,sans-serif; letter-spacing: .25em; text-transform: uppercase; }
 .hero h1 { margin: 0; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; font-weight: 400; }
 .hero h1 span { font: 400 clamp(64px,20vw,118px)/.77 "Snell Roundhand","Segoe Script",cursive; }
@@ -459,8 +482,9 @@ button { font: inherit; }
 .personal-invitation-card::before { content: ""; position: absolute; z-index: 3; inset: clamp(18px,4.5vw,52px); border: 1px solid rgba(197,139,45,.22); pointer-events: none; }
 .personal-invitation-card::after {
   content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none; opacity: .54;
-  background: url('/festive-floral-frame.webp') center / 100% 100% no-repeat;
+  background-position: center; background-size: 100% 100%; background-repeat: no-repeat;
 }
+.invitation-open .personal-invitation-card::after { background-image: url('/festive-floral-frame-optimized.webp'); }
 .personal-invitation-card > * { position: relative; z-index: 2; }
 .personal-floret { display: block; margin-bottom: 20px; color: var(--lotus); font-size: 14px; }
 .guest-allocation { margin: 28px auto 0; color: var(--ink); font-size: clamp(25px,6vw,36px); line-height: 1.38; }
@@ -535,8 +559,9 @@ button { font: inherit; }
 }
 .events-section::before {
   content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none; opacity: .42;
-  background: url('/festive-floral-frame.webp') center top / min(100%,780px) 100svh repeat-y;
+  background-position: center top; background-size: min(100%,780px) 100svh; background-repeat: repeat-y;
 }
+.invitation-open .events-section::before { background-image: url('/festive-floral-frame-optimized.webp'); }
 .events-section::after {
   content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none;
   background:
@@ -548,8 +573,9 @@ button { font: inherit; }
 .event-garland {
   position: absolute; z-index: 1; top: -1.5vw; left: 50%; width: min(1100px,126vw); aspect-ratio: 3 / 1;
   transform: translateX(-50%); pointer-events: none; opacity: .84;
-  background: url('/festive-floral-garland.webp') center top / contain no-repeat;
+  background-position: center top; background-size: contain; background-repeat: no-repeat;
 }
+.invitation-open .event-garland { background-image: url('/festive-floral-garland-optimized.webp'); }
 .events-heading { z-index: 2; width: min(650px,100%); margin: 0 auto 65px; padding-top: clamp(68px,16vw,126px); text-align: center; }
 .event-list { z-index: 2; }
 .events-heading h2 { font-size: clamp(48px,13vw,82px); }
@@ -637,8 +663,9 @@ button { font: inherit; }
 }
 .compliments-card::after {
   content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none; opacity: .54;
-  background: url('/festive-floral-frame.webp') center / 100% 100% no-repeat;
+  background-position: center; background-size: 100% 100%; background-repeat: no-repeat;
 }
+.invitation-open .compliments-card::after { background-image: url('/festive-floral-frame-optimized.webp'); }
 .compliments-card > * { position: relative; z-index: 2; }
 .compliments-heading-panel {
   width: min(590px,100%); padding: 0; background: none; border: 0; border-radius: 0; box-shadow: none;
@@ -690,8 +717,9 @@ button { font: inherit; }
 .floral-frame {
   position: absolute; z-index: 1; top: 0; bottom: 0; left: 50%; width: min(100%,780px);
   transform: translateX(-50%); pointer-events: none;
-  background: url('/festive-floral-frame.webp') center / 100% 100% no-repeat;
+  background-position: center; background-size: 100% 100%; background-repeat: no-repeat;
 }
+.invitation-open .floral-frame { background-image: url('/festive-floral-frame-optimized.webp'); }
 .floral-frame-story { opacity: .5; }
 .floral-frame-countdown { opacity: .58; }
 .floral-frame-closing { opacity: .54; }

@@ -226,6 +226,15 @@ export default function Home() {
   }, [language]);
 
   useEffect(() => {
+    if (language !== "gu" || document.getElementById("noto-serif-gujarati")) return;
+    const fontStylesheet = document.createElement("link");
+    fontStylesheet.id = "noto-serif-gujarati";
+    fontStylesheet.rel = "stylesheet";
+    fontStylesheet.href = "https://fonts.googleapis.com/css2?family=Noto+Serif+Gujarati:wght@400;500;600&display=swap";
+    document.head.append(fontStylesheet);
+  }, [language]);
+
+  useEffect(() => {
     document.body.style.overflow = invitationState === "open" ? "" : "hidden";
     return () => {
       document.body.style.overflow = "";

@@ -32,12 +32,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Serif+Gujarati:wght@400;500;600&display=swap"
-          rel="stylesheet"
+          rel="preload"
+          href="/invitation-box-lid.webp"
+          as="image"
+          type="image/webp"
+          fetchPriority="high"
         />
+        <link rel="preload" href="/satin-bow-v2.webp" as="image" type="image/webp" />
       </head>
       <body>{children}</body>
     </html>
