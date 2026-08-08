@@ -44,10 +44,11 @@ test("adds the parents' complete invitation message only to Meet's side", async 
   assert.match(page, /copy\.meetFamilyMessage\.parentPairs\.map/);
   assert.match(copy, /heading: "પધારજો"/);
   assert.match(copy, /"નર્મદાબેન તથા રેવાભાઈ હરજીવનદાસ મોદી પરિવાર ગૃહે"/);
-  assert.match(copy, /"સહર્ષ ખુશાલી સાથે કાંતાબેન તથા ધીરજલાલ મોદી વડોદરાથી/);
+  assert.match(copy, /"સહર્ષ ખુશાલી સાથે કાન્તાબેન તથા ધીરજલાલ મોદી વડોદરાથી/);
   assert.match(copy, /"શ્રી મોઢેશ્વરી માતાજીની અસીમ કૃપાથી સંવત ૨૦૮૨ના ભાદરવા સુદ નોમને રવિવાર, ૨૦\/૦૯\/૨૦૨૬/);
   assert.match(copy, /\["શ્રી મુકેશકુમાર મોદી", "શ્રી કેતનભાઈ મોદી"\]/);
-  assert.match(copy, /\["બેલાબેન મોદી", "ધર્મિષ્ઠાબેન મોદી"\]/);
+  assert.match(copy, /શુભ દિને નિર્ધાર્યા છે/);
+  assert.match(copy, /\["શ્રીમતી બેલાબેન મોદી", "શ્રીમતી ધર્મિષ્ઠાબેન મોદી"\]/);
   assert.match(css, /\.meet-parent-pair span \+ span \{ border-left: 1px solid/);
   assert.match(css, /\.invitation-open \.meet-family-message \{[\s\S]*?background-repeat: repeat-y;/);
 });
