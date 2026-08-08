@@ -40,6 +40,10 @@ test("shows Ganeshji blessings for both sides and OM SHANTI only for Pooja", asy
   assert.equal(deityTrio.subarray(0, 4).toString("ascii"), "RIFF");
   assert.equal(deityTrio.subarray(8, 12).toString("ascii"), "WEBP");
   assert.ok(deityTrio.length < 300 * 1024, "Meet deity trio must remain under 300 KB");
+  assert.equal(
+    createHash("sha256").update(deityTrio).digest("hex"),
+    "713977604438b6152272bce07b0d8498bfc941d684a8eebb4bd6b8dc4956e28f",
+  );
 });
 
 test("adds the parents' complete invitation message only to Meet's side", async () => {

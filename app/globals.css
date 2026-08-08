@@ -424,7 +424,7 @@ button { font: inherit; }
   position: absolute; z-index: 3; top: max(68px,calc(env(safe-area-inset-top) + 60px)); left: 50%;
   width: min(340px,68vw); aspect-ratio: 1665 / 945; transform: translateX(-50%);
   background: url('/meet-deity-trio.webp') center/contain no-repeat;
-  filter: drop-shadow(0 2px 8px rgba(255,250,240,.76)) drop-shadow(0 4px 12px rgba(39,42,38,.2));
+  filter: drop-shadow(0 2px 7px rgba(255,247,232,.5)) drop-shadow(0 4px 14px rgba(47,96,72,.28));
   opacity: 0;
 }
 .invitation-open .hero-deity-trio { animation: deityTrioReveal 1.15s ease 1.28s both; }
