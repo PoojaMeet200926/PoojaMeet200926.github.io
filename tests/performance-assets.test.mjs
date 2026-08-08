@@ -46,6 +46,7 @@ test("opens the ribbon with tap, click, multidirectional gestures, wheel, and ke
   assert.match(page, /onClick=\{openInvitation\}/);
   assert.match(page, /onPointerDown=\{beginOpeningGesture\}/);
   assert.match(page, /onPointerMove=\{continueOpeningGesture\}/);
+  assert.match(page, /const finishOpeningGesture[\s\S]*?openingGestureRef\.current = null;[\s\S]*?openInvitation\(\);/);
   assert.match(page, /Math\.hypot\(event\.clientX - start\.x, event\.clientY - start\.y\)/);
   assert.match(page, /onWheel=\{openFromWheel\}/);
   assert.match(page, /onKeyDown=\{openFromKeyboard\}/);

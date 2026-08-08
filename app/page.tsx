@@ -491,8 +491,18 @@ export default function Home() {
   };
 
   const finishOpeningGesture = (event: ReactPointerEvent<HTMLDivElement>) => {
-    continueOpeningGesture(event);
+    const start = openingGestureRef.current;
+    if (!start || start.pointerId !== event.pointerId) return;
+    if (Math.hypot(event.clientX - start.x, event.clientY - start.y) >= 18) {
+      continueOpeningGesture(event);
+      return;
+    }
+
     openingGestureRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    openInvitation();
   };
 
   const cancelOpeningGesture = () => {
