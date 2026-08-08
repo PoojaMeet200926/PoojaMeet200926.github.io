@@ -445,7 +445,7 @@ button { font: inherit; }
     radial-gradient(ellipse at 15% 82%, rgba(229,161,44,.1), transparent 34%),
     radial-gradient(ellipse at 86% 70%, rgba(216,88,130,.065), transparent 36%);
 }
-.story > :not(.botanical):not(.floral-frame) { position: relative; z-index: 2; }
+.story > :not(.botanical) { position: relative; z-index: 2; }
 .section-kicker { color: var(--sage-deep); }
 .story h2, .countdown-section h2, .events-heading h2, .closing h2, .venue-copy h2 { margin: 0; font-weight: 400; font-size: clamp(42px,12vw,78px); line-height: .98; letter-spacing: -.035em; }
 .story h2 em, .venue-copy h2 em { color: var(--champagne); font: 400 .85em/1.2 "Snell Roundhand","Segoe Script",cursive; }
@@ -468,7 +468,7 @@ button { font: inherit; }
   color: var(--eucalyptus); opacity: .18; font-size: min(48vw,330px); line-height: 1; transform: rotate(142deg);
 }
 .personal-invitation-card {
-  position: relative; width: min(780px,100%); min-height: 100svh; margin: 0 auto;
+  position: relative; width: 100%; min-height: 100svh; margin: 0 auto;
   padding: clamp(82px,14vh,142px) clamp(32px,8vw,82px);
   display: flex; align-items: center; justify-content: center; flex-direction: column;
   border: 0;
@@ -480,11 +480,6 @@ button { font: inherit; }
   box-shadow: none;
 }
 .personal-invitation-card::before { content: ""; position: absolute; z-index: 3; inset: clamp(18px,4.5vw,52px); border: 1px solid rgba(197,139,45,.22); pointer-events: none; }
-.personal-invitation-card::after {
-  content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none; opacity: .54;
-  background-position: center; background-size: 100% 100%; background-repeat: no-repeat;
-}
-.invitation-open .personal-invitation-card::after { background-image: url('/festive-floral-frame-optimized.webp'); }
 .personal-invitation-card > * { position: relative; z-index: 2; }
 .personal-floret { display: block; margin-bottom: 20px; color: var(--lotus); font-size: 14px; }
 .guest-allocation { margin: 28px auto 0; color: var(--ink); font-size: clamp(25px,6vw,36px); line-height: 1.38; }
@@ -529,7 +524,7 @@ button { font: inherit; }
 }
 .countdown-botanical-left { left: -12vw; top: -5vh; transform: rotate(-26deg); }
 .countdown-botanical-right { right: -12vw; bottom: -6vh; transform: rotate(154deg); }
-.countdown-section > :not(.countdown-jaali):not(.countdown-botanical):not(.floral-frame) { position: relative; z-index: 2; }
+.countdown-section > :not(.countdown-jaali):not(.countdown-botanical) { position: relative; z-index: 2; }
 .countdown-section h2 { font-size: clamp(45px,11vw,74px); }
 .countdown-grid {
   width: min(690px,100%); margin: 55px auto 0; display: grid; grid-template-columns: repeat(4,1fr);
@@ -557,11 +552,6 @@ button { font: inherit; }
     radial-gradient(ellipse at 50% 16%, rgba(255,250,240,.94), rgba(255,250,240,.76) 30%, transparent 62%),
     linear-gradient(118deg, rgba(255,255,255,.68), rgba(255,255,255,.1) 36%, rgba(197,139,45,.035) 58%, rgba(255,255,255,.38));
 }
-.events-section::before {
-  content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none; opacity: .42;
-  background-position: center top; background-size: min(100%,780px) 100svh; background-repeat: repeat-y;
-}
-.invitation-open .events-section::before { background-image: url('/festive-floral-frame-optimized.webp'); }
 .events-section::after {
   content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none;
   background:
@@ -634,7 +624,7 @@ button { font: inherit; }
 }
 .closing::before { left: -13vw; top: -4vh; transform: rotate(-25deg); }
 .closing::after { right: -13vw; bottom: -5vh; transform: rotate(154deg); }
-.closing > :not(.floral-frame) { position: relative; z-index: 2; }
+.closing > * { position: relative; z-index: 2; }
 .closing h2 { font-size: clamp(42px,11vw,76px); }
 .closing-names { margin: 55px 0 48px; color: var(--sage-deep); font: 400 clamp(45px,13vw,82px)/1 "Snell Roundhand","Segoe Script",cursive; }
 .closing-names i { color: var(--champagne); font-size: .65em; }
@@ -648,7 +638,7 @@ button { font: inherit; }
   background-image: linear-gradient(118deg, rgba(255,255,255,.72), rgba(255,255,255,.08) 34%, rgba(197,139,45,.035) 56%, rgba(255,255,255,.36));
 }
 .compliments-card {
-  position: relative; z-index: 1; width: min(780px,100%); min-height: 100svh;
+  position: relative; z-index: 1; width: 100%; min-height: 100svh;
   padding: clamp(82px,11vh,120px) clamp(30px,7vw,70px);
   display: flex; align-items: center; justify-content: center; flex-direction: column;
   color: var(--ink); text-align: center; background-color: rgba(255,250,240,.95);
@@ -662,11 +652,6 @@ button { font: inherit; }
   content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none;
   background: linear-gradient(90deg,rgba(255,250,240,.16),rgba(255,250,240,.78) 15%,rgba(255,250,240,.94) 27%,rgba(255,250,240,.94) 73%,rgba(255,250,240,.78) 85%,rgba(255,250,240,.16));
 }
-.compliments-card::after {
-  content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none; opacity: .54;
-  background-position: center; background-size: 100% 100%; background-repeat: no-repeat;
-}
-.invitation-open .compliments-card::after { background-image: url('/festive-floral-frame-optimized.webp'); }
 .compliments-card > * { position: relative; z-index: 2; }
 .compliments-heading-panel {
   width: min(590px,100%); padding: 0; background: none; border: 0; border-radius: 0; box-shadow: none;
@@ -715,15 +700,22 @@ button { font: inherit; }
   -webkit-text-fill-color: transparent;
 }
 
-.floral-frame {
-  position: absolute; z-index: 1; top: 0; bottom: 0; left: 50%; width: min(100%,780px);
-  transform: translateX(-50%); pointer-events: none;
-  background-position: center; background-size: 100% 100%; background-repeat: no-repeat;
+.invitation-open .story,
+.invitation-open .personal-invitation-card,
+.invitation-open .countdown-section,
+.invitation-open .events-section,
+.invitation-open .closing,
+.invitation-open .compliments-card {
+  background-image: url('/festive-floral-frame-optimized.webp');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-.invitation-open .floral-frame { background-image: url('/festive-floral-frame-optimized.webp'); }
-.floral-frame-story { opacity: .5; }
-.floral-frame-countdown { opacity: .58; }
-.floral-frame-closing { opacity: .54; }
+.invitation-open .events-section {
+  background-position: center top;
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+}
 
 .botanical,
 .countdown-botanical,

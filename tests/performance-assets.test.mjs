@@ -21,3 +21,17 @@ test("keeps the opening screen lightweight and defers noncritical assets", async
   assert.match(css, /\.gate-untying \.gate-inner-card[\s\S]*?url\('\/narayani-heights-venue\.webp'\)/);
   assert.match(css, /\.invitation-open \.event-garland \{ background-image: url\('\/festive-floral-garland-optimized\.webp'\); \}/);
 });
+
+test("scales every floral page background responsively", async () => {
+  const css = await readFile(new URL("app/globals.css", root), "utf8");
+
+  assert.match(
+    css,
+    /\.invitation-open \.story,[\s\S]*?\.invitation-open \.personal-invitation-card,[\s\S]*?\.invitation-open \.countdown-section,[\s\S]*?\.invitation-open \.events-section,[\s\S]*?\.invitation-open \.closing,[\s\S]*?\.invitation-open \.compliments-card \{[\s\S]*?background-image: url\('\/festive-floral-frame-optimized\.webp'\);[\s\S]*?background-size: cover;/,
+  );
+  assert.match(
+    css,
+    /\.invitation-open \.events-section \{[\s\S]*?background-repeat: repeat-y;[\s\S]*?background-size: 100% auto;/,
+  );
+  assert.doesNotMatch(css, /\.floral-frame/);
+});
