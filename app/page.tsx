@@ -170,7 +170,7 @@ const MEET_FAMILY_COMPLIMENTS = {
     {
       heading: "Mama, Mami, Nana & Nani",
       rows: [
-        ["Dahiben and Ramanlal Lalluram Modi"],
+        ["Late Dahiben and Late Ramanlal Lalluram Modi"],
         ["Chandrakalaben and Late Navinchandra Modi"],
         ["Late Maheshkumar Modi"],
         ["Minaben and Umeshkumar Modi"],
@@ -196,10 +196,10 @@ const MEET_FAMILY_COMPLIMENTS = {
     {
       heading: "Bhai & Bhabhi",
       rows: [
-        ["Sheetal Jay Modi", "Krupaben and Kaushal Modi"],
-        ["Chandni Darshit Modi", "Dr. Nikiben and Dr. Ronak Modi"],
-        ["Aarohi Ishan Modi", "Yash Dineshbhai Modi"],
-        ["Shivam, Rishita and Mayurbhai Modi"],
+        ["Sheetal and Jay Modi", "Krupaben and Kaushal Modi"],
+        ["Chandni and Darshit Modi", "Dr. Nikiben and Dr. Ronak Modi"],
+        ["Aarohi and Ishan Modi", "Yash Dineshbhai Modi"],
+        ["Shivam and Rishit Mayurbhai Modi"],
       ],
     },
     {
@@ -208,8 +208,8 @@ const MEET_FAMILY_COMPLIMENTS = {
         ["Shilpaben and Late Kirtikumar Modi"],
         ["Seemaben and Ashwinbhai Modi"],
         ["Diyaben and Umangbhai Modi"],
-        ["Sheetalben and Jatinbhai Modi"],
         ["Niruben and Mayurbhai Modi"],
+        ["Sheetalben and Jatinbhai Modi"],
       ],
     },
     {

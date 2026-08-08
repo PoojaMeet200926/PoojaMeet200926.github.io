@@ -22,6 +22,12 @@ test("shows the correct family compliments for both invitation sides", async () 
   assert.match(page, /"Mrs\. Somya & Mr\. Ishan S\. Modi"/);
   assert.match(page, /"Mrs\. Chinar & Mr\. Monik S\. Modi"/);
   assert.match(page, /"Mr\. Krunal K\. Modi"/);
+  assert.match(page, /"Late Dahiben and Late Ramanlal Lalluram Modi"/);
+  assert.match(page, /\["Sheetal and Jay Modi", "Krupaben and Kaushal Modi"\]/);
+  assert.match(page, /\["Chandni and Darshit Modi", "Dr\. Nikiben and Dr\. Ronak Modi"\]/);
+  assert.match(page, /\["Aarohi and Ishan Modi", "Yash Dineshbhai Modi"\]/);
+  assert.match(page, /"Shivam and Rishit Mayurbhai Modi"/);
+  assert.match(page, /"Niruben and Mayurbhai Modi"\],[\s\S]*?\["Sheetalben and Jatinbhai Modi"/);
   assert.match(page, /en: \["Devyanshi", "Naisha", "Dhruv", "Roohani", "Radhika"\]/);
   assert.match(page, /"ગં\.સ્વ\. સવિતાબેન અને સ્વ\. અમૃતભાઈ એમ\. મોદી"/);
   assert.match(page, /"સ્વ\. ચંદ્રિકાબેન અને શ્રી મનહરભાઈ એમ\. મોદી"/);
