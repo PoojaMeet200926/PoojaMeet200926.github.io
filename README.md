@@ -2,6 +2,13 @@
 
 Interactive mobile wedding invitation for Meet and Pooja’s September 2026 celebration.
 
+## Hosting editions
+
+- `live-ribbon-v4`: original ChatGPT Sites/Cloudflare edition.
+- `github-pages`: static GitHub Pages edition with automatic deployment.
+
+See [GITHUB-PAGES.md](./GITHUB-PAGES.md) for GitHub setup, branch switching, publishing, and updates.
+
 ## Run locally
 
 Requires Node.js 22.13 or newer.
