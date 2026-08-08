@@ -152,6 +152,126 @@ const POOJA_FAMILY_COMPLIMENTS = {
   ],
 } as const satisfies Record<Language, readonly string[]>;
 
+type FamilyComplimentsGroup = {
+  heading: string;
+  rows: readonly (readonly string[])[];
+};
+
+const MEET_FAMILY_COMPLIMENTS = {
+  en: [
+    {
+      heading: "Mama, Mami, Nana & Nani",
+      rows: [
+        ["Dahiben and Ramanlal Lalluram Modi"],
+        ["Chandrakalaben and Late Navinchandra Modi"],
+        ["Late Maheshkumar Modi"],
+        ["Minaben and Umeshkumar Modi"],
+        ["Surekhaben and Dineshkumar Modi"],
+      ],
+    },
+    {
+      heading: "Foi & Fua",
+      rows: [
+        ["Nilaben and Late Shashikant Modi"],
+        ["Kalpanaben and Vasantkumar Modi"],
+        ["Gitaben and Vijaykumar Modi"],
+      ],
+    },
+    {
+      heading: "Cherished Guests",
+      rows: [
+        ["Harsh Jitendrakumar Modi"],
+        ["Vishwa Harsh Modi"],
+        ["Karv Harsh Modi"],
+      ],
+    },
+    {
+      heading: "Bhai & Bhabhi",
+      rows: [
+        ["Sheetal Jay Modi", "Krupaben and Kaushal Modi"],
+        ["Chandni Darshit Modi", "Dr. Nikiben and Dr. Ronak Modi"],
+        ["Aarohi Ishan Modi", "Yash Dineshbhai Modi"],
+        ["Shivam, Rishita and Mayurbhai Modi"],
+      ],
+    },
+    {
+      heading: "Kaka & Kaki",
+      rows: [
+        ["Shilpaben and Late Kirtikumar Modi"],
+        ["Seemaben and Ashwinbhai Modi"],
+        ["Diyaben and Umangbhai Modi"],
+        ["Sheetalben and Jatinbhai Modi"],
+        ["Niruben and Mayurbhai Modi"],
+      ],
+    },
+    {
+      heading: "Dada & Dadi",
+      rows: [
+        ["Late Champaben and Late Natvarlal Modi"],
+        ["Savitaben and Late Bhogilal Modi"],
+        ["Sharadaben and Mahendrabhai Modi"],
+        ["Bharatiben and Pravinbhai Modi"],
+      ],
+    },
+  ],
+  gu: [
+    {
+      heading: "મામા, મામી, નાના, નાની",
+      rows: [
+        ["ડાહીબેન તથા રમણલાલ લલ્લુરામ મોદી"],
+        ["ચંદ્રકલાબેન તથા સ્વ. નવીનચંદ્ર મોદી"],
+        ["સ્વર્ગસ્થ મહેશકુમાર મોદી"],
+        ["મીનાબેન તથા ઉમેશકુમાર મોદી"],
+        ["સુરેખાબેન તથા દિનેશકુમાર મોદી"],
+      ],
+    },
+    {
+      heading: "ફોઇ ફુઆ",
+      rows: [
+        ["નીલાબેન તથા સ્વ. શશિકાંત મોદી"],
+        ["કલ્પનાબેન તથા વસંતકુમાર મોદી"],
+        ["ગીતાબેન તથા વિજયકુમાર મોદી"],
+      ],
+    },
+    {
+      heading: "મોંઘેરા મહેમાન",
+      rows: [
+        ["હર્ષ જીતેન્દ્રકુમાર મોદી"],
+        ["વિશ્વ હર્ષ મોદી"],
+        ["કર્વ હર્ષ મોદી"],
+      ],
+    },
+    {
+      heading: "ભાઈ ભાભી",
+      rows: [
+        ["શીતલ જય મોદી", "કૃપાબેન તથા કૌશલ મોદી"],
+        ["ચાંદની દર્શિત મોદી", "ડૉ. નિકીબેન તથા ડો. રોનક મોદી"],
+        ["આરોહી ઈશાન મોદી", "યશ દિનેશભાઈ મોદી"],
+        ["શિવમ, રીશીતા તથા મયુરભાઈ મોદી"],
+      ],
+    },
+    {
+      heading: "કાકા કાકી",
+      rows: [
+        ["શિલ્પાબેન તથા સ્વ. કીર્તિકુમાર મોદી"],
+        ["સીમાબેન તથા અશ્વિનભાઈ મોદી"],
+        ["દિયાબેન તથા ઉમંગભાઈ મોદી"],
+        ["શીતલબેન તથા જતીનભાઈ મોદી"],
+        ["નીરુબેન તથા મયુરભાઈ મોદી"],
+      ],
+    },
+    {
+      heading: "દાદા, દાદી",
+      rows: [
+        ["સ્વ. ચંપાબેન તથા સ્વ. નટવરલાલ મોદી"],
+        ["સવિતાબેન તથા સ્વ. ભોગીલાલ મોદી"],
+        ["શારદાબેન તથા મહેન્દ્રભાઈ મોદી"],
+        ["ભારતીબેન તથા પ્રવિણભાઈ મોદી"],
+      ],
+    },
+  ],
+} as const satisfies Record<Language, readonly FamilyComplimentsGroup[]>;
+
 const POOJA_YOUNG_FAMILY = {
   en: ["Devyanshi", "Naisha", "Dhruv", "Roohani", "Radhika"],
   gu: ["દેવ્યાંશી", "નાયશા", "ધ્રુવ", "રૂહાની", "રાધિકા"],
@@ -592,40 +712,65 @@ export default function Home() {
         <p className="share-status" aria-live="polite">{shareMessage}</p>
       </section>
 
-      {showPoojaBlessings && (
-        <section className="family-compliments" aria-label={copy.complimentsAria}>
+      {invitationDetails && (
+        <section
+          className={`family-compliments${isMeetSide ? " family-compliments-meet" : ""}`}
+          aria-label={isMeetSide ? copy.meetComplimentsAria : copy.complimentsAria}
+        >
           <div className="compliments-ornament compliments-ornament-left" aria-hidden="true">❦</div>
           <div className="compliments-ornament compliments-ornament-right" aria-hidden="true">❦</div>
-          <div className="compliments-card">
+          <div className={`compliments-card${isMeetSide ? " compliments-card-meet" : ""}`}>
             <div className="compliments-heading-panel">
-              <p className="compliments-monogram" aria-label={`${copy.names.pooja} & ${copy.names.meet}`}>
-                <span>{copy.names.pooja}</span><i aria-hidden="true">&</i><span>{copy.names.meet}</span>
+              <p className="compliments-monogram" aria-label={`${firstName} & ${secondName}`}>
+                <span>{firstName}</span><i aria-hidden="true">&</i><span>{secondName}</span>
               </p>
               <p className="section-kicker">{copy.complimentsKicker}</p>
               <h2>{copy.complimentsHeading}</h2>
               <div className="compliments-rule" aria-hidden="true"><span>✦</span></div>
             </div>
-            <ul className="compliments-list">
-              {POOJA_FAMILY_COMPLIMENTS[language].map((name) => <li key={name}>{name}</li>)}
-            </ul>
-            <div className="compliments-younger" aria-label={copy.youngerFamilyAria}>
-              {POOJA_YOUNG_FAMILY[language].map((name) => <span key={name}>{name}</span>)}
-            </div>
-            <div className="compliments-contact">
-              <p className="compliments-contact-heading">{POOJA_INVITERS[language].heading}</p>
-              <div className="compliments-contact-names">
-                {POOJA_INVITERS[language].names.map((name) => <p key={name}>{name}</p>)}
-              </div>
-              <p className="compliments-contact-phones">
-                <span>{POOJA_INVITERS[language].phoneLabel}</span>{" "}
-                {POOJA_CONTACT_NUMBERS.map((phone, index) => (
-                  <span key={phone.display}>
-                    <a href={phone.href} aria-label={`Call ${phone.display}`}>{formatDigits(phone.display)}</a>
-                    {index < POOJA_CONTACT_NUMBERS.length - 1 && ", "}
-                  </span>
+            {isMeetSide ? (
+              <div className="meet-compliments-groups">
+                {MEET_FAMILY_COMPLIMENTS[language].map((group) => (
+                  <section className="meet-compliments-group" key={group.heading}>
+                    <h3>{group.heading}</h3>
+                    <div className="meet-compliments-rows">
+                      {group.rows.map((row, rowIndex) => (
+                        <div
+                          className={`meet-compliments-row${row.length > 1 ? " is-paired" : ""}`}
+                          key={`${group.heading}-${rowIndex}`}
+                        >
+                          {row.map((name) => <p key={name}>{name}</p>)}
+                        </div>
+                      ))}
+                    </div>
+                  </section>
                 ))}
-              </p>
-            </div>
+              </div>
+            ) : (
+              <>
+                <ul className="compliments-list">
+                  {POOJA_FAMILY_COMPLIMENTS[language].map((name) => <li key={name}>{name}</li>)}
+                </ul>
+                <div className="compliments-younger" aria-label={copy.youngerFamilyAria}>
+                  {POOJA_YOUNG_FAMILY[language].map((name) => <span key={name}>{name}</span>)}
+                </div>
+                <div className="compliments-contact">
+                  <p className="compliments-contact-heading">{POOJA_INVITERS[language].heading}</p>
+                  <div className="compliments-contact-names">
+                    {POOJA_INVITERS[language].names.map((name) => <p key={name}>{name}</p>)}
+                  </div>
+                  <p className="compliments-contact-phones">
+                    <span>{POOJA_INVITERS[language].phoneLabel}</span>{" "}
+                    {POOJA_CONTACT_NUMBERS.map((phone, index) => (
+                      <span key={phone.display}>
+                        <a href={phone.href} aria-label={`Call ${phone.display}`}>{formatDigits(phone.display)}</a>
+                        {index < POOJA_CONTACT_NUMBERS.length - 1 && ", "}
+                      </span>
+                    ))}
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </section>
       )}

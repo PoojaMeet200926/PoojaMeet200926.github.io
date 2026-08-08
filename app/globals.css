@@ -682,6 +682,19 @@ button { font: inherit; }
 .compliments-contact-phones { margin: 15px 0 0; color: #6b1f2c; font-size: clamp(17px,4vw,21px); font-weight: 700; letter-spacing: .065em; line-height: 1.45; }
 .compliments-contact-phones a { color: inherit; text-decoration: none; text-underline-offset: 4px; }
 .compliments-contact-phones a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.meet-compliments-groups {
+  width: min(760px,100%); display: grid; gap: clamp(30px,6vw,48px);
+}
+.meet-compliments-group { padding-top: clamp(24px,5vw,36px); border-top: 1px solid var(--hairline); }
+.meet-compliments-group:first-child { padding-top: 0; border-top: 0; }
+.meet-compliments-group h3 {
+  margin: 0 0 17px; color: var(--sage-deep); font: 600 clamp(20px,5vw,28px)/1.25 Georgia,"Times New Roman",serif;
+}
+.meet-compliments-rows { display: grid; gap: 10px; }
+.meet-compliments-row { display: grid; grid-template-columns: minmax(0,1fr); gap: 8px 28px; align-items: center; }
+.meet-compliments-row p {
+  margin: 0; color: #565a53; font: 400 clamp(14px,3.8vw,20px)/1.48 Georgia,"Times New Roman",serif; text-wrap: balance;
+}
 .compliments-ornament { position: absolute; color: var(--eucalyptus); opacity: .18; font-size: min(54vw,390px); line-height: 1; }
 .compliments-ornament-left { left: -16vw; top: -4vh; transform: rotate(-28deg); }
 .compliments-ornament-right { right: -16vw; bottom: -6vh; transform: rotate(152deg); }
@@ -712,6 +725,11 @@ button { font: inherit; }
   background-size: cover;
 }
 .invitation-open .events-section {
+  background-position: center top;
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+}
+.invitation-open .compliments-card-meet {
   background-position: center top;
   background-repeat: repeat-y;
   background-size: 100% auto;
@@ -761,7 +779,9 @@ button { font: inherit; }
   font-family: "Noto Serif Gujarati","Shruti","Nirmala UI",serif;
 }
 .language-gu .compliments-list li,
-.language-gu .compliments-younger {
+.language-gu .compliments-younger,
+.language-gu .meet-compliments-group h3,
+.language-gu .meet-compliments-row p {
   font-family: "Noto Serif Gujarati","Shruti","Nirmala UI",serif;
   font-style: normal;
 }
@@ -801,6 +821,7 @@ button { font: inherit; }
   .event-date-block strong { font-size: 52px; }
   .event-schedule-pair { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 35px; }
   .story { padding-left: 16vw; padding-right: 16vw; }
+  .meet-compliments-row.is-paired { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
 
 @media (max-width: 520px) {
