@@ -422,7 +422,7 @@ button { font: inherit; }
 .invitation-open .hero-om-shanti { background-image: url('/pooja-blessings.webp'); }
 .hero-deity-trio {
   position: absolute; z-index: 3; top: max(68px,calc(env(safe-area-inset-top) + 60px)); left: 50%;
-  width: min(340px,68vw); aspect-ratio: 1665 / 945; transform: translateX(-50%);
+  width: min(340px,68vw); aspect-ratio: 2 / 1; transform: translateX(-50%);
   background: url('/meet-deity-trio.webp') center/contain no-repeat;
   filter: drop-shadow(0 2px 7px rgba(255,247,232,.5)) drop-shadow(0 4px 14px rgba(47,96,72,.28));
   opacity: 0;

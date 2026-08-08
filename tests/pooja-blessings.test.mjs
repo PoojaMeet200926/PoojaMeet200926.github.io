@@ -42,7 +42,7 @@ test("shows Ganeshji blessings for both sides and OM SHANTI only for Pooja", asy
   assert.ok(deityTrio.length < 300 * 1024, "Meet deity trio must remain under 300 KB");
   assert.equal(
     createHash("sha256").update(deityTrio).digest("hex"),
-    "713977604438b6152272bce07b0d8498bfc941d684a8eebb4bd6b8dc4956e28f",
+    "84d6bb899bebff5b84ae5d1a32f14042e4f50c1b094ea4d4158ccbf38f99bb7b",
   );
 });
 
