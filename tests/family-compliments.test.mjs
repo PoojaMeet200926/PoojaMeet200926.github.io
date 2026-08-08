@@ -52,7 +52,8 @@ test("shows the correct family compliments for both invitation sides", async () 
   assert.match(css, /\.compliments-card::before\s*\{[\s\S]*?linear-gradient\(90deg/);
   assert.match(css, /\.compliments-heading-panel\s*\{[\s\S]*?background: none; border: 0/);
   assert.match(css, /\.compliments-contact\s*\{[\s\S]*?background: none; border: 0/);
-  assert.match(css, /\.meet-compliments-row\.is-paired \{ grid-template-columns: repeat\(2,minmax\(0,1fr\)\); \}/);
+  assert.match(css, /\.meet-compliments-row\.is-paired \{ grid-template-columns: repeat\(2,minmax\(0,1fr\)\); gap: 0; align-items: stretch; \}/);
+  assert.match(css, /\.meet-compliments-row\.is-paired p \+[\s\S]*?border-left: 1px solid/);
   assert.match(css, /\.invitation-open \.compliments-card-meet \{[\s\S]*?background-repeat: repeat-y;[\s\S]*?background-size: 100% auto;/);
   assert.match(css, /\.language-gu \.compliments-list li,[\s\S]*?"Noto Serif Gujarati"/);
   assert.match(css, /\.language-gu \.compliments-monogram[\s\S]*?"Noto Serif Gujarati"/);
