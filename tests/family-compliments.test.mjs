@@ -37,6 +37,8 @@ test("shows the correct family compliments for both invitation sides", async () 
   assert.match(page, /"સ્વ\. મહેશકુમાર મોદી"/);
   assert.doesNotMatch(page, /સ્વર્ગસ્થ મહેશકુમાર મોદી/);
   assert.match(page, /"મોંઘેરા મહેમાન"/);
+  assert.match(page, /"વિશ્વા હર્ષ મોદી"/);
+  assert.doesNotMatch(page, /"વિશ્વ હર્ષ મોદી"/);
   assert.match(page, /\["શીતલ જય મોદી", "કૃપાબેન તથા કૌશલ મોદી"\]/);
   assert.match(page, /\["ચાંદની દર્શિત મોદી", "ડૉ\. નિકીબેન તથા ડો\. રોનક મોદી"\]/);
   assert.match(page, /"સ્વ\. ચંપાબેન તથા સ્વ\. નટવરલાલ મોદી"/);
