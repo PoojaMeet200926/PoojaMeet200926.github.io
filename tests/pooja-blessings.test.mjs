@@ -42,6 +42,11 @@ test("adds the parents' complete invitation message only to Meet's side", async 
   assert.match(page, /isMeetSide && \([\s\S]*?className="meet-family-message paper-section"/);
   assert.match(page, /copy\.meetFamilyMessage\.familyHome/);
   assert.match(page, /copy\.meetFamilyMessage\.parentPairs\.map/);
+  assert.match(copy, /groom: "Meet"/);
+  assert.match(copy, /bride: "Pooja"/);
+  assert.match(copy, /groom: "ચિ\. મીત"/);
+  assert.match(copy, /bride: "ચિ\. પૂજા"/);
+  assert.doesNotMatch(copy, /Chi\./);
   assert.match(copy, /heading: "પધારજો"/);
   assert.match(copy, /"નર્મદાબેન તથા રેવાભાઈ હરજીવનદાસ મોદી પરિવાર ગૃહે"/);
   assert.match(copy, /"સહર્ષ ખુશાલી સાથે કાન્તાબેન તથા ધીરજલાલ મોદી વડોદરાથી/);

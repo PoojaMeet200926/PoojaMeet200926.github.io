@@ -106,9 +106,9 @@ export const COPY = {
         "With heartfelt happiness, Kantaben and Dhirajlal Modi of Vadodara are delighted to invite you to their grandson's wedding.",
       auspicious:
         "With the infinite grace of Shri Modheshwari Mataji, this auspicious wedding has been arranged on Sunday, 20 September 2026—Bhadarva Sud Nom, Vikram Samvat 2082. We warmly invite you to grace the wedding and shower the couple with your blessings and good wishes.",
-      groom: "Chi. Meet",
+      groom: "Meet",
       union: "To the auspicious melodies of the shehnai, will join in the sacred bond of marriage with",
-      bride: "Chi. Pooja",
+      bride: "Pooja",
       inLaws: "Proud to be united as families",
       parentPairs: [
         ["Mr. Mukeshkumar Modi", "Mr. Ketanbhai Modi"],
