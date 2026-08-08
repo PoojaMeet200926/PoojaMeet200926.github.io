@@ -77,6 +77,7 @@ export const COPY = {
     omShantiAlt: "OM SHANTI blessing symbol",
     ganeshBlessingAlt: "Ganeshji blessing symbol",
     ganeshInvocation: "॥ श्री गणेशाय नमः ॥",
+    mahalaxmiInvocation: "॥ श्री महालक्ष्मी मातायै नमः ॥",
     familyLine: "Together with their families",
     month: "September",
     tapPull: "Tap to pull the ribbon",
@@ -95,6 +96,25 @@ export const COPY = {
     storyMeet:
       "Together with their families, Meet and Pooja request the pleasure of your gracious presence as they celebrate their wedding.",
     presence: "Your presence will make our joy complete.",
+    meetFamilyMessage: {
+      ariaLabel: "Invitation from Meet's family",
+      kicker: "With our elders' blessings",
+      heading: "Please join us",
+      verse: "We celebrate this occasion with love and the colours of our hearts—a joyous moment.",
+      familyHome: "At the family home of Narmadaben and Revabhai Harjivandas Modi",
+      invitation:
+        "With heartfelt happiness, Kantaben and Dhirajlal Modi of Vadodara are delighted to invite you to their grandson's wedding.",
+      auspicious:
+        "With the infinite grace of Shri Modheshwari Mataji, this auspicious wedding has been arranged on Sunday, 20 September 2026—Bhadarva Sud Nom, Vikram Samvat 2082. We warmly invite you to grace the wedding and shower the couple with your blessings and good wishes.",
+      groom: "Chi. Meet",
+      union: "To the auspicious melodies of the shehnai, will join in the sacred bond of marriage with",
+      bride: "Chi. Pooja",
+      inLaws: "Proud to be united as families",
+      parentPairs: [
+        ["Mr. Mukeshkumar Modi", "Mr. Ketanbhai Modi"],
+        ["Mrs. Belaben Modi", "Mrs. Dharmishthaben Modi"],
+      ],
+    },
     personalAria: "Your invitation details",
     especially: "Especially for you",
     guestOne: "This invitation is lovingly reserved for one guest.",
@@ -178,6 +198,7 @@ export const COPY = {
     omShantiAlt: "OM SHANTI નું શુભ પ્રતીક",
     ganeshBlessingAlt: "ગણેશજીનું શુભ પ્રતીક",
     ganeshInvocation: "॥ श्री गणेशाय नमः ॥",
+    mahalaxmiInvocation: "॥ श्री महालक्ष्मी मातायै नमः ॥",
     familyLine: "બંને પરિવારોના આશીર્વાદ સાથે",
     month: "સપ્ટેમ્બર",
     tapPull: "રિબન ખોલવા માટે ટૅપ કરો",
@@ -196,6 +217,25 @@ export const COPY = {
     storyMeet:
       "બંને પરિવારો સાથે, મીત અને પૂજા તેમના શુભ લગ્ન પ્રસંગે આપની સ્નેહસભર ઉપસ્થિતિની અભિલાષા રાખે છે.",
     presence: "આપની ઉપસ્થિતિ અમારા આનંદને પૂર્ણ કરશે.",
+    meetFamilyMessage: {
+      ariaLabel: "મીતના પરિવાર તરફથી ભાવભર્યું આમંત્રણ",
+      kicker: "વડીલોના આશીર્વાદ સાથે",
+      heading: "પધારજો",
+      verse: "પ્રેમથી ઉજવે અવસર હૃદયના રંગથી, અવસર છે આનંદનો.",
+      familyHome: "નર્મદાબેન તથા રેવાભાઈ હરજીવનદાસ મોદી પરિવાર ગૃહે",
+      invitation:
+        "સહર્ષ ખુશાલી સાથે કાંતાબેન તથા ધીરજલાલ મોદી વડોદરાથી આપ સૌને પૌત્રના લગ્નનું તેડું મોકલતા આનંદ વ્યક્ત કરી રહ્યા છે.",
+      auspicious:
+        "શ્રી મોઢેશ્વરી માતાજીની અસીમ કૃપાથી સંવત ૨૦૮૨ના ભાદરવા સુદ નોમને રવિવાર, ૨૦/૦૯/૨૦૨૬ના શુભ દિને નિર્ધાર્ય છે. આ અવસરે લગ્નમાં પધારી શુભેચ્છા સહ આશિષના અભિષેક કરવા ભાવભર્યું આમંત્રણ.",
+      groom: "ચિ. મીત",
+      union: "સંગે સૂર શરણાઈના સથવારે પ્રભુતામાં લગ્નગ્રંથીથી જોડાશે",
+      bride: "ચિ. પૂજા",
+      inLaws: "વેવાઈ-વેવણ બનવાનું ગૌરવ પ્રાપ્ત કરશે",
+      parentPairs: [
+        ["શ્રી મુકેશકુમાર મોદી", "શ્રી કેતનભાઈ મોદી"],
+        ["બેલાબેન મોદી", "ધર્મિષ્ઠાબેન મોદી"],
+      ],
+    },
     personalAria: "આપના આમંત્રણની વિગતો",
     especially: "ખાસ આપના માટે",
     guestOne: "આપનું સહર્ષ સ્વાગત છે.",

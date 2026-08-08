@@ -242,28 +242,36 @@ button { font: inherit; }
 .gate-revealed .gate-inner-card::after {
   background-image: url('/festive-floral-frame-optimized.webp');
 }
-.gate-inner-card-pooja::after { opacity: .28; }
+.gate-inner-card-blessed::after { opacity: .28; }
 .gate-inner-card > * {
   position: relative; z-index: 1; opacity: 0; transform: translateY(12px);
   transition: opacity .58s ease 1.05s, transform .72s cubic-bezier(.2,.8,.2,1) 1.05s;
 }
-.gate-inner-card-pooja { padding-top: 30px; padding-bottom: 30px; }
-.pooja-ganesh-emblem {
+.gate-inner-card-blessed { padding-top: 30px; padding-bottom: 30px; }
+.ganesh-emblem {
   width: min(102px,32%); aspect-ratio: 600 / 680; margin: 0 auto;
   background-position: left top; background-size: auto 100%; background-repeat: no-repeat;
 }
-.gate-untying .pooja-ganesh-emblem,
-.gate-opening .pooja-ganesh-emblem,
-.gate-revealed .pooja-ganesh-emblem { background-image: url('/pooja-blessings.webp'); }
-.gate-inner-card-pooja > .gate-blessing-invocation {
+.gate-untying .ganesh-emblem,
+.gate-opening .ganesh-emblem,
+.gate-revealed .ganesh-emblem { background-image: url('/pooja-blessings.webp'); }
+.gate-inner-card-blessed > .gate-blessing-invocation {
   margin: 7px 0 0; color: var(--sage-deep); text-transform: none;
   font: 600 clamp(13px,3.8vw,17px)/1.25 "Noto Serif Devanagari","Nirmala UI",serif;
   letter-spacing: .012em;
 }
-.gate-inner-card-pooja > .gate-family-line { margin-top: 12px; }
-.gate-inner-card-pooja .inner-names { margin-top: 17px; }
-.gate-inner-card-pooja .inner-rule { margin-top: 27px; }
-.gate-inner-card-pooja small { margin-top: 20px; }
+.gate-inner-card-blessed > .gate-blessing-invocation-secondary { margin-top: 3px; }
+.gate-inner-card-blessed > .gate-family-line { margin-top: 12px; }
+.gate-inner-card-blessed .inner-names { margin-top: 17px; }
+.gate-inner-card-blessed .inner-rule { margin-top: 27px; }
+.gate-inner-card-blessed small { margin-top: 20px; }
+.gate-inner-card-meet { padding-top: 23px; padding-bottom: 23px; }
+.gate-inner-card-meet .ganesh-emblem { width: min(86px,27%); }
+.gate-inner-card-meet > .gate-blessing-invocation { margin-top: 4px; font-size: clamp(11px,3.2vw,14px); }
+.gate-inner-card-meet > .gate-family-line { margin-top: 8px; }
+.gate-inner-card-meet .inner-names { margin-top: 12px; }
+.gate-inner-card-meet .inner-rule { margin-top: 22px; }
+.gate-inner-card-meet small { margin-top: 16px; }
 .inner-floret { color: var(--coral); font-size: 14px; }
 .gate-inner-card > p { margin: 22px 0 0; font: 600 8px/1.4 Arial,sans-serif; letter-spacing: .28em; text-transform: uppercase; }
 .inner-names { margin-top: 28px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
@@ -457,6 +465,28 @@ button { font: inherit; }
 .botanical { position: absolute; color: var(--eucalyptus); opacity: .22; font-size: min(48vw,320px); line-height: 1; }
 .botanical-left { left: -12vw; top: 1vh; transform: rotate(-27deg); }
 .botanical-right { right: -12vw; bottom: 1vh; transform: rotate(153deg); }
+
+.meet-family-message {
+  min-height: 100svh; padding: clamp(82px,12vh,126px) 5vw; display: grid; place-items: center; text-align: center;
+}
+.meet-family-message-card {
+  position: relative; z-index: 1; width: min(780px,100%); padding: clamp(48px,8vw,82px) clamp(24px,7vw,64px);
+  background: rgba(255,250,240,.84); border: 1px solid rgba(197,139,45,.2); box-shadow: 0 16px 46px rgba(95,64,33,.07);
+}
+.meet-family-message h2 { margin: 8px 0 0; color: var(--sage-deep); font-weight: 400; font-size: clamp(48px,12vw,78px); line-height: 1; }
+.meet-family-verse { max-width: 610px; margin: 28px auto 0; color: #735d45; font-size: clamp(17px,4.4vw,23px); font-style: italic; line-height: 1.6; }
+.meet-family-message .fine-rule { margin: 34px auto; }
+.meet-family-home { margin: 0 auto 25px; color: var(--sage-deep); font-size: clamp(18px,4.7vw,25px); font-weight: 600; line-height: 1.5; text-wrap: balance; }
+.meet-family-copy { max-width: 680px; margin: 18px auto 0; color: #5f5850; font-size: clamp(15px,3.8vw,20px); line-height: 1.72; text-wrap: balance; }
+.meet-family-couple { margin: 38px auto 0; display: grid; justify-items: center; gap: 10px; }
+.meet-family-couple strong { color: var(--champagne); font-size: clamp(35px,9vw,58px); font-weight: 400; line-height: 1.05; }
+.meet-family-couple span { max-width: 560px; color: var(--sage-deep); font-size: clamp(15px,3.8vw,20px); line-height: 1.55; text-wrap: balance; }
+.meet-family-inlaws { margin: 34px auto 18px; color: #735d45; font-size: clamp(16px,4vw,21px); font-style: italic; line-height: 1.5; }
+.meet-parent-pairs { width: min(680px,100%); margin: 0 auto; border-top: 1px solid var(--hairline); }
+.meet-parent-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: stretch; }
+.meet-parent-pair + .meet-parent-pair { border-top: 1px solid var(--hairline); }
+.meet-parent-pair span { min-width: 0; padding: 14px clamp(8px,3vw,24px); display: flex; align-items: center; justify-content: center; color: #565a53; font-size: clamp(14px,3.7vw,19px); line-height: 1.45; text-wrap: balance; }
+.meet-parent-pair span + span { border-left: 1px solid rgba(151,105,36,.34); }
 
 .personal-invitation {
   position: relative; isolation: isolate; min-height: 100svh; padding: 0; text-align: center;
@@ -719,6 +749,7 @@ button { font: inherit; }
 }
 
 .invitation-open .story,
+.invitation-open .meet-family-message,
 .invitation-open .personal-invitation-card,
 .invitation-open .countdown-section,
 .invitation-open .events-section,
@@ -730,6 +761,11 @@ button { font: inherit; }
   background-size: cover;
 }
 .invitation-open .events-section {
+  background-position: center top;
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+}
+.invitation-open .meet-family-message {
   background-position: center top;
   background-repeat: repeat-y;
   background-size: 100% auto;
@@ -780,7 +816,9 @@ button { font: inherit; }
   font-weight: 500;
 }
 .language-gu .event-details h3,
-.language-gu .event-time {
+.language-gu .event-time,
+.language-gu .meet-family-message,
+.language-gu .meet-parent-pair span {
   font-family: "Noto Serif Gujarati","Shruti","Nirmala UI",serif;
 }
 .language-gu .compliments-list li,

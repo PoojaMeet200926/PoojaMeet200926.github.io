@@ -337,6 +337,7 @@ export default function Home() {
   const firstName = copy.names[firstPerson];
   const secondName = copy.names[secondPerson];
   const showPoojaBlessings = invitationDetails?.side === "pooja";
+  const showOpeningBlessings = invitationDetails !== null;
   const formatDigits = (value: string | number) => localizeDigits(value, language);
 
   const visibleEvents = useMemo(() => {
@@ -496,17 +497,22 @@ export default function Home() {
         <div className="gate-atmosphere" />
         <p className="gate-kicker">{copy.celebrationAwaits}</p>
         <div
-          className={`gate-inner-card${showPoojaBlessings ? " gate-inner-card-pooja" : ""}`}
+          className={`gate-inner-card${showOpeningBlessings ? " gate-inner-card-blessed" : ""}${isMeetSide ? " gate-inner-card-meet" : ""}`}
           aria-hidden={invitationState !== "revealed"}
         >
-          {showPoojaBlessings ? (
+          {showOpeningBlessings ? (
             <>
               <div
-                className="pooja-ganesh-emblem"
+                className="ganesh-emblem"
                 role="img"
                 aria-label={copy.ganeshBlessingAlt}
               />
               <p className="gate-blessing-invocation">{copy.ganeshInvocation}</p>
+              {isMeetSide && (
+                <p className="gate-blessing-invocation gate-blessing-invocation-secondary">
+                  {copy.mahalaxmiInvocation}
+                </p>
+              )}
             </>
           ) : (
             <span className="inner-floret">✦</span>
@@ -585,6 +591,34 @@ export default function Home() {
         </p>
         <p className="script-note">{copy.presence}</p>
       </section>
+
+      {isMeetSide && (
+        <section className="meet-family-message paper-section" aria-label={copy.meetFamilyMessage.ariaLabel}>
+          <div className="meet-family-message-card">
+            <p className="section-kicker">{copy.meetFamilyMessage.kicker}</p>
+            <h2>{copy.meetFamilyMessage.heading}</h2>
+            <p className="meet-family-verse">{copy.meetFamilyMessage.verse}</p>
+            <div className="fine-rule" aria-hidden="true"><span>✦</span></div>
+            <p className="meet-family-home">{copy.meetFamilyMessage.familyHome}</p>
+            <p className="meet-family-copy">{copy.meetFamilyMessage.invitation}</p>
+            <p className="meet-family-copy">{formatDigits(copy.meetFamilyMessage.auspicious)}</p>
+            <div className="meet-family-couple">
+              <strong>{copy.meetFamilyMessage.groom}</strong>
+              <span>{copy.meetFamilyMessage.union}</span>
+              <strong>{copy.meetFamilyMessage.bride}</strong>
+            </div>
+            <p className="meet-family-inlaws">{copy.meetFamilyMessage.inLaws}</p>
+            <div className="meet-parent-pairs">
+              {copy.meetFamilyMessage.parentPairs.map((pair) => (
+                <div className="meet-parent-pair" key={pair.join("-")}>
+                  <span>{pair[0]}</span>
+                  <span>{pair[1]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {invitationDetails && (
         <section className="personal-invitation paper-section" aria-label={copy.personalAria}>

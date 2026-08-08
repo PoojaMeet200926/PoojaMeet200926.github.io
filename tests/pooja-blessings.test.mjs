@@ -5,7 +5,7 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 
-test("shows the blessing emblems only for the decoded Pooja side", async () => {
+test("shows Ganeshji blessings for both sides and OM SHANTI only for Pooja", async () => {
   const [page, copy, css] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/invitation-copy.ts", root), "utf8"),
@@ -13,21 +13,43 @@ test("shows the blessing emblems only for the decoded Pooja side", async () => {
   ]);
 
   assert.match(page, /invitationDetails\?\.side === "pooja"/);
-  assert.match(page, /showPoojaBlessings[\s\S]*?className="pooja-ganesh-emblem"[\s\S]*?className="gate-blessing-invocation">\{copy\.ganeshInvocation\}<\/p>[\s\S]*?:[\s\S]*?<span className="inner-floret">✦<\/span>/);
+  assert.match(page, /const showOpeningBlessings = invitationDetails !== null/);
+  assert.match(page, /showOpeningBlessings[\s\S]*?className="ganesh-emblem"[\s\S]*?copy\.ganeshInvocation[\s\S]*?isMeetSide &&[\s\S]*?copy\.mahalaxmiInvocation[\s\S]*?:[\s\S]*?<span className="inner-floret">✦<\/span>/);
   assert.match(page, /showPoojaBlessings && \([\s\S]*?className="hero-om-shanti"[\s\S]*?aria-label=\{copy\.omShantiAlt\}/);
   assert.doesNotMatch(page, /className="hero-blessing-invocation"/);
   assert.match(page, /className="hero-next-button" href="#story"/);
   assert.match(copy, /omShantiAlt: "OM SHANTI blessing symbol"/);
   assert.match(copy, /ganeshBlessingAlt: "Ganeshji blessing symbol"/);
   assert.match(copy, /ganeshInvocation: "॥ श्री गणेशाय नमः ॥"/);
+  assert.match(copy, /mahalaxmiInvocation: "॥ श्री महालक्ष्मी मातायै नमः ॥"/);
   assert.match(copy, /"હરિયાળી લૉન, ભવ્ય સમારંભ સ્થળો અને યાદગાર ઉજવણી માટેનું સુંદર વાતાવરણ\."/);
-  assert.match(css, /\.pooja-ganesh-emblem\s*\{/);
-  assert.match(css, /\.gate-inner-card-pooja > \.gate-blessing-invocation\s*\{/);
+  assert.match(css, /\.ganesh-emblem\s*\{/);
+  assert.match(css, /\.gate-inner-card-blessed > \.gate-blessing-invocation\s*\{/);
   assert.match(css, /\.hero-om-shanti\s*\{[\s\S]*?top: max\(58px,calc\(env\(safe-area-inset-top\) \+ 50px\)\)[\s\S]*?width: min\(70px,16\.5vw\)[\s\S]*?aspect-ratio: 640 \/ 680[\s\S]*?background-position: right top; background-size: auto 100%; background-repeat: no-repeat;/);
   assert.match(css, /\.invitation-open \.hero-om-shanti \{ background-image: url\('\/pooja-blessings\.webp'\); \}/);
   assert.doesNotMatch(css, /\.hero-om-shanti\s*\{[^}]*background-color/);
   assert.match(css, /\.hero-next-button\s*\{/);
   assert.match(css, /html \{ scroll-behavior: smooth;/);
+});
+
+test("adds the parents' complete invitation message only to Meet's side", async () => {
+  const [page, copy, css] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/invitation-copy.ts", root), "utf8"),
+    readFile(new URL("app/globals.css", root), "utf8"),
+  ]);
+
+  assert.match(page, /isMeetSide && \([\s\S]*?className="meet-family-message paper-section"/);
+  assert.match(page, /copy\.meetFamilyMessage\.familyHome/);
+  assert.match(page, /copy\.meetFamilyMessage\.parentPairs\.map/);
+  assert.match(copy, /heading: "પધારજો"/);
+  assert.match(copy, /"નર્મદાબેન તથા રેવાભાઈ હરજીવનદાસ મોદી પરિવાર ગૃહે"/);
+  assert.match(copy, /"સહર્ષ ખુશાલી સાથે કાંતાબેન તથા ધીરજલાલ મોદી વડોદરાથી/);
+  assert.match(copy, /"શ્રી મોઢેશ્વરી માતાજીની અસીમ કૃપાથી સંવત ૨૦૮૨ના ભાદરવા સુદ નોમને રવિવાર, ૨૦\/૦૯\/૨૦૨૬/);
+  assert.match(copy, /\["શ્રી મુકેશકુમાર મોદી", "શ્રી કેતનભાઈ મોદી"\]/);
+  assert.match(copy, /\["બેલાબેન મોદી", "ધર્મિષ્ઠાબેન મોદી"\]/);
+  assert.match(css, /\.meet-parent-pair span \+ span \{ border-left: 1px solid/);
+  assert.match(css, /\.invitation-open \.meet-family-message \{[\s\S]*?background-repeat: repeat-y;/);
 });
 
 test("keeps the approved transparent emblem asset byte-for-byte", async () => {
