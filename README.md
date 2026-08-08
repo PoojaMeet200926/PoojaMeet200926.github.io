@@ -22,7 +22,7 @@ Open the local address printed in the terminal.
 
 ## Create personalized invitation links with Python
 
-Each personalized link contains one encrypted `i` token. Guest count, invited days, and which family sent the invitation are not readable from the URL.
+Each personalized link contains one encrypted `i` token. Guest count, invited days, sender side, and invitation type are not readable from the URL.
 
 You host the website once. Run this program whenever you need a guest-specific link. It uses only Python’s standard library; no packages need to be installed.
 
@@ -39,9 +39,10 @@ python create_invite_link.py
 It will ask for:
 
 1. Your hosted website URL.
-2. Invited dates: `20`, `19,20`, or `18,19,20`.
-3. Number of invitees. Leave it blank for the whole family.
-4. Invitation side: `Pooja` or `Meet`.
+2. Invitation type: `wedding` or `get-together`.
+3. Invited dates for wedding links: `20`, `19,20`, or `18,19,20`. Get-together links automatically use 20 September.
+4. Number of invitees. Leave it blank for the whole family.
+5. Invitation side: `Pooja` or `Meet`.
 
 ### One-command mode
 
@@ -56,6 +57,14 @@ Whole-family invitation, with no guest count shown:
 ```powershell
 python create_invite_link.py --url "https://your-wedding-site.com" --days 20 --family --side meet
 ```
+
+Post-wedding get-together for four people at Ghee Gud Restaurant:
+
+```powershell
+python create_invite_link.py --url "https://your-wedding-site.com" --days 20 --invitees 4 --side meet --occasion get-together
+```
+
+The `--occasion get-together` link switches the site to the separate Sunday-evening invitation. It shows only the 08:00–10:00 PM gathering at Ghee Gud Restaurant, uses the supplied Google Maps directions link, changes to the indoor restaurant visual theme, and hides the wedding schedule, Narayani Heights content, wedding-family message, and family compliments pages. Ordinary links continue to use `--occasion wedding`, which is also the default when the option is omitted.
 
 Day selection:
 
@@ -103,6 +112,12 @@ Gujarati mode converts dates, years, times, countdown values, event indexes, gue
 
 ```powershell
 npm run invite:link -- --people 4 --days 2 --side pooja --url "https://your-wedding-site.com"
+```
+
+JavaScript get-together example:
+
+```powershell
+npm run invite:link -- --people 4 --days 1 --side meet --occasion get-together --url "https://your-wedding-site.com"
 ```
 
 The token prevents casual reading and detects URL modification. Because the invitation is public and decrypts in the guest’s browser, it should be treated as privacy-friendly obfuscation rather than access control.

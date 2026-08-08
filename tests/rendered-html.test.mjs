@@ -32,7 +32,7 @@ test("server-renders the finished wedding invitation", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>Meet &amp; Pooja \| Wedding Invitation<\/title>/i);
-  assert.match(html, /class="invitation-sealed language-en"/);
+  assert.match(html, /class="invitation-sealed language-en occasion-wedding"/);
   assert.match(html, /class="cover-button"/);
   assert.match(html, /class="story paper-section"/);
   assert.match(html, /class="countdown-section paper-section"/);
@@ -49,7 +49,7 @@ test("keeps starter preview code out of the completed invitation", async () => {
   ]);
 
   assert.match(page, /export default function Home\(\)/);
-  assert.match(page, /className=\{`invitation-\$\{invitationState\} language-\$\{language\}`\}/);
+  assert.match(page, /className=\{`invitation-\$\{invitationState\} language-\$\{language\} occasion-\$\{isGetTogether \? "get-together" : "wedding"\}`\}/);
   assert.match(layout, /title: "Meet & Pooja \| Wedding Invitation"/);
   assert.match(layout, /images: \[\{ url: `\$\{origin\}\/og\.png`/);
   assert.match(layout, /href="\/invitation-box-lid\.webp"/);

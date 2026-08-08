@@ -24,10 +24,13 @@ type InvitationDetails = {
   people: number | null;
   days: 1 | 2 | 3;
   side: "meet" | "pooja";
+  occasion: "wedding" | "get-together";
 };
 
 const TREMONT_LOCATION = "https://maps.app.goo.gl/g4FNbs7ANbroAfxb8";
 const NARAYANI_HEIGHTS_LOCATION = "https://maps.app.goo.gl/7QJob2xzgw7PQsBF9";
+const GHEE_GUD_LOCATION = "https://maps.app.goo.gl/7bnxnocVCByBzjG49";
+const GET_TOGETHER_TARGET = "2026-09-20T20:00:00+05:30";
 
 const INVITED_DAY_DETAILS = {
   1: {
@@ -132,6 +135,16 @@ const MEET_EVENTS: WeddingEvent[] = [
     map: NARAYANI_HEIGHTS_LOCATION,
     featured: true,
     meal: "lunch",
+  },
+];
+
+const GET_TOGETHER_EVENTS: WeddingEvent[] = [
+  {
+    key: "getTogether",
+    weekday: "sunday",
+    date: "20",
+    venue: "gheeGud",
+    map: GHEE_GUD_LOCATION,
   },
 ];
 
@@ -331,26 +344,37 @@ export default function Home() {
   const openingGestureRef = useRef<{ pointerId: number; x: number; y: number } | null>(null);
 
   const copy = COPY[language];
+  const isGetTogether = invitationDetails?.occasion === "get-together";
   const isMeetSide = invitationDetails?.side === "meet";
-  const selectedDays: DayCount = isMeetSide ? 1 : invitationDetails?.days ?? 2;
+  const selectedDays: DayCount = isGetTogether || isMeetSide ? 1 : invitationDetails?.days ?? 2;
   const selectedDayDetails = INVITED_DAY_DETAILS[selectedDays];
   const selectedDayCopy = copy.days[selectedDays];
-  const displayDetails = {
-    ...selectedDayDetails,
-    ...selectedDayCopy,
-    dates: invitationDetails ? selectedDayDetails.dates : INVITED_DAY_DETAILS[3].dates,
-    eventCopy: invitationDetails ? selectedDayCopy.eventCopy : copy.days[3].eventCopy,
-    placeLine: invitationDetails ? selectedDayCopy.placeLine : copy.days[3].placeLine,
-  };
+  const displayDetails = isGetTogether
+    ? {
+        ...selectedDayDetails,
+        ...copy.getTogether,
+        dates: ["20"] as const,
+        firstDate: "20",
+        lastDate: null,
+        countdownTarget: GET_TOGETHER_TARGET,
+      }
+    : {
+        ...selectedDayDetails,
+        ...selectedDayCopy,
+        dates: invitationDetails ? selectedDayDetails.dates : INVITED_DAY_DETAILS[3].dates,
+        eventCopy: invitationDetails ? selectedDayCopy.eventCopy : copy.days[3].eventCopy,
+        placeLine: invitationDetails ? selectedDayCopy.placeLine : copy.days[3].placeLine,
+      };
   const firstPerson = invitationDetails?.side === "pooja" ? "pooja" : "meet";
   const secondPerson = firstPerson === "pooja" ? "meet" : "pooja";
   const firstName = copy.names[firstPerson];
   const secondName = copy.names[secondPerson];
-  const showPoojaBlessings = invitationDetails?.side === "pooja";
-  const showOpeningBlessings = invitationDetails !== null;
+  const showPoojaBlessings = !isGetTogether && invitationDetails?.side === "pooja";
+  const showOpeningBlessings = invitationDetails !== null && !isGetTogether;
   const formatDigits = (value: string | number) => localizeDigits(value, language);
 
   const visibleEvents = useMemo(() => {
+    if (invitationDetails?.occasion === "get-together") return GET_TOGETHER_EVENTS;
     if (invitationDetails?.side === "meet") return MEET_EVENTS;
     if (!invitationDetails) return EVENTS;
     const invitedDates = new Set<string>(INVITED_DAY_DETAILS[invitationDetails.days].dates);
@@ -523,8 +547,12 @@ export default function Home() {
 
   const shareInvitation = async () => {
     const shareData = {
-      title: copy.shareTitle(firstName, secondName),
-      text: copy.shareText(firstName, secondName, formatDigits(displayDetails.dateLine)),
+      title: isGetTogether
+        ? copy.getTogether.shareTitle(firstName, secondName)
+        : copy.shareTitle(firstName, secondName),
+      text: isGetTogether
+        ? copy.getTogether.shareText(firstName, secondName)
+        : copy.shareText(firstName, secondName, formatDigits(displayDetails.dateLine)),
       url: window.location.href,
     };
     try {
@@ -542,7 +570,7 @@ export default function Home() {
   };
 
   return (
-    <main className={`invitation-${invitationState} language-${language}`}>
+    <main className={`invitation-${invitationState} language-${language} occasion-${isGetTogether ? "get-together" : "wedding"}`}>
       <div className="falling-botanicals" aria-hidden="true">
         {Array.from({ length: 14 }, (_, index) => (
           <span className={index % 4 === 3 ? "falling-leaf" : "falling-petal"} key={index} />
@@ -567,9 +595,9 @@ export default function Home() {
         onWheel={openFromWheel}
       >
         <div className="gate-atmosphere" />
-        <p className="gate-kicker">{copy.celebrationAwaits}</p>
+        <p className="gate-kicker">{isGetTogether ? copy.getTogether.gateKicker : copy.celebrationAwaits}</p>
         <div
-          className={`gate-inner-card${showOpeningBlessings ? " gate-inner-card-blessed" : ""}${isMeetSide ? " gate-inner-card-meet" : ""}`}
+          className={`gate-inner-card${showOpeningBlessings ? " gate-inner-card-blessed" : ""}${!isGetTogether && isMeetSide ? " gate-inner-card-meet" : ""}`}
           aria-hidden={invitationState !== "revealed"}
         >
           {showOpeningBlessings ? (
@@ -589,7 +617,7 @@ export default function Home() {
           ) : (
             <span className="inner-floret">✦</span>
           )}
-          <p className="gate-family-line">{copy.familyLine}</p>
+          <p className="gate-family-line">{isGetTogether ? copy.getTogether.gateLine : copy.familyLine}</p>
           <div className="inner-names"><span>{firstName}</span><i>&</i><span>{secondName}</span></div>
           <div className={`inner-rule${displayDetails.lastDate ? "" : " inner-rule-single"}`}>
             <b>{formatDigits(displayDetails.firstDate)}</b>
@@ -603,7 +631,9 @@ export default function Home() {
           type="button"
           onClick={openInvitation}
           onKeyDown={openFromKeyboard}
-          aria-label={copy.openInvitation(firstName, secondName)}
+          aria-label={isGetTogether
+            ? copy.getTogether.openInvitation(firstName, secondName)
+            : copy.openInvitation(firstName, secondName)}
           disabled={invitationState !== "sealed"}
         >
           <span className="cover-shadow" />
@@ -633,7 +663,7 @@ export default function Home() {
         </div>
       </div>
 
-      <section className={`hero${showPoojaBlessings ? " hero-pooja" : ""}${isMeetSide ? " hero-meet" : ""}`} id="home">
+      <section className={`hero${showPoojaBlessings ? " hero-pooja" : ""}${!isGetTogether && isMeetSide ? " hero-meet" : ""}${isGetTogether ? " hero-get-together" : ""}`} id="home">
         <div className="hero-image" />
         <div className="hero-wash" />
         <div className="door door-left" />
@@ -641,17 +671,24 @@ export default function Home() {
         {showPoojaBlessings && (
           <div className="hero-om-shanti" role="img" aria-label={copy.omShantiAlt} />
         )}
-        {isMeetSide && (
+        {!isGetTogether && isMeetSide && (
           <div className="hero-deity-trio" role="img" aria-label={copy.deityTrioAlt} />
         )}
         <div className="hero-content">
-          <p className="eyebrow">{copy.familyLine}</p>
-          <h1><span>{firstName}</span><i>&</i><span>{secondName}</span></h1>
+          <p className="eyebrow">{isGetTogether ? copy.getTogether.heroKicker : copy.familyLine}</p>
+          {isGetTogether ? (
+            <>
+              <h1 className="get-together-heading"><span>{copy.getTogether.heroHeading}</span></h1>
+              <p className="get-together-hosts">{firstName} <i>&</i> {secondName}</p>
+            </>
+          ) : (
+            <h1><span>{firstName}</span><i>&</i><span>{secondName}</span></h1>
+          )}
           <p className="hero-date">{formatDigits(displayDetails.dateLine)}</p>
           <p className="hero-place">{displayDetails.placeLine}</p>
         </div>
         <a className="hero-next-button" href="#story" aria-label={copy.exploreAria}>
-          <span>{copy.explore}</span>
+          <span>{isGetTogether ? copy.getTogether.explore : copy.explore}</span>
           <b aria-hidden="true">↓</b>
         </a>
       </section>
@@ -659,16 +696,23 @@ export default function Home() {
       <section className="story paper-section" id="story">
         <div className="botanical botanical-left" aria-hidden="true">❦</div>
         <div className="botanical botanical-right" aria-hidden="true">❦</div>
-        <p className="section-kicker">{copy.chapter}</p>
-        <h2>{copy.storyLineOne}<br /><em>{copy.storyLineTwo}</em></h2>
+        <p className="section-kicker">{isGetTogether ? copy.getTogether.storyKicker : copy.chapter}</p>
+        <h2>
+          {isGetTogether ? copy.getTogether.storyLineOne : copy.storyLineOne}<br />
+          <em>{isGetTogether ? copy.getTogether.storyLineTwo : copy.storyLineTwo}</em>
+        </h2>
         <div className="fine-rule"><span>✦</span></div>
         <p className="story-copy">
-          {invitationDetails?.side === "meet" ? copy.storyMeet : copy.storyPooja}
+          {isGetTogether
+            ? copy.getTogether.storyCopy
+            : invitationDetails?.side === "meet"
+              ? copy.storyMeet
+              : copy.storyPooja}
         </p>
-        <p className="script-note">{copy.presence}</p>
+        <p className="script-note">{isGetTogether ? copy.getTogether.presence : copy.presence}</p>
       </section>
 
-      {isMeetSide && (
+      {!isGetTogether && isMeetSide && (
         <section className="meet-family-message paper-section" aria-label={copy.meetFamilyMessage.ariaLabel}>
           <div className="meet-family-message-card">
             <p className="section-kicker">{copy.meetFamilyMessage.kicker}</p>
@@ -707,24 +751,27 @@ export default function Home() {
         </section>
       )}
 
-      <section className="venue-reveal" aria-label={copy.venueAria}>
+      <section className="venue-reveal" aria-label={isGetTogether ? copy.getTogether.venueAria : copy.venueAria}>
         <div className="venue-sticky">
           <div className="venue-image" />
           <div className="venue-overlay" />
           <div className="venue-copy">
-            <p className="section-kicker light">{copy.venueKicker}</p>
-            <h2>{copy.narayani}<br /><em>{copy.heights}</em></h2>
-            <p>{copy.venueDescription}</p>
+            <p className="section-kicker light">{isGetTogether ? copy.getTogether.venueKicker : copy.venueKicker}</p>
+            <h2>
+              {isGetTogether ? copy.getTogether.venueLineOne : copy.narayani}<br />
+              <em>{isGetTogether ? copy.getTogether.venueLineTwo : copy.heights}</em>
+            </h2>
+            <p>{isGetTogether ? copy.getTogether.venueDescription : copy.venueDescription}</p>
           </div>
         </div>
       </section>
 
-      <section className="countdown-section paper-section" aria-label={copy.countdownAria}>
+      <section className="countdown-section paper-section" aria-label={isGetTogether ? copy.getTogether.countdownAria : copy.countdownAria}>
         <div className="countdown-jaali" aria-hidden="true" />
         <div className="countdown-botanical countdown-botanical-left" aria-hidden="true">❦</div>
         <div className="countdown-botanical countdown-botanical-right" aria-hidden="true">❦</div>
-        <p className="section-kicker">{copy.countdownKicker}</p>
-        <h2>{copy.countdownHeading}</h2>
+        <p className="section-kicker">{isGetTogether ? copy.getTogether.countdownKicker : copy.countdownKicker}</p>
+        <h2>{isGetTogether ? copy.getTogether.countdownHeading : copy.countdownHeading}</h2>
         <div className="countdown-grid" role="timer" aria-live="off">
           {countdownItems.map(([label, value]) => (
             <div className="countdown-unit" key={label}>
@@ -739,9 +786,9 @@ export default function Home() {
       <section className="events-section" id="events">
         <div className="event-garland" aria-hidden="true" />
         <div className="events-heading">
-          <p className="section-kicker">{copy.weekend}</p>
-          <h2>{copy.celebrate}</h2>
-          <p>{formatDigits(isMeetSide ? copy.meetEventCopy : displayDetails.eventCopy)}</p>
+          <p className="section-kicker">{isGetTogether ? copy.getTogether.eventsKicker : copy.weekend}</p>
+          <h2>{isGetTogether ? copy.getTogether.eventsHeading : copy.celebrate}</h2>
+          <p>{formatDigits(isGetTogether ? copy.getTogether.eventCopy : isMeetSide ? copy.meetEventCopy : displayDetails.eventCopy)}</p>
         </div>
         <div className="event-list">
           {visibleEvents.map((event, index) => (
@@ -813,16 +860,19 @@ export default function Home() {
       </section>
 
       <section className="closing paper-section">
-        <p className="section-kicker">{copy.withLove}</p>
-        <h2>{copy.closingLineOne}<br />{copy.closingLineTwo}</h2>
+        <p className="section-kicker">{isGetTogether ? copy.getTogether.closingKicker : copy.withLove}</p>
+        <h2>
+          {isGetTogether ? copy.getTogether.closingLineOne : copy.closingLineOne}<br />
+          {isGetTogether ? copy.getTogether.closingLineTwo : copy.closingLineTwo}
+        </h2>
         <p className="closing-names">{firstName} <i>&</i> {secondName}</p>
         <button className="share-button" type="button" onClick={shareInvitation}>
-          <span>{copy.shareInvitation}</span><b>↗</b>
+          <span>{isGetTogether ? copy.getTogether.shareInvitation : copy.shareInvitation}</span><b>↗</b>
         </button>
         <p className="share-status" aria-live="polite">{shareMessage}</p>
       </section>
 
-      {invitationDetails && (
+      {invitationDetails && !isGetTogether && (
         <section
           className={`family-compliments${isMeetSide ? " family-compliments-meet" : ""}`}
           aria-label={isMeetSide ? copy.meetComplimentsAria : copy.complimentsAria}
@@ -885,7 +935,7 @@ export default function Home() {
         </section>
       )}
 
-      <button className="floating-share" type="button" onClick={shareInvitation} aria-label={copy.shareAria}>
+      <button className="floating-share" type="button" onClick={shareInvitation} aria-label={isGetTogether ? copy.getTogether.shareAria : copy.shareAria}>
         ↗ <span>{copy.share}</span>
       </button>
     </main>

@@ -14,7 +14,7 @@ import sys
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 
-TOKEN_VERSION = 3
+TOKEN_VERSION = 4
 NONCE_LENGTH = 12
 TAG_LENGTH = 16
 TOKEN_KEY = bytes(
@@ -33,6 +33,10 @@ DATE_GROUPS = {
 SIDE_VALUES = {
     "meet": 0,
     "pooja": 1,
+}
+OCCASION_VALUES = {
+    "wedding": 0,
+    "get-together": 1,
 }
 
 
@@ -56,6 +60,7 @@ def create_token(
     invitees: int | None,
     dates: tuple[int, ...],
     side: str,
+    occasion: str = "wedding",
     *,
     nonce: bytes | None = None,
 ) -> str:
@@ -67,6 +72,11 @@ def create_token(
     side = side.strip().lower()
     if side not in SIDE_VALUES:
         raise ValueError("Invitation side must be Meet or Pooja.")
+    occasion = occasion.strip().lower()
+    if occasion not in OCCASION_VALUES:
+        raise ValueError("Invitation occasion must be wedding or get-together.")
+    if occasion == "get-together" and dates != (20,):
+        raise ValueError("Get-together invitations support only 20 September 2026.")
 
     nonce = secrets.token_bytes(NONCE_LENGTH) if nonce is None else nonce
     if len(nonce) != NONCE_LENGTH:
@@ -74,7 +84,9 @@ def create_token(
 
     people_value = 0 if invitees is None else invitees
     day_count = DATE_GROUPS[dates]
-    plaintext = bytes([people_value, day_count, SIDE_VALUES[side]])
+    plaintext = bytes(
+        [people_value, day_count, SIDE_VALUES[side], OCCASION_VALUES[occasion]]
+    )
     pad = hmac.new(TOKEN_KEY, b"E" + nonce, hashlib.sha256).digest()
     ciphertext = bytes(
         value ^ pad[index] for index, value in enumerate(plaintext)
@@ -93,15 +105,19 @@ def build_invitation_url(
     dates: tuple[int, ...],
     invitees: int | None,
     side: str,
+    occasion: str = "wedding",
 ) -> str:
     """Add a fresh encrypted invitation token to the hosted website URL."""
     parsed = urlsplit(website_url.strip())
     if parsed.scheme not in {"http", "https"} or not parsed.netloc:
         raise ValueError("Website URL must start with http:// or https://.")
-    if side.strip().lower() == "meet" and dates != (20,):
+    occasion = occasion.strip().lower()
+    if occasion == "get-together" and dates != (20,):
+        raise ValueError("Get-together invitations support only 20 September 2026.")
+    if occasion == "wedding" and side.strip().lower() == "meet" and dates != (20,):
         raise ValueError("Meet-side invitations support only 20 September 2026.")
 
-    token = create_token(invitees, dates, side)
+    token = create_token(invitees, dates, side, occasion)
     query = [
         (key, value)
         for key, value in parse_qsl(parsed.query, keep_blank_values=True)
@@ -119,10 +135,15 @@ def build_invitation_url(
     )
 
 
-def interactive_values() -> tuple[str, tuple[int, ...], int | None, str]:
+def interactive_values() -> tuple[str, tuple[int, ...], int | None, str, str]:
     print("Meet & Pooja — Invitation Link Generator\n")
     website_url = input("Hosted website URL: ").strip()
-    dates = parse_invited_dates(
+    occasion = input(
+        "Invitation type (wedding/get-together) [wedding]: "
+    ).strip().lower() or "wedding"
+    if occasion not in OCCASION_VALUES:
+        raise ValueError("Invitation occasion must be wedding or get-together.")
+    dates = (20,) if occasion == "get-together" else parse_invited_dates(
         input("Invited dates (20 / 19,20 / 18,19,20): ").strip()
     )
     invitee_text = input(
@@ -132,7 +153,7 @@ def interactive_values() -> tuple[str, tuple[int, ...], int | None, str]:
     side = input("Invitation from whose side (Meet/Pooja): ").strip().lower()
     if side not in SIDE_VALUES:
         raise ValueError("Invitation side must be Meet or Pooja.")
-    return website_url, dates, invitees, side
+    return website_url, dates, invitees, side, occasion
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -164,6 +185,12 @@ def parse_arguments() -> argparse.Namespace:
         choices=sorted(SIDE_VALUES),
         help="Whose name appears first: meet or pooja",
     )
+    parser.add_argument(
+        "--occasion",
+        choices=sorted(OCCASION_VALUES),
+        default="wedding",
+        help="Invitation type: wedding (default) or get-together",
+    )
     return parser.parse_args()
 
 
@@ -171,25 +198,29 @@ def main() -> int:
     interactive = len(sys.argv) == 1
     try:
         if interactive:
-            website_url, dates, invitees, side = interactive_values()
+            website_url, dates, invitees, side, occasion = interactive_values()
         else:
             arguments = parse_arguments()
-            if not arguments.url or not arguments.days:
-                raise ValueError("--url and --days are required.")
+            if not arguments.url:
+                raise ValueError("--url is required.")
+            if not arguments.days and arguments.occasion == "wedding":
+                raise ValueError("--days is required for wedding invitations.")
             if not arguments.side:
                 raise ValueError("Use --side meet or --side pooja.")
             if arguments.invitees is None and not arguments.family:
                 raise ValueError("Use --invitees NUMBER or --family.")
             website_url = arguments.url
-            dates = parse_invited_dates(arguments.days)
+            dates = (20,) if not arguments.days else parse_invited_dates(arguments.days)
             invitees = arguments.invitees
             side = arguments.side
+            occasion = arguments.occasion
 
         invitation_url = build_invitation_url(
             website_url,
             dates,
             invitees,
             side,
+            occasion,
         )
         print("\nShare this link with the guest:\n")
         print(invitation_url)

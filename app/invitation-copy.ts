@@ -9,9 +9,10 @@ export type EventKey =
   | "mameru"
   | "sangeet"
   | "wedding"
-  | "vidai";
+  | "vidai"
+  | "getTogether";
 export type WeekdayKey = "friday" | "saturday" | "sunday";
-export type VenueKey = "tremont" | "narayani";
+export type VenueKey = "tremont" | "narayani" | "gheeGud";
 
 const ENGLISH_DAYS = {
   1: {
@@ -97,6 +98,47 @@ export const COPY = {
     storyMeet:
       "Together with their families, Meet and Pooja request the pleasure of your gracious presence as they celebrate their wedding.",
     presence: "Your presence will make our joy complete.",
+    getTogether: {
+      gateKicker: "An evening together",
+      gateLine: "A post-wedding get-together",
+      openingNote: "Dinner · conversation · togetherness",
+      dateLine: "20 September 2026",
+      placeLine: "Ghee Gud Restaurant",
+      invitationCopy: "You are warmly invited to join us on Sunday, 20 September, from 08:00 PM to 10:00 PM.",
+      countdownLabel: "Sunday · 20 September · 08:00 PM",
+      openInvitation: (first: string, second: string) =>
+        `Open ${first} and ${second}'s get-together invitation`,
+      heroKicker: "After the celebrations",
+      heroHeading: "Let's Get Together",
+      explore: "View gathering details",
+      storyKicker: "A relaxed evening",
+      storyLineOne: "Good food,",
+      storyLineTwo: "great company.",
+      storyCopy:
+        "Now that the wedding festivities are complete, we would love to slow down, share dinner, and spend a relaxed evening with you.",
+      presence: "Your company will make the evening special.",
+      venueAria: "Ghee Gud Restaurant get-together venue",
+      venueKicker: "Where we will meet",
+      venueLineOne: "Ghee Gud",
+      venueLineTwo: "Restaurant",
+      venueDescription:
+        "A warm indoor setting for dinner, conversation, and time together.",
+      countdownAria: "Get-together countdown",
+      countdownKicker: "Counting down to our evening",
+      countdownHeading: "Until we get together",
+      eventsKicker: "Sunday evening",
+      eventsHeading: "Join us for dinner",
+      eventCopy: "An easy evening of good food, conversation, and togetherness.",
+      closingKicker: "See you there",
+      closingLineOne: "Come for dinner.",
+      closingLineTwo: "Stay for the memories.",
+      shareInvitation: "Share the get-together",
+      shareAria: "Share this get-together invitation",
+      shareTitle: (first: string, second: string) =>
+        `${first} & ${second} — Get-Together Invitation`,
+      shareText: (first: string, second: string) =>
+        `Join ${first} and ${second} for a get-together at Ghee Gud Restaurant on Sunday, 20 September, from 08:00 PM to 10:00 PM.`,
+    },
     meetFamilyMessage: {
       ariaLabel: "Invitation from Meet's family",
       kicker: "With our elders' blessings",
@@ -147,6 +189,7 @@ export const COPY = {
       sangeet: "Sangeet",
       wedding: "Wedding Ceremony",
       vidai: "Vidai",
+      getTogether: "Get Together",
     },
     ganeshTitleLines: ["Ganesh Sthapan", "Mandap Muhurat", "Grah Shanti"],
     eventTimes: {
@@ -158,6 +201,7 @@ export const COPY = {
       sangeet: "07:30 PM",
       wedding: "",
       vidai: "03:00 PM",
+      getTogether: "08:00 PM – 10:00 PM",
     },
     lunchTitle: "Lunch",
     lunchTime: "12:30 PM",
@@ -168,6 +212,7 @@ export const COPY = {
     venues: {
       tremont: "B.1302, Tremont, Vaishnodevi Circle, Ahmedabad, Gujarat 382421",
       narayani: "Narayani Heights, Airport-Gandhinagar Road, Bhat, Ahmedabad, Gujarat 382428",
+      gheeGud: "Ghee Gud Restaurant",
     },
     weds: (first: string, second: string) => `${first} weds ${second}`,
     directions: "Open directions",
@@ -219,6 +264,47 @@ export const COPY = {
     storyMeet:
       "બંને પરિવારો સાથે, મીત અને પૂજા તેમના શુભ લગ્ન પ્રસંગે આપની સ્નેહસભર ઉપસ્થિતિની અભિલાષા રાખે છે.",
     presence: "આપની ઉપસ્થિતિ અમારા આનંદને પૂર્ણ કરશે.",
+    getTogether: {
+      gateKicker: "એક સાંજ સાથે",
+      gateLine: "લગ્નોત્સવ પછીનું સ્નેહમિલન",
+      openingNote: "ભોજન · વાતો · સાથેનો આનંદ",
+      dateLine: "20 સપ્ટેમ્બર 2026",
+      placeLine: "ઘી ગુડ રેસ્ટોરન્ટ",
+      invitationCopy: "રવિવાર, 20 સપ્ટેમ્બરના રોજ રાત્રે 08:00 થી 10:00 સુધી અમારી સાથે મળવા માટે આપને હાર્દિક આમંત્રણ.",
+      countdownLabel: "રવિવાર · 20 સપ્ટેમ્બર · રાત્રે 08:00",
+      openInvitation: (first: string, second: string) =>
+        `${first} અને ${second}ના સ્નેહમિલનનું આમંત્રણ ખોલો`,
+      heroKicker: "લગ્નોત્સવ પછી",
+      heroHeading: "ચાલો સાથે મળીએ",
+      explore: "મિલનની વિગતો જુઓ",
+      storyKicker: "એક આનંદભરી સાંજ",
+      storyLineOne: "સ્વાદિષ્ટ ભોજન,",
+      storyLineTwo: "સ્નેહભર્યો સાથ.",
+      storyCopy:
+        "લગ્નની ઉજવણી પૂર્ણ થયા બાદ, આપની સાથે નિરાંતે ભોજન, વાતો અને આનંદભરી સાંજ માણવા અમે આતુર છીએ.",
+      presence: "આપનો સાથ આ સાંજને વધુ વિશેષ બનાવશે.",
+      venueAria: "ઘી ગુડ રેસ્ટોરન્ટ સ્નેહમિલન સ્થળ",
+      venueKicker: "મળવાનું સ્થળ",
+      venueLineOne: "ઘી ગુડ",
+      venueLineTwo: "રેસ્ટોરન્ટ",
+      venueDescription:
+        "ભોજન, વાતો અને સાથેનો સમય માણવા માટેનું ઉષ્માભર્યું ઇન્ડોર સ્થળ.",
+      countdownAria: "સ્નેહમિલનની ઊલટી ગણતરી",
+      countdownKicker: "આપણી સાંજની રાહમાં",
+      countdownHeading: "સ્નેહમિલન સુધી",
+      eventsKicker: "રવિવારની સાંજ",
+      eventsHeading: "ભોજન માટે પધારજો",
+      eventCopy: "સ્વાદિષ્ટ ભોજન, વાતો અને સ્નેહભર્યા સાથની એક નિરાંતભરી સાંજ.",
+      closingKicker: "આવજો જરૂર",
+      closingLineOne: "ભોજન માટે પધારજો.",
+      closingLineTwo: "યાદો સાથે લઈ જજો.",
+      shareInvitation: "સ્નેહમિલન શેર કરો",
+      shareAria: "આ સ્નેહમિલનનું આમંત્રણ શેર કરો",
+      shareTitle: (first: string, second: string) =>
+        `${first} અને ${second} — સ્નેહમિલનનું આમંત્રણ`,
+      shareText: (first: string, second: string) =>
+        `રવિવાર, 20 સપ્ટેમ્બરે રાત્રે 08:00 થી 10:00 સુધી ઘી ગુડ રેસ્ટોરન્ટ ખાતે ${first} અને ${second} સાથે સ્નેહમિલનમાં પધારજો.`,
+    },
     meetFamilyMessage: {
       ariaLabel: "મીતના પરિવાર તરફથી ભાવભર્યું આમંત્રણ",
       kicker: "વડીલોના આશીર્વાદ સાથે",
@@ -269,6 +355,7 @@ export const COPY = {
       sangeet: "સંગીત સંધ્યા",
       wedding: "લગ્નવિધિ",
       vidai: "વિદાય",
+      getTogether: "સ્નેહમિલન",
     },
     ganeshTitleLines: ["ગણેશ સ્થાપન", "મંડપ મુહૂર્ત", "ગ્રહ શાંતિ"],
     eventTimes: {
@@ -280,6 +367,7 @@ export const COPY = {
       sangeet: "સાંજે 07:30",
       wedding: "",
       vidai: "બપોરે 03:00",
+      getTogether: "રાત્રે 08:00 થી 10:00",
     },
     lunchTitle: "બપોરનું ભોજન",
     lunchTime: "બપોરે 12:30",
@@ -290,6 +378,7 @@ export const COPY = {
     venues: {
       tremont: "બી-1302, ટ્રેમોન્ટ, વૈષ્ણોદેવી સર્કલ, અમદાવાદ, ગુજરાત 382421",
       narayani: "નારાયણી હાઇટ્સ, એરપોર્ટ-ગાંધીનગર રોડ, ભાટ, અમદાવાદ, ગુજરાત 382428",
+      gheeGud: "ઘી ગુડ રેસ્ટોરન્ટ",
     },
     weds: (first: string, second: string) =>
       `${first} અને ${second}ના શુભ લગ્ન`,

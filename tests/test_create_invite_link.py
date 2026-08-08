@@ -6,6 +6,7 @@ from urllib.parse import parse_qs, urlsplit
 
 from create_invite_link import (
     DATE_GROUPS,
+    OCCASION_VALUES,
     SIDE_VALUES,
     TAG_LENGTH,
     TOKEN_KEY,
@@ -31,10 +32,17 @@ class InviteLinkTests(unittest.TestCase):
         raw = base64.urlsafe_b64decode(padded)
         body, tag = raw[:-TAG_LENGTH], raw[-TAG_LENGTH:]
 
-        self.assertEqual(len(token), 43)
+        self.assertEqual(len(token), 44)
         self.assertNotEqual(
-            body[-3:],
-            bytes([4, DATE_GROUPS[(19, 20)], SIDE_VALUES["pooja"]]),
+            body[-4:],
+            bytes(
+                [
+                    4,
+                    DATE_GROUPS[(19, 20)],
+                    SIDE_VALUES["pooja"],
+                    OCCASION_VALUES["wedding"],
+                ]
+            ),
         )
         self.assertEqual(
             tag,
@@ -52,7 +60,7 @@ class InviteLinkTests(unittest.TestCase):
         query = parse_qs(parsed.query)
         self.assertEqual(parsed.path, "/invite")
         self.assertEqual(query["source"], ["family"])
-        self.assertEqual(len(query["i"][0]), 43)
+        self.assertEqual(len(query["i"][0]), 44)
         self.assertNotEqual(query["i"][0], "old")
 
     def test_side_changes_the_encrypted_payload(self):
@@ -69,6 +77,28 @@ class InviteLinkTests(unittest.TestCase):
                 None,
                 "meet",
             )
+
+    def test_get_together_url_accepts_only_twentieth_september(self):
+        with self.assertRaisesRegex(ValueError, "only 20 September"):
+            build_invitation_url(
+                "https://example.com/invite",
+                (19, 20),
+                4,
+                "meet",
+                "get-together",
+            )
+
+    def test_get_together_changes_the_encrypted_payload(self):
+        nonce = bytes(range(12))
+        wedding_token = create_token(4, (20,), "meet", "wedding", nonce=nonce)
+        gathering_token = create_token(
+            4,
+            (20,),
+            "meet",
+            "get-together",
+            nonce=nonce,
+        )
+        self.assertNotEqual(wedding_token, gathering_token)
 
 
 if __name__ == "__main__":

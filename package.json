@@ -14,7 +14,7 @@
     "start": "vinext start",
     "optimize:images": "node scripts/optimize-invitation-images.mjs",
     "invite:link": "node scripts/create-invite-link.mjs",
-    "test:features": "node --test tests/invitation-token.test.mjs tests/pooja-blessings.test.mjs tests/family-compliments.test.mjs tests/event-details.test.mjs tests/performance-assets.test.mjs",
+    "test:features": "node --test tests/invitation-token.test.mjs tests/pooja-blessings.test.mjs tests/family-compliments.test.mjs tests/event-details.test.mjs tests/performance-assets.test.mjs tests/get-together.test.mjs",
     "test:github": "npm run build:github && node --test tests/github-pages-build.test.mjs",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",

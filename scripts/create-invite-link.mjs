@@ -21,11 +21,14 @@ const days = Number(values.get("days"));
 const isFamily = flags.has("family");
 const people = isFamily ? null : Number(values.get("people"));
 const side = values.get("side")?.toLowerCase();
+const occasion = values.get("occasion")?.toLowerCase() ?? "wedding";
 
 if (
   ![1, 2, 3].includes(days)
   || !["meet", "pooja"].includes(side)
-  || (side === "meet" && days !== 1)
+  || !["wedding", "get-together"].includes(occasion)
+  || (occasion === "wedding" && side === "meet" && days !== 1)
+  || (occasion === "get-together" && days !== 1)
   || (!isFamily && (!Number.isInteger(people) || people < 1 || people > 250))
 ) {
   console.error(
@@ -33,16 +36,18 @@ if (
       "Create a personalized wedding invitation link:",
       "  npm run invite:link -- --people 4 --days 2 --side pooja",
       "  npm run invite:link -- --family --days 1 --side meet",
+      "  npm run invite:link -- --people 4 --days 1 --side meet --occasion get-together",
       "",
       "Days: 1 = 20 Sep, 2 = 19–20 Sep, 3 = 18–20 Sep.",
       "Side: pooja = Pooja first, meet = Meet first.",
       "Meet-side invitations support only day 1 (20 September).",
+      "Get-together invitations use --occasion get-together and support only day 1.",
       "Use --url https://example.com to override the live invitation address.",
     ].join("\n"),
   );
   process.exitCode = 1;
 } else {
-  const token = await encodeInvitationToken({ people, days, side });
+  const token = await encodeInvitationToken({ people, days, side, occasion });
   const invitationUrl = new URL(values.get("url") ?? DEFAULT_URL);
   invitationUrl.searchParams.set("i", token);
   console.log(invitationUrl.toString());

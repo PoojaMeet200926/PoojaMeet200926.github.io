@@ -57,9 +57,9 @@ test("keeps the original heading and gives Meet a Sunday-only schedule", async (
     readFile(new URL("app/invitation-copy.ts", root), "utf8"),
   ]);
 
-  assert.match(page, /<p className="section-kicker">\{copy\.weekend\}<\/p>/);
-  assert.match(page, /<h2>\{copy\.celebrate\}<\/h2>/);
-  assert.match(page, /const selectedDays: DayCount = isMeetSide \? 1 : invitationDetails\?\.days \?\? 2/);
+  assert.match(page, /<p className="section-kicker">\{isGetTogether \? copy\.getTogether\.eventsKicker : copy\.weekend\}<\/p>/);
+  assert.match(page, /<h2>\{isGetTogether \? copy\.getTogether\.eventsHeading : copy\.celebrate\}<\/h2>/);
+  assert.match(page, /const selectedDays: DayCount = isGetTogether \|\| isMeetSide \? 1 : invitationDetails\?\.days \?\? 2/);
   assert.match(page, /if \(invitationDetails\?\.side === "meet"\) return MEET_EVENTS/);
   assert.match(page, /const MEET_EVENTS:[\s\S]*?key: "ganesh",[\s\S]*?weekday: "sunday",[\s\S]*?date: "20",[\s\S]*?key: "wedding",[\s\S]*?weekday: "sunday",[\s\S]*?date: "20"/);
   assert.match(page, /isMeetSide \? copy\.meetEventCopy : displayDetails\.eventCopy/);

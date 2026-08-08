@@ -239,11 +239,36 @@ button { font: inherit; }
     url('/narayani-heights-venue.webp');
   background-position: center; background-size: 100% 100%, cover; background-repeat: no-repeat;
 }
+.occasion-get-together .gate-untying .gate-inner-card,
+.occasion-get-together .gate-opening .gate-inner-card,
+.occasion-get-together .gate-revealed .gate-inner-card {
+  color: #fffaf0;
+  background-image:
+    linear-gradient(rgba(20,34,27,.54),rgba(17,27,22,.72)),
+    url('/ghee-gud-get-together.webp');
+  background-position: center; background-size: 100% 100%, cover;
+}
 .gate-untying .gate-inner-card::after,
 .gate-opening .gate-inner-card::after,
 .gate-revealed .gate-inner-card::after {
   background-image: url('/festive-floral-frame-optimized.webp');
 }
+.occasion-get-together .gate-untying .gate-inner-card::after,
+.occasion-get-together .gate-opening .gate-inner-card::after,
+.occasion-get-together .gate-revealed .gate-inner-card::after {
+  opacity: .36;
+  background-image:
+    linear-gradient(90deg,rgba(233,208,163,.3) 1px,transparent 1px),
+    linear-gradient(rgba(233,208,163,.22) 1px,transparent 1px);
+  background-size: 26px 26px;
+}
+.occasion-get-together .gate-inner-card::before { border-color: rgba(255,238,205,.58); }
+.occasion-get-together .gate-inner-card .inner-names span,
+.occasion-get-together .gate-inner-card > p,
+.occasion-get-together .gate-inner-card small,
+.occasion-get-together .gate-inner-card .inner-rule span { color: #fff8ec; }
+.occasion-get-together .gate-inner-card .inner-rule { border-color: rgba(255,238,205,.46); }
+.occasion-get-together .gate-inner-card .inner-rule b { color: #f3d49b; }
 .gate-inner-card-blessed::after { opacity: .28; }
 .gate-inner-card > * {
   position: relative; z-index: 1; opacity: 0; transform: translateY(12px);
@@ -403,6 +428,13 @@ button { font: inherit; }
 .invitation-revealed .hero-image,
 .invitation-open .hero-image,
 .invitation-open .venue-image { background-image: url('/narayani-heights-venue.webp'); }
+.invitation-untying.occasion-get-together .hero-image,
+.invitation-opening.occasion-get-together .hero-image,
+.invitation-revealed.occasion-get-together .hero-image,
+.invitation-open.occasion-get-together .hero-image,
+.invitation-open.occasion-get-together .venue-image {
+  background-image: url('/ghee-gud-get-together.webp');
+}
 .hero-image { transform: scale(1.035); animation: heroZoom 12s ease-out both; }
 .hero-wash { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg,rgba(255,247,232,.1),rgba(47,96,72,.03) 52%,rgba(31,56,41,.37)); }
 .door { position: absolute; top: 0; bottom: 0; z-index: 5; width: 51%; background: linear-gradient(90deg,#f0dfc4,#fffaf0 52%,#e2cfae); box-shadow: 0 0 50px rgba(91,67,34,.24); }
@@ -414,6 +446,19 @@ button { font: inherit; }
 .invitation-open .door-right { animation: openDoorRight 2.25s cubic-bezier(.65,0,.2,1) .12s both; }
 .invitation-open .hero-content { animation: fadeRise 1.3s ease 1.45s both; }
 .hero-pooja .hero-content { margin-top: 12vh; }
+.hero-get-together .hero-content { width: min(86%,680px); margin-top: -2vh; }
+.hero-get-together .hero-wash {
+  background: linear-gradient(180deg,rgba(17,23,20,.48),rgba(35,50,40,.18) 46%,rgba(17,24,20,.7));
+}
+.hero-get-together .get-together-heading span {
+  font: 400 clamp(51px,14vw,88px)/.96 Georgia,"Times New Roman",serif;
+  letter-spacing: -.045em;
+}
+.get-together-hosts {
+  margin: 24px 0 0; color: #f4d7a4; font: 500 clamp(21px,5.6vw,32px)/1.2 Georgia,"Times New Roman",serif;
+  letter-spacing: .035em;
+}
+.get-together-hosts i { margin: 0 .22em; color: #fff8ec; font-size: .7em; }
 .hero-om-shanti {
   position: absolute; z-index: 3; top: max(58px,calc(env(safe-area-inset-top) + 50px)); left: 50%;
   width: min(70px,16.5vw); aspect-ratio: 640 / 680; transform: translateX(-50%);
@@ -789,6 +834,43 @@ button { font: inherit; }
   background-position: center top;
   background-repeat: repeat-y;
   background-size: 100% auto;
+}
+
+.invitation-open.occasion-get-together .story,
+.invitation-open.occasion-get-together .personal-invitation-card,
+.invitation-open.occasion-get-together .countdown-section,
+.invitation-open.occasion-get-together .events-section,
+.invitation-open.occasion-get-together .closing {
+  background-color: #f5efe4;
+  background-image:
+    radial-gradient(circle at 18% 12%,rgba(184,130,57,.1),transparent 28%),
+    radial-gradient(circle at 86% 82%,rgba(42,91,66,.1),transparent 31%),
+    linear-gradient(135deg,rgba(255,255,255,.76),rgba(236,224,204,.44)),
+    repeating-linear-gradient(90deg,rgba(77,104,86,.035) 0 1px,transparent 1px 26px),
+    repeating-linear-gradient(0deg,rgba(77,104,86,.03) 0 1px,transparent 1px 26px);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.occasion-get-together .venue-reveal { height: 112svh; }
+.occasion-get-together .venue-image { background-position: center 48%; }
+.occasion-get-together .venue-overlay {
+  background: linear-gradient(180deg,rgba(16,22,19,.16),rgba(21,31,25,.7));
+}
+.occasion-get-together .event-garland { display: none; }
+.occasion-get-together .events-heading { padding-top: 0; margin-bottom: 46px; }
+.occasion-get-together .event-list { width: min(760px,100%); }
+.occasion-get-together .event-card {
+  min-height: 260px; border-color: rgba(111,76,35,.24);
+  background: rgba(255,251,243,.92); box-shadow: 0 18px 50px rgba(62,45,26,.12);
+}
+.occasion-get-together .event-date-block {
+  color: #fffaf0; background: linear-gradient(180deg,#2e674d,#244d3c);
+}
+.occasion-get-together .event-details h3 { color: #2f392f; }
+.occasion-get-together .event-time { color: #9b691f; font-weight: 600; }
+.occasion-get-together .closing-names {
+  color: var(--sage-deep); font-family: Georgia,"Times New Roman",serif; font-size: clamp(38px,10vw,64px);
 }
 
 .botanical,

@@ -6,7 +6,8 @@ The generator creates an opaque `?i=` token containing:
 
 - the number of invited people, or a whole-family invitation;
 - the invited date group;
-- whether the invitation is sent from Meet's side or Pooja's side.
+- whether the invitation is sent from Meet's side or Pooja's side;
+- whether the link opens the wedding invitation or the post-wedding get-together.
 
 The website is hosted only once. Run the generator again for every guest or family that needs a different link.
 
@@ -52,10 +53,16 @@ Pooja-side invitation for four people on 19 and 20 September:
 python create_invite_link.py --url "http://localhost:3000" --days 19,20 --invitees 4 --side pooja
 ```
 
-Meet-side whole-family invitation for all three dates:
+Meet-side whole-family wedding invitation for 20 September:
 
 ```powershell
-python create_invite_link.py --url "http://localhost:3000" --days 18,19,20 --family --side meet
+python create_invite_link.py --url "http://localhost:3000" --days 20 --family --side meet
+```
+
+Post-wedding Ghee Gud get-together for four people:
+
+```powershell
+python create_invite_link.py --url "http://localhost:3000" --days 20 --invitees 4 --side meet --occasion get-together
 ```
 
 Open each generated URL in the browser. If the development server uses another port, replace `3000` with the port printed by `npm.cmd run dev`.
@@ -72,10 +79,12 @@ Open each generated URL in the browser. If the development server uses another p
 | `--family` | No value | Invites the whole family without displaying a count |
 | `--side pooja` | `pooja` | Pooja appears first and Pooja-side blessings/family details are shown |
 | `--side meet` | `meet` | Meet appears first and Pooja-specific content is hidden |
+| `--occasion wedding` | `wedding` | Shows the wedding invitation; this is the default |
+| `--occasion get-together` | `get-together` | Shows only the post-wedding 20 September gathering at Ghee Gud Restaurant |
 
 Use exactly one of `--invitees N` or `--family`.
 
-The only supported date groups are `20`, `19,20`, and `18,19,20`. A group such as `18,20` is intentionally rejected because it does not correspond to an invitation configuration.
+The only supported wedding date groups are `20`, `19,20`, and `18,19,20`. A group such as `18,20` is intentionally rejected because it does not correspond to an invitation configuration. Get-together links always use `20`.
 
 ## Generate several links for testing
 
@@ -85,7 +94,8 @@ Run several commands one after another. Every successful command prints a comple
 python create_invite_link.py --url "http://localhost:3000" --days 20 --invitees 1 --side pooja
 python create_invite_link.py --url "http://localhost:3000" --days 20 --invitees 2 --side meet
 python create_invite_link.py --url "http://localhost:3000" --days 19,20 --invitees 4 --side pooja
-python create_invite_link.py --url "http://localhost:3000" --days 18,19,20 --family --side meet
+python create_invite_link.py --url "http://localhost:3000" --days 18,19,20 --family --side pooja
+python create_invite_link.py --url "http://localhost:3000" --days 20 --invitees 4 --side meet --occasion get-together
 ```
 
 To save the output from multiple commands in one text file:
@@ -93,7 +103,7 @@ To save the output from multiple commands in one text file:
 ```powershell
 python create_invite_link.py --url "http://localhost:3000" --days 20 --invitees 1 --side pooja | Out-File -Append test-invite-links.txt
 python create_invite_link.py --url "http://localhost:3000" --days 19,20 --invitees 4 --side pooja | Out-File -Append test-invite-links.txt
-python create_invite_link.py --url "http://localhost:3000" --days 18,19,20 --family --side meet | Out-File -Append test-invite-links.txt
+python create_invite_link.py --url "http://localhost:3000" --days 18,19,20 --family --side pooja | Out-File -Append test-invite-links.txt
 ```
 
 `test-invite-links.txt` will be created in the current folder. The descriptive output and generated URLs are both saved.
@@ -106,7 +116,7 @@ Run the script without arguments:
 python create_invite_link.py
 ```
 
-The program asks for the website URL, invited dates, guest count, and sender side. Leave the guest-count answer blank to invite the whole family.
+The program asks for the website URL, invitation type, invited dates (for wedding links), guest count, and sender side. Leave the guest-count answer blank to invite the whole family. Get-together links automatically use Sunday, 20 September.
 
 ## Generate links for the hosted website
 
@@ -125,6 +135,7 @@ Copy the complete generated link, including its `?i=` token, and send that link 
 - The token prevents casual reading of guest details and detects modification, but it is not an authentication or access-control system.
 - Language is selected by the guest on the website and is not encoded into the link.
 - Pooja-side and Meet-side links intentionally display different name order and side-specific content.
+- `--occasion get-together` hides Narayani Heights, all wedding events, side-specific family copy, and family compliments. It shows only the 08:00–10:00 PM indoor gathering at Ghee Gud Restaurant with the supplied directions link.
 
 ## Common errors
 
