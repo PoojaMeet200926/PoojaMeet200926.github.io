@@ -4,7 +4,7 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 
-test("keeps Vidai within the Wedding Ceremony card and preserves meal pairings", async () => {
+test("shows the complete Wedding Ceremony card on both invitation sides", async () => {
   const [page, copy] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/invitation-copy.ts", root), "utf8"),
@@ -27,7 +27,8 @@ test("keeps Vidai within the Wedding Ceremony card and preserves meal pairings",
   assert.match(copy, /mehendi: "મહેંદી"/);
   assert.doesNotMatch(copy, /મહેંદી અને આનંદની બપોર/);
   assert.match(copy, /ganesh: "સવારે 08:00"/);
-  assert.match(page, /event\.key === "wedding" \? \([\s\S]*?className="event-schedule-stack"[\s\S]*?copy\.hastaMelapTitle[\s\S]*?copy\.hastaMelapTime[\s\S]*?copy\.lunchTitle[\s\S]*?copy\.lunchTime[\s\S]*?copy\.eventTitles\.vidai[\s\S]*?copy\.eventTimes\.vidai/);
+  assert.match(page, /event\.key === "wedding" \? \([\s\S]*?copy\.eventTitles\.wedding[\s\S]*?copy\.weds\(firstName, secondName\)[\s\S]*?className="event-schedule-stack"[\s\S]*?copy\.hastaMelapTitle[\s\S]*?copy\.hastaMelapTime[\s\S]*?copy\.lunchTitle[\s\S]*?copy\.lunchTime[\s\S]*?copy\.eventTitles\.vidai[\s\S]*?copy\.eventTimes\.vidai/);
+  assert.doesNotMatch(page, /event\.key === "wedding" \? \(\s*isMeetSide \?/);
   assert.match(copy, /hastaMelapTitle: "Hast Melap"/);
   assert.match(copy, /hastaMelapTime: "11:00 AM"/);
   assert.match(copy, /hastaMelapTitle: "હસ્ત મેળાપ"/);
