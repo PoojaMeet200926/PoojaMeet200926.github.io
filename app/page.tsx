@@ -1,6 +1,14 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type PointerEvent as ReactPointerEvent,
+  type WheelEvent as ReactWheelEvent,
+} from "react";
 import {
   COPY,
   type DayCount,
@@ -319,6 +327,8 @@ export default function Home() {
   const [invitationDetails, setInvitationDetails] = useState<InvitationDetails | null>(null);
   const [language, setLanguage] = useState<Language>("en");
   const [shareMessage, setShareMessage] = useState("");
+  const openingStartedRef = useRef(false);
+  const openingGestureRef = useRef<{ pointerId: number; x: number; y: number } | null>(null);
 
   const copy = COPY[language];
   const isMeetSide = invitationDetails?.side === "meet";
@@ -446,7 +456,8 @@ export default function Home() {
   };
 
   const openInvitation = () => {
-    if (invitationState !== "sealed") return;
+    if (invitationState !== "sealed" || openingStartedRef.current) return;
+    openingStartedRef.current = true;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) {
       setInvitationState("revealed");
@@ -455,6 +466,49 @@ export default function Home() {
     setInvitationState("untying");
     window.setTimeout(() => setInvitationState("opening"), 1070);
     window.setTimeout(() => setInvitationState("revealed"), 3000);
+  };
+
+  const beginOpeningGesture = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (invitationState !== "sealed") return;
+    openingGestureRef.current = {
+      pointerId: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const continueOpeningGesture = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const start = openingGestureRef.current;
+    if (!start || start.pointerId !== event.pointerId) return;
+    if (Math.hypot(event.clientX - start.x, event.clientY - start.y) < 18) return;
+
+    openingGestureRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    openInvitation();
+  };
+
+  const finishOpeningGesture = (event: ReactPointerEvent<HTMLDivElement>) => {
+    continueOpeningGesture(event);
+    openingGestureRef.current = null;
+  };
+
+  const cancelOpeningGesture = () => {
+    openingGestureRef.current = null;
+  };
+
+  const openFromWheel = (event: ReactWheelEvent<HTMLDivElement>) => {
+    if (invitationState !== "sealed" || Math.abs(event.deltaX) + Math.abs(event.deltaY) < 1) return;
+    event.preventDefault();
+    openInvitation();
+  };
+
+  const openFromKeyboard = (event: ReactKeyboardEvent<HTMLButtonElement>) => {
+    if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) return;
+    event.preventDefault();
+    openInvitation();
   };
 
   const shareInvitation = async () => {
@@ -493,7 +547,15 @@ export default function Home() {
         <span className={`language-option${language === "en" ? " is-active" : ""}`} aria-hidden="true">EN</span>
         <span className={`language-option language-option-gu${language === "gu" ? " is-active" : ""}`} aria-hidden="true">ગુ</span>
       </button>
-      <div className={`invitation-gate gate-${invitationState}`} aria-hidden={invitationState === "open"}>
+      <div
+        className={`invitation-gate gate-${invitationState}`}
+        aria-hidden={invitationState === "open"}
+        onPointerDown={beginOpeningGesture}
+        onPointerMove={continueOpeningGesture}
+        onPointerUp={finishOpeningGesture}
+        onPointerCancel={cancelOpeningGesture}
+        onWheel={openFromWheel}
+      >
         <div className="gate-atmosphere" />
         <p className="gate-kicker">{copy.celebrationAwaits}</p>
         <div
@@ -530,6 +592,7 @@ export default function Home() {
           className="cover-button"
           type="button"
           onClick={openInvitation}
+          onKeyDown={openFromKeyboard}
           aria-label={copy.openInvitation(firstName, secondName)}
           disabled={invitationState !== "sealed"}
         >

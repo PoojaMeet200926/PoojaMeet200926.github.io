@@ -35,3 +35,21 @@ test("scales every floral page background responsively", async () => {
   );
   assert.doesNotMatch(css, /\.floral-frame/);
 });
+
+test("opens the ribbon with tap, click, multidirectional gestures, wheel, and keyboard", async () => {
+  const [page, copy, css] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/invitation-copy.ts", root), "utf8"),
+    readFile(new URL("app/globals.css", root), "utf8"),
+  ]);
+
+  assert.match(page, /onClick=\{openInvitation\}/);
+  assert.match(page, /onPointerDown=\{beginOpeningGesture\}/);
+  assert.match(page, /onPointerMove=\{continueOpeningGesture\}/);
+  assert.match(page, /Math\.hypot\(event\.clientX - start\.x, event\.clientY - start\.y\)/);
+  assert.match(page, /onWheel=\{openFromWheel\}/);
+  assert.match(page, /onKeyDown=\{openFromKeyboard\}/);
+  assert.match(copy, /Tap, click, swipe, or drag to open/);
+  assert.match(copy, /રિબન ખોલવા ટૅપ, ક્લિક, સ્વાઇપ અથવા ડ્રૅગ કરો/);
+  assert.match(css, /\.invitation-gate \{[\s\S]*?touch-action: none;/);
+});
