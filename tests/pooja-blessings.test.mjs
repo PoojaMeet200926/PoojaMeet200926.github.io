@@ -16,9 +16,12 @@ test("shows Ganeshji blessings for both sides and OM SHANTI only for Pooja", asy
   assert.match(page, /const showOpeningBlessings = invitationDetails !== null/);
   assert.match(page, /showOpeningBlessings[\s\S]*?className="ganesh-emblem"[\s\S]*?copy\.ganeshInvocation[\s\S]*?isMeetSide &&[\s\S]*?copy\.mahalaxmiInvocation[\s\S]*?:[\s\S]*?<span className="inner-floret">✦<\/span>/);
   assert.match(page, /showPoojaBlessings && \([\s\S]*?className="hero-om-shanti"[\s\S]*?aria-label=\{copy\.omShantiAlt\}/);
+  assert.match(page, /isMeetSide && \([\s\S]*?className="hero-deity-trio"[\s\S]*?aria-label=\{copy\.deityTrioAlt\}/);
   assert.doesNotMatch(page, /className="hero-blessing-invocation"/);
   assert.match(page, /className="hero-next-button" href="#story"/);
   assert.match(copy, /omShantiAlt: "OM SHANTI blessing symbol"/);
+  assert.match(copy, /deityTrioAlt: "Saraswati, Lakshmi, and Ganesh blessings"/);
+  assert.match(copy, /deityTrioAlt: "સરસ્વતીજી, લક્ષ્મીજી અને ગણેશજીનું શુભ પ્રતીક"/);
   assert.match(copy, /ganeshBlessingAlt: "Ganeshji blessing symbol"/);
   assert.match(copy, /ganeshInvocation: "॥ श्री गणेशाय नमः ॥"/);
   assert.match(copy, /mahalaxmiInvocation: "॥ श्री महालक्ष्मी मातायै नमः ॥"/);
@@ -27,9 +30,16 @@ test("shows Ganeshji blessings for both sides and OM SHANTI only for Pooja", asy
   assert.match(css, /\.gate-inner-card-blessed > \.gate-blessing-invocation\s*\{/);
   assert.match(css, /\.hero-om-shanti\s*\{[\s\S]*?top: max\(58px,calc\(env\(safe-area-inset-top\) \+ 50px\)\)[\s\S]*?width: min\(70px,16\.5vw\)[\s\S]*?aspect-ratio: 640 \/ 680[\s\S]*?background-position: right top; background-size: auto 100%; background-repeat: no-repeat;/);
   assert.match(css, /\.invitation-open \.hero-om-shanti \{ background-image: url\('\/pooja-blessings\.webp'\); \}/);
+  assert.match(css, /\.hero-deity-trio\s*\{[\s\S]*?width: min\(340px,68vw\)[\s\S]*?url\('\/meet-deity-trio\.webp'\)/);
+  assert.match(css, /\.invitation-open \.hero-deity-trio \{ animation: deityTrioReveal/);
   assert.doesNotMatch(css, /\.hero-om-shanti\s*\{[^}]*background-color/);
   assert.match(css, /\.hero-next-button\s*\{/);
   assert.match(css, /html \{ scroll-behavior: smooth;/);
+
+  const deityTrio = await readFile(new URL("public/meet-deity-trio.webp", root));
+  assert.equal(deityTrio.subarray(0, 4).toString("ascii"), "RIFF");
+  assert.equal(deityTrio.subarray(8, 12).toString("ascii"), "WEBP");
+  assert.ok(deityTrio.length < 300 * 1024, "Meet deity trio must remain under 300 KB");
 });
 
 test("adds the parents' complete invitation message only to Meet's side", async () => {

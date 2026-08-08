@@ -633,13 +633,16 @@ export default function Home() {
         </div>
       </div>
 
-      <section className={`hero${showPoojaBlessings ? " hero-pooja" : ""}`} id="home">
+      <section className={`hero${showPoojaBlessings ? " hero-pooja" : ""}${isMeetSide ? " hero-meet" : ""}`} id="home">
         <div className="hero-image" />
         <div className="hero-wash" />
         <div className="door door-left" />
         <div className="door door-right" />
         {showPoojaBlessings && (
           <div className="hero-om-shanti" role="img" aria-label={copy.omShantiAlt} />
+        )}
+        {isMeetSide && (
+          <div className="hero-deity-trio" role="img" aria-label={copy.deityTrioAlt} />
         )}
         <div className="hero-content">
           <p className="eyebrow">{copy.familyLine}</p>
