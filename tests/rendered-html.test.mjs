@@ -25,19 +25,17 @@ async function render() {
   );
 }
 
-test("server-renders the finished wedding invitation", async () => {
+test("server-renders only the private-link gate without a token", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Meet &amp; Pooja \| Wedding Invitation<\/title>/i);
-  assert.match(html, /class="invitation-sealed language-en occasion-wedding"/);
-  assert.match(html, /class="cover-button"/);
-  assert.match(html, /class="story paper-section"/);
-  assert.match(html, /class="countdown-section paper-section"/);
-  assert.match(html, /class="events-section"/);
-  assert.match(html, /class="closing paper-section"/);
+  assert.match(html, /<title>Private Invitation<\/title>/i);
+  assert.match(html, /class="private-link-screen"/);
+  assert.match(html, /Checking your link/);
+  assert.doesNotMatch(html, /Meet|Pooja|Narayani|Tremont|Ghee Gud|September|Wedding Ceremony/i);
+  assert.doesNotMatch(html, /class="cover-button"|class="events-section"|class="venue-reveal"/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|Building your site/i);
 });
 
@@ -50,9 +48,13 @@ test("keeps starter preview code out of the completed invitation", async () => {
 
   assert.match(page, /export default function Home\(\)/);
   assert.match(page, /className=\{`invitation-\$\{invitationState\} language-\$\{language\} occasion-\$\{isGetTogether \? "get-together" : "wedding"\}`\}/);
-  assert.match(layout, /title: "Meet & Pooja \| Wedding Invitation"/);
-  assert.match(layout, /images: \[\{ url: `\$\{origin\}\/og\.png`/);
-  assert.match(layout, /href="\/invitation-box-lid\.webp"/);
+  assert.match(page, /type LinkStatus = "checking" \| "valid" \| "missing" \| "invalid"/);
+  assert.match(page, /if \(!token\) \{[\s\S]*?setLinkStatus\("missing"\)/);
+  assert.match(page, /if \(details\) \{[\s\S]*?setLinkStatus\("valid"\)[\s\S]*?setLinkStatus\("invalid"\)/);
+  assert.match(page, /if \(linkStatus !== "valid"\)/);
+  assert.match(layout, /title: "Private Invitation"/);
+  assert.match(layout, /robots: \{ index: false, follow: false \}/);
+  assert.doesNotMatch(layout, /Meet & Pooja|Narayani|September|og\.png|invitation-box-lid/);
   assert.doesNotMatch(page, /_sites-preview|SkeletonPreview|codex-preview/);
   assert.doesNotMatch(layout, /_sites-preview|SkeletonPreview|codex-preview/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);

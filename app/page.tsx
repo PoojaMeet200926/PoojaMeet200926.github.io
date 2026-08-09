@@ -20,6 +20,7 @@ import {
 import { decodeInvitationToken } from "../lib/invitation-token.mjs";
 
 type Countdown = { days: number; hours: number; minutes: number; seconds: number };
+type LinkStatus = "checking" | "valid" | "missing" | "invalid";
 type InvitationDetails = {
   people: number | null;
   days: 1 | 2 | 3;
@@ -338,6 +339,7 @@ export default function Home() {
   const [invitationState, setInvitationState] = useState<"sealed" | "untying" | "opening" | "revealed" | "open">("sealed");
   const [countdown, setCountdown] = useState<Countdown>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [invitationDetails, setInvitationDetails] = useState<InvitationDetails | null>(null);
+  const [linkStatus, setLinkStatus] = useState<LinkStatus>("checking");
   const [language, setLanguage] = useState<Language>("en");
   const [shareMessage, setShareMessage] = useState("");
   const openingStartedRef = useRef(false);
@@ -419,11 +421,20 @@ export default function Home() {
 
   useEffect(() => {
     const token = new URLSearchParams(window.location.search).get("i");
-    if (!token) return;
+    if (!token) {
+      setLinkStatus("missing");
+      return;
+    }
 
     let active = true;
     void decodeInvitationToken(token).then((details) => {
-      if (active && details) setInvitationDetails(details);
+      if (!active) return;
+      if (details) {
+        setInvitationDetails(details);
+        setLinkStatus("valid");
+      } else {
+        setLinkStatus("invalid");
+      }
     });
     return () => {
       active = false;
@@ -568,6 +579,24 @@ export default function Home() {
     }
     window.setTimeout(() => setShareMessage(""), 2400);
   };
+
+  if (linkStatus !== "valid") {
+    const checkingLink = linkStatus === "checking";
+    return (
+      <main className="private-link-screen">
+        <section className="private-link-card" aria-live="polite" aria-busy={checkingLink}>
+          <span className={`private-link-mark${checkingLink ? " is-checking" : ""}`} aria-hidden="true">✦</span>
+          <p className="private-link-kicker">Private invitation</p>
+          <h1>{checkingLink ? "Checking your link…" : "Complete link required"}</h1>
+          <p>
+            {checkingLink
+              ? "Please wait a moment."
+              : "Please open the complete invitation link that was shared with you."}
+          </p>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className={`invitation-${invitationState} language-${language} occasion-${isGetTogether ? "get-together" : "wedding"}`}>

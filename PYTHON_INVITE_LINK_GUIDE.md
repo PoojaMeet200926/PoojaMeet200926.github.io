@@ -132,7 +132,8 @@ Copy the complete generated link, including its `?i=` token, and send that link 
 
 - A fresh opaque token is generated every time. Two links created with identical options can look different while producing the same invitation configuration.
 - Do not manually edit or shorten the `?i=` value. Modified tokens are rejected by the website.
-- The token prevents casual reading of guest details and detects modification, but it is not an authentication or access-control system.
+- The plain website and missing, empty, shortened, or modified tokens show only a generic “Complete link required” screen. No names, dates, events, venues, maps, or family details are rendered.
+- The token prevents casual reading of guest details and detects modification, but a static public website cannot provide server-enforced authentication or access control.
 - Language is selected by the guest on the website and is not encoded into the link.
 - Pooja-side and Meet-side links intentionally display different name order and side-specific content.
 - `--occasion get-together` hides Narayani Heights, all wedding events, side-specific family copy, and family compliments. It shows only the 08:00–10:00 PM indoor gathering at Ghee Gud Restaurant with the supplied directions link.

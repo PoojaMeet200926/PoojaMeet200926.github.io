@@ -24,6 +24,8 @@ Open the local address printed in the terminal.
 
 Each personalized link contains one encrypted `i` token. Guest count, invited days, sender side, and invitation type are not readable from the URL.
 
+The token is mandatory. Opening the plain website, removing `?i=...`, leaving `i` empty, or changing the token shows only a neutral “Complete link required” screen. Names, dates, events, venues, maps, invitation artwork, and family sections are not rendered. Public page metadata is intentionally generic and the former wedding social-preview image has been removed.
+
 You host the website once. Run this program whenever you need a guest-specific link. It uses only Python’s standard library; no packages need to be installed.
 
 For local testing, batch examples, every command option, hosted-link generation, and troubleshooting, see [PYTHON_INVITE_LINK_GUIDE.md](./PYTHON_INVITE_LINK_GUIDE.md).
@@ -120,7 +122,7 @@ JavaScript get-together example:
 npm run invite:link -- --people 4 --days 1 --side meet --occasion get-together --url "https://your-wedding-site.com"
 ```
 
-The token prevents casual reading and detects URL modification. Because the invitation is public and decrypts in the guest’s browser, it should be treated as privacy-friendly obfuscation rather than access control.
+The token prevents casual reading, detects URL modification, and is required for the interface to render invitation content. Because the site is static and decrypts in the guest’s browser, this remains privacy-friendly obfuscation rather than server-enforced authentication.
 
 ## Build
 

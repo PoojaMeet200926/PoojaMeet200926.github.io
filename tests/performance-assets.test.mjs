@@ -14,8 +14,8 @@ test("keeps the opening screen lightweight and defers noncritical assets", async
   ]);
 
   assert.ok(lid.size + bow.size < 400 * 1024, "critical opening images must remain under 400 KB");
-  assert.match(layout, /rel="preload"[\s\S]*?href="\/invitation-box-lid\.webp"[\s\S]*?fetchPriority="high"/);
-  assert.match(layout, /rel="preload" href="\/satin-bow-v2\.webp"/);
+  assert.doesNotMatch(layout, /rel="preload"[\s\S]*?invitation-box-lid\.webp/);
+  assert.doesNotMatch(layout, /rel="preload"[\s\S]*?satin-bow-v2\.webp/);
   assert.doesNotMatch(layout, /fonts\.googleapis\.com/);
   assert.match(page, /language !== "gu"[\s\S]*?fonts\.googleapis\.com/);
   assert.match(css, /\.gate-untying \.gate-inner-card[\s\S]*?url\('\/narayani-heights-venue\.webp'\)/);

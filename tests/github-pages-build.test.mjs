@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { access, readFile, stat } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const root = new URL("../", import.meta.url);
@@ -11,12 +11,13 @@ test("creates a self-contained GitHub Pages build", async () => {
   assert.match(html, /<div id="root"><\/div>/);
   assert.match(html, /\/assets\/[^"']+\.js/);
   assert.match(html, /\/assets\/[^"']+\.css/);
-  assert.match(html, /https:\/\/YOUR-USERNAME\.github\.io\/og\.png/);
+  assert.match(html, /<title>Private Invitation<\/title>/);
+  assert.match(html, /name="robots" content="noindex, nofollow"/);
+  assert.doesNotMatch(html, /Meet &amp; Pooja|Narayani|September|og\.png/);
   assert.doesNotMatch(html, /__SITE_URL__/);
   await access(new URL(".nojekyll", output));
   await access(new URL("invitation-box-lid.webp", output));
   await access(new URL("satin-bow-v2.webp", output));
-  assert.ok((await stat(new URL("og.png", output))).size > 0);
 });
 
 test("keeps encrypted query-link decoding in the static client", async () => {

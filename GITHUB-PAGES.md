@@ -52,6 +52,8 @@ python create_invite_link.py --url "https://YOUR-USERNAME.github.io" --days 20 -
 
 Existing encrypted tokens remain valid. Replace only the old domain and retain the complete `?i=...` query value.
 
+The `?i=...` token is mandatory. The plain GitHub Pages address, an empty token, or a modified token displays only a generic link-required screen and does not render names, dates, events, venue names, directions, or family sections. GitHub Pages is still a public static host, so this behavior is privacy-friendly obfuscation rather than server-side authentication.
+
 ## Custom domain later
 
 Change `VITE_SITE_URL` in `.github/workflows/deploy-pages.yml` to the final `https://` domain before publishing. Configure the same domain under GitHub **Settings → Pages**.
