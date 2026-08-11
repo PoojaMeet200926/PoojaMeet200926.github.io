@@ -32,6 +32,12 @@ const TREMONT_LOCATION = "https://maps.app.goo.gl/g4FNbs7ANbroAfxb8";
 const NARAYANI_HEIGHTS_LOCATION = "https://maps.app.goo.gl/7QJob2xzgw7PQsBF9";
 const GHEE_GUD_LOCATION = "https://maps.app.goo.gl/7bnxnocVCByBzjG49";
 const GET_TOGETHER_TARGET = "2026-09-20T20:00:00+05:30";
+const SOFT_SOUNDTRACKS = [
+  { src: "/music/mangal-prabhat.wav", en: "Mangal Prabhat", gu: "મંગલ પ્રભાત" },
+  { src: "/music/phoolon-ki-hawa.wav", en: "Phoolon Ki Hawa", gu: "ફૂલોની હવા" },
+  { src: "/music/shubh-milan.wav", en: "Shubh Milan", gu: "શુભ મિલન" },
+] as const;
+const SOUNDTRACK_VOLUME = 0.24;
 
 const INVITED_DAY_DETAILS = {
   1: {
@@ -342,8 +348,16 @@ export default function Home() {
   const [linkStatus, setLinkStatus] = useState<LinkStatus>("checking");
   const [language, setLanguage] = useState<Language>("en");
   const [shareMessage, setShareMessage] = useState("");
+  const [musicEnabled, setMusicEnabled] = useState(true);
+  const [soundtrackStarted, setSoundtrackStarted] = useState(false);
+  const [soundtrackIndex, setSoundtrackIndex] = useState(0);
   const openingStartedRef = useRef(false);
   const openingGestureRef = useRef<{ pointerId: number; x: number; y: number } | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const soundtrackStartedRef = useRef(false);
+  const soundtrackIndexRef = useRef(0);
+  const musicEnabledRef = useRef(true);
+  const soundtrackFadeRef = useRef<number | null>(null);
 
   const copy = COPY[language];
   const isGetTogether = invitationDetails?.occasion === "get-together";
@@ -419,6 +433,11 @@ export default function Home() {
     };
   }, [invitationState]);
 
+  useEffect(() => () => {
+    if (soundtrackFadeRef.current !== null) window.cancelAnimationFrame(soundtrackFadeRef.current);
+    audioRef.current?.pause();
+  }, []);
+
   useEffect(() => {
     const token = new URLSearchParams(window.location.search).get("i");
     if (!token) {
@@ -490,9 +509,86 @@ export default function Home() {
     });
   };
 
+  const fadeSoundtrack = (targetVolume: number, pauseWhenSilent = false) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (soundtrackFadeRef.current !== null) window.cancelAnimationFrame(soundtrackFadeRef.current);
+    const initialVolume = audio.volume;
+    const startedAt = performance.now();
+    const duration = 650;
+
+    const step = (now: number) => {
+      const progress = Math.min(1, (now - startedAt) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      audio.volume = initialVolume + (targetVolume - initialVolume) * eased;
+      if (progress < 1) {
+        soundtrackFadeRef.current = window.requestAnimationFrame(step);
+      } else {
+        soundtrackFadeRef.current = null;
+        if (pauseWhenSilent && targetVolume === 0) audio.pause();
+      }
+    };
+    soundtrackFadeRef.current = window.requestAnimationFrame(step);
+  };
+
+  const startSoundtrack = () => {
+    const audio = audioRef.current;
+    if (!audio || soundtrackStartedRef.current || !musicEnabledRef.current) return;
+    soundtrackStartedRef.current = true;
+    setSoundtrackStarted(true);
+    audio.volume = 0;
+    void audio.play()
+      .then(() => fadeSoundtrack(SOUNDTRACK_VOLUME))
+      .catch(() => {
+        musicEnabledRef.current = false;
+        setMusicEnabled(false);
+      });
+  };
+
+  const playNextSoundtrack = () => {
+    const audio = audioRef.current;
+    if (!audio || !musicEnabledRef.current) return;
+    const nextIndex = (soundtrackIndexRef.current + 1) % SOFT_SOUNDTRACKS.length;
+    soundtrackIndexRef.current = nextIndex;
+    setSoundtrackIndex(nextIndex);
+    audio.src = SOFT_SOUNDTRACKS[nextIndex].src;
+    audio.load();
+    audio.volume = 0;
+    void audio.play()
+      .then(() => fadeSoundtrack(SOUNDTRACK_VOLUME))
+      .catch(() => {
+        musicEnabledRef.current = false;
+        setMusicEnabled(false);
+      });
+  };
+
+  const toggleSoundtrack = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (musicEnabledRef.current && !audio.paused) {
+      musicEnabledRef.current = false;
+      setMusicEnabled(false);
+      fadeSoundtrack(0, true);
+      return;
+    }
+
+    musicEnabledRef.current = true;
+    soundtrackStartedRef.current = true;
+    setMusicEnabled(true);
+    setSoundtrackStarted(true);
+    audio.volume = 0;
+    void audio.play()
+      .then(() => fadeSoundtrack(SOUNDTRACK_VOLUME))
+      .catch(() => {
+        musicEnabledRef.current = false;
+        setMusicEnabled(false);
+      });
+  };
+
   const openInvitation = () => {
     if (invitationState !== "sealed" || openingStartedRef.current) return;
     openingStartedRef.current = true;
+    startSoundtrack();
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) {
       setInvitationState("revealed");
@@ -600,6 +696,12 @@ export default function Home() {
 
   return (
     <main className={`invitation-${invitationState} language-${language} occasion-${isGetTogether ? "get-together" : "wedding"}`}>
+      <audio
+        ref={audioRef}
+        src={SOFT_SOUNDTRACKS[soundtrackIndex].src}
+        preload="none"
+        onEnded={playNextSoundtrack}
+      />
       <div className="falling-botanicals" aria-hidden="true">
         {Array.from({ length: 14 }, (_, index) => (
           <span className={index % 4 === 3 ? "falling-leaf" : "falling-petal"} key={index} />
@@ -964,6 +1066,19 @@ export default function Home() {
         </section>
       )}
 
+      {invitationState === "open" && (
+        <button
+          className={`floating-music${musicEnabled && soundtrackStarted ? " is-playing" : ""}`}
+          type="button"
+          onClick={toggleSoundtrack}
+          aria-pressed={musicEnabled && soundtrackStarted}
+          aria-label={musicEnabled ? copy.muteMusic : copy.playMusic}
+          title={`${copy.nowPlaying}: ${SOFT_SOUNDTRACKS[soundtrackIndex][language]}`}
+        >
+          <span className="music-note" aria-hidden="true">♪</span>
+          <span>{musicEnabled ? copy.musicOn : copy.musicOff}</span>
+        </button>
+      )}
       <button className="floating-share" type="button" onClick={shareInvitation} aria-label={isGetTogether ? copy.getTogether.shareAria : copy.shareAria}>
         ↗ <span>{copy.share}</span>
       </button>

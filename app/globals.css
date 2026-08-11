@@ -824,6 +824,17 @@ button { font: inherit; }
 .compliments-ornament-left { left: -16vw; top: -4vh; transform: rotate(-28deg); }
 .compliments-ornament-right { right: -16vw; bottom: -6vh; transform: rotate(152deg); }
 .floating-share { position: fixed; z-index: 20; right: 16px; bottom: 16px; height: 43px; padding: 0 17px; border: 1px solid rgba(255,255,255,.32); border-radius: 22px; color: #fff; background: rgba(35,78,55,.86); box-shadow: 0 7px 24px rgba(34,38,34,.16); backdrop-filter: blur(12px); cursor: pointer; font: 600 11px/1 Arial,sans-serif; letter-spacing: .08em; }
+.floating-music {
+  position: fixed; z-index: 20; left: 16px; bottom: 16px; height: 43px; display: inline-flex; align-items: center; gap: 8px;
+  padding: 0 15px; border: 1px solid rgba(255,255,255,.32); border-radius: 22px; color: #fff;
+  background: rgba(35,78,55,.86); box-shadow: 0 7px 24px rgba(34,38,34,.16); backdrop-filter: blur(12px);
+  cursor: pointer; font: 600 11px/1 Arial,sans-serif; letter-spacing: .06em;
+}
+.floating-music .music-note {
+  width: 23px; height: 23px; display: grid; place-items: center; border-radius: 50%; color: var(--sage-deep);
+  background: #fff8e8; font: 700 16px/1 Georgia,serif; transform-origin: center;
+}
+.floating-music.is-playing .music-note { animation: musicPulse 2.4s ease-in-out infinite; }
 
 .botanical,
 .countdown-botanical,
@@ -930,6 +941,7 @@ button { font: inherit; }
 .language-gu .share-button,
 .language-gu .compliments-card .section-kicker,
 .language-gu .compliments-card h2,
+.language-gu .floating-music,
 .language-gu .floating-share {
   font-family: "Noto Serif Gujarati","Shruti","Nirmala UI",sans-serif;
   letter-spacing: .04em;
@@ -978,6 +990,7 @@ button { font: inherit; }
 @keyframes arrow { 50% { transform: translateY(4px); } }
 @keyframes linePulse { 50% { width: 48px; opacity: .4; } }
 @keyframes dot { 50% { opacity: .25; transform: translateY(-2px); } }
+@keyframes musicPulse { 50% { transform: scale(1.08); box-shadow: 0 0 0 5px rgba(255,248,232,.12); } }
 @keyframes botanicalFall {
   0% { transform: translate3d(0,-10vh,0) rotate(0deg) rotateY(0deg); }
   34% { transform: translate3d(var(--sway),39vh,0) rotate(155deg) rotateY(110deg); }

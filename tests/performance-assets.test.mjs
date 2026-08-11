@@ -54,3 +54,24 @@ test("opens the ribbon with tap, click, multidirectional gestures, wheel, and ke
   assert.match(copy, /રિબન ખોલવા ટૅપ, ક્લિક, સ્વાઇપ અથવા ડ્રૅગ કરો/);
   assert.match(css, /\.invitation-gate \{[\s\S]*?touch-action: none;/);
 });
+
+test("starts an original soft soundtrack after the ribbon gesture and keeps controls accessible", async () => {
+  const [page, copy, css, firstTrack, secondTrack, thirdTrack] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/invitation-copy.ts", root), "utf8"),
+    readFile(new URL("app/globals.css", root), "utf8"),
+    stat(new URL("public/music/mangal-prabhat.wav", root)),
+    stat(new URL("public/music/phoolon-ki-hawa.wav", root)),
+    stat(new URL("public/music/shubh-milan.wav", root)),
+  ]);
+
+  assert.match(page, /const SOFT_SOUNDTRACKS = \[/);
+  assert.match(page, /openingStartedRef\.current = true;[\s\S]*?startSoundtrack\(\);/);
+  assert.match(page, /preload="none"/);
+  assert.match(page, /onEnded=\{playNextSoundtrack\}/);
+  assert.match(page, /aria-pressed=\{musicEnabled && soundtrackStarted\}/);
+  assert.match(copy, /Mute the background music/);
+  assert.match(copy, /પાર્શ્વ સંગીત બંધ કરો/);
+  assert.match(css, /\.floating-music[\s\S]*?left: 16px; bottom: 16px;/);
+  assert.ok(firstTrack.size + secondTrack.size + thirdTrack.size < 4 * 1024 * 1024);
+});

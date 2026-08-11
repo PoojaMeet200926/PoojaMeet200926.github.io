@@ -110,6 +110,27 @@ Guests can switch the complete invitation between English and Gujarati using the
 
 Gujarati mode converts dates, years, times, countdown values, event indexes, guest counts, address numbers, and pincodes to Gujarati numerals. The event schedule includes the Ganesh rituals at 08:00 AM, Sangeet with Dinner at 08:00 PM, Wedding Ceremony with Hast Melap at 11:00 AM above Lunch at 12:30 PM, and a separate featured Vidai card for Sunday, 20 September at 03:00 PM.
 
+## Soft background soundtrack
+
+The invitation includes three original instrumental movements: Mangal Prabhat, Phoolon Ki Hawa, and Shubh Milan. Music begins softly after the guest opens the ribbon, so it complies with browser autoplay rules and does not slow the sealed invitation's first load. The tracks continue in sequence and loop. A fixed music control in the lower-left corner lets guests pause or resume playback, with English and Gujarati labels.
+
+The audio assets are stored in `public/music/`. To regenerate the same original soundtrack files:
+
+```powershell
+node scripts/generate-soft-soundtrack.mjs
+```
+
+## Share-ready invitation PDFs
+
+Run the PDF generator to recreate the six approved Pooja- and Meet-side PDFs. Each two-page PDF contains a floral cover, QR code, clickable encrypted invitation link, applicable schedule, and clickable map directions. The generated PDFs and their private link manifest are written to `output/pdf/`, which is intentionally ignored by Git so guest links are not added to the public repository.
+
+```powershell
+python -m pip install reportlab pillow
+python scripts/generate-invitation-pdfs.py
+```
+
+The generated set covers Pooja's 18-20, 19-20, and 20 September family invitations; Pooja's 20 September two-invitee version; and Meet's 20 September family and two-invitee versions.
+
 ### JavaScript alternative
 
 ```powershell

@@ -41,6 +41,8 @@ next-env.d.ts
 /dist-github/
 /.wrangler/
 /outputs/
+/output/pdf/
+/tmp/
 /work/
 /.site-git/
 
