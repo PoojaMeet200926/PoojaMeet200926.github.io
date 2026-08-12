@@ -835,6 +835,12 @@ button { font: inherit; }
   background: #fff8e8; font: 700 16px/1 Georgia,serif; transform-origin: center;
 }
 .floating-music.is-playing .music-note { animation: musicPulse 2.4s ease-in-out infinite; }
+.music-credit {
+  position: relative; z-index: 3; padding: 14px 76px 72px; color: rgba(61,65,58,.58); background: #faf6ed;
+  text-align: center; font: 400 8px/1.55 Arial,sans-serif; letter-spacing: .025em;
+}
+.music-credit a { color: inherit; text-decoration: underline; text-decoration-color: rgba(61,65,58,.28); text-underline-offset: 2px; }
+.music-credit a:hover, .music-credit a:focus-visible { color: var(--sage-deep); text-decoration-color: currentColor; }
 
 .botanical,
 .countdown-botanical,
@@ -942,6 +948,7 @@ button { font: inherit; }
 .language-gu .compliments-card .section-kicker,
 .language-gu .compliments-card h2,
 .language-gu .floating-music,
+.language-gu .music-credit,
 .language-gu .floating-share {
   font-family: "Noto Serif Gujarati","Shruti","Nirmala UI",sans-serif;
   letter-spacing: .04em;
@@ -977,6 +984,7 @@ button { font: inherit; }
 .language-gu .compliments-contact-heading,
 .language-gu .compliments-contact-names,
 .language-gu .compliments-contact-phones { font-family: "Noto Serif Gujarati","Shruti","Nirmala UI",serif; }
+.language-gu .music-credit { font-size: 9px; }
 .language-gu .inner-rule span { font-size: 10px; }
 .language-gu .event-date-block small { font-size: 10px; line-height: 1.25; }
 .language-gu .eyebrow, .language-gu .section-kicker { font-size: clamp(13px,3.2vw,15px); line-height: 1.5; }

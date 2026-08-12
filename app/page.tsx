@@ -33,6 +33,7 @@ const NARAYANI_HEIGHTS_LOCATION = "https://maps.app.goo.gl/7QJob2xzgw7PQsBF9";
 const GHEE_GUD_LOCATION = "https://maps.app.goo.gl/7bnxnocVCByBzjG49";
 const GET_TOGETHER_TARGET = "2026-09-20T20:00:00+05:30";
 const SOFT_SOUNDTRACKS = [
+  { src: "/music/wedding-romantic-leberch.mp3", en: "Wedding Romantic", gu: "વેડિંગ રોમેન્ટિક" },
   { src: "/music/mangal-prabhat.wav", en: "Mangal Prabhat", gu: "મંગલ પ્રભાત" },
   { src: "/music/phoolon-ki-hawa.wav", en: "Phoolon Ki Hawa", gu: "ફૂલોની હવા" },
   { src: "/music/shubh-milan.wav", en: "Shubh Milan", gu: "શુભ મિલન" },
@@ -1069,6 +1070,19 @@ export default function Home() {
             )}
           </div>
         </section>
+      )}
+
+      {invitationState === "open" && (
+        <footer className="music-credit" aria-label={copy.musicCreditAria}>
+          <span>{copy.musicCreditPrefix} </span>
+          <a href="https://pixabay.com/music/wedding-wedding-romantic-262606/" target="_blank" rel="noreferrer">
+            Wedding Romantic — leberch
+          </a>
+          <span aria-hidden="true"> · </span>
+          <a href="https://pixabay.com/service/license-summary/" target="_blank" rel="noreferrer">
+            Pixabay Content License
+          </a>
+        </footer>
       )}
 
       {invitationState === "open" && (

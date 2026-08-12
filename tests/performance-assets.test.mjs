@@ -55,17 +55,19 @@ test("opens the ribbon with tap, click, multidirectional gestures, wheel, and ke
   assert.match(css, /\.invitation-gate \{[\s\S]*?touch-action: none;/);
 });
 
-test("starts an original soft soundtrack after the ribbon gesture and keeps controls accessible", async () => {
-  const [page, copy, css, firstTrack, secondTrack, thirdTrack] = await Promise.all([
+test("starts with licensed romantic music after the ribbon gesture and keeps controls accessible", async () => {
+  const [page, copy, css, romanticTrack, firstTrack, secondTrack, thirdTrack] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/invitation-copy.ts", root), "utf8"),
     readFile(new URL("app/globals.css", root), "utf8"),
+    stat(new URL("public/music/wedding-romantic-leberch.mp3", root)),
     stat(new URL("public/music/mangal-prabhat.wav", root)),
     stat(new URL("public/music/phoolon-ki-hawa.wav", root)),
     stat(new URL("public/music/shubh-milan.wav", root)),
   ]);
 
   assert.match(page, /const SOFT_SOUNDTRACKS = \[/);
+  assert.match(page, /SOFT_SOUNDTRACKS = \[\s*\{ src: "\/music\/wedding-romantic-leberch\.mp3"/);
   assert.match(page, /openingStartedRef\.current = true;[\s\S]*?startSoundtrack\(\);/);
   assert.match(page, /preload="none"/);
   assert.match(page, /onEnded=\{playNextSoundtrack\}/);
@@ -73,6 +75,10 @@ test("starts an original soft soundtrack after the ribbon gesture and keeps cont
   assert.match(copy, /Mute the background music/);
   assert.match(copy, /પાર્શ્વ સંગીત બંધ કરો/);
   assert.match(css, /\.floating-music[\s\S]*?left: 16px; bottom: 16px;/);
+  assert.match(page, /Wedding Romantic — leberch/);
+  assert.match(page, /pixabay\.com\/service\/license-summary/);
+  assert.match(css, /\.music-credit \{[\s\S]*?font: 400 8px\/1\.55/);
+  assert.ok(romanticTrack.size < 3 * 1024 * 1024);
   assert.ok(firstTrack.size + secondTrack.size + thirdTrack.size < 4 * 1024 * 1024);
 });
 

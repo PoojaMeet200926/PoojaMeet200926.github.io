@@ -110,9 +110,11 @@ Guests can switch the complete invitation between English and Gujarati using the
 
 Gujarati mode converts dates, years, times, countdown values, event indexes, guest counts, address numbers, and pincodes to Gujarati numerals. The event schedule includes the Ganesh rituals at 08:00 AM, Sangeet with Dinner at 08:00 PM, Wedding Ceremony with Hast Melap at 11:00 AM above Lunch at 12:30 PM, and a separate featured Vidai card for Sunday, 20 September at 03:00 PM.
 
-## Soft background soundtrack
+## Romantic background soundtrack
 
-The invitation includes three original instrumental movements: Mangal Prabhat, Phoolon Ki Hawa, and Shubh Milan. Music begins softly after the guest opens the ribbon, so it complies with browser autoplay rules and does not slow the sealed invitation's first load. The tracks continue in sequence and loop. A fixed music control in the lower-left corner lets guests pause or resume playback, with English and Gujarati labels.
+The invitation begins with **Wedding Romantic** by leberch, a soft romantic piano track used under the Pixabay Content License. It then continues through the three original instrumental movements: Mangal Prabhat, Phoolon Ki Hawa, and Shubh Milan. Music begins softly after the guest opens the ribbon, so it complies with browser autoplay rules and does not slow the sealed invitation's first load. The tracks continue in sequence and loop. A fixed music control in the lower-left corner lets guests pause or resume playback, with English and Gujarati labels. The linked music and license credit is shown in very small type at the bottom of the invitation.
+
+The source and license record for the licensed track is documented in [`MUSIC-CREDITS.md`](MUSIC-CREDITS.md).
 
 The audio assets are stored in `public/music/`. To regenerate the same original soundtrack files:
 
