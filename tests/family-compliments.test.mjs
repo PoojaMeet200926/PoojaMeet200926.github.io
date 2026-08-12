@@ -41,7 +41,8 @@ test("shows the correct family compliments for both invitation sides", async () 
   assert.match(page, /aria-label=\{`Call \$\{phone\.display\}`\}>\{formatDigits\(phone\.display\)\}<\/a>/);
   assert.match(page, /className="compliments-monogram"[\s\S]*?firstName[\s\S]*?secondName/);
   assert.match(page, /"મામા, મામી, નાના, નાની"/);
-  assert.match(page, /"ડાહીબેન તથા રમણલાલ લલ્લુરામ મોદી"/);
+  assert.match(page, /"સ્વ\. ડાહીબેન તથા સ્વ\. રમણલાલ લલ્લુરામ મોદી"/);
+  assert.doesNotMatch(page, /"ડાહીબેન તથા રમણલાલ લલ્લુરામ મોદી"/);
   assert.match(page, /"સ્વ\. મહેશકુમાર મોદી"/);
   assert.doesNotMatch(page, /સ્વર્ગસ્થ મહેશકુમાર મોદી/);
   assert.match(page, /"મોંઘેરા મહેમાન"/);
