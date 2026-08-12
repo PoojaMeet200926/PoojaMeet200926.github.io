@@ -133,7 +133,7 @@ python scripts/generate-invitation-pdfs.py
 
 The generated set covers Pooja's 18-20, 19-20, and 20 September family invitations; Pooja's 20 September two-invitee version; and Meet's 20 September family and two-invitee versions.
 
-Matching Gujarati editions use fully localized names, dates, Gujarati numerals, schedules, addresses, QR instructions, and map buttons. Their encrypted links include `lang=gu`, so the interactive invitation initially opens in Gujarati while preserving the language toggle. On Windows, the generator uses the system Nirmala Gujarati font with complex-script shaping.
+Matching Gujarati editions are compact single-page invitations with localized names, dates, Gujarati numerals, QR instructions, applicable venue addresses, and clickable map buttons. Event schedules remain in the linked digital invitation and are intentionally omitted from the PDFs. Their encrypted links include `lang=gu`, so the interactive invitation initially opens in Gujarati while preserving the language toggle. On Windows, the generator uses the system Nirmala Gujarati font with complex-script shaping.
 
 ```powershell
 python scripts/generate-gujarati-invitation-pdfs.py

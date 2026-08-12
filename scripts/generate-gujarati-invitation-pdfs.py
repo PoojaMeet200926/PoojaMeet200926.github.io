@@ -55,32 +55,6 @@ GUJARATI_VENUES = {
     },
 }
 
-POOJA_EVENTS = {
-    18: [
-        ("ગણેશ સ્થાપન, મંડપ મુહૂર્ત અને ગ્રહ શાંતિ", "સવારે ૦૮:૦૦", "ટ્રેમોન્ટ"),
-        ("મહેંદી", "મહેંદી", "ટ્રેમોન્ટ"),
-    ],
-    19: [
-        ("સગાઈ", "સવારે ૦૯:૩૦", "નારાયણી હાઇટ્સ"),
-        ("હલ્દી", "સવારે ૧૧:૦૦ - બપોરનું ભોજન ૧૨:૩૦", "નારાયણી હાઇટ્સ"),
-        ("મામેરું", "બપોરે ૦૩:૦૦", "નારાયણી હાઇટ્સ"),
-        ("સંગીત સંધ્યા", "સાંજે ૦૭:૩૦ - રાત્રિભોજન ૦૮:૦૦", "નારાયણી હાઇટ્સ"),
-    ],
-    20: [
-        ("લગ્નવિધિ", "હસ્ત મેળાપ સવારે ૧૧:૦૦ - બપોરનું ભોજન ૧૨:૩૦ - વિદાય બપોરે ૦૩:૦૦", "નારાયણી હાઇટ્સ"),
-    ],
-}
-
-MEET_EVENTS = {
-    20: [
-        ("વિઘ્નહર્તાનું આગમન તથા ગ્રહ શાંતિ", "સવારે ૦૮:૦૦", "નારાયણી હાઇટ્સ"),
-        ("લગ્નવિધિ", "હસ્ત મેળાપ સવારે ૧૧:૦૦ - બપોરનું ભોજન ૧૨:૩૦ - વિદાય બપોરે ૦૩:૦૦", "નારાયણી હાઇટ્સ"),
-    ],
-}
-
-WEEKDAYS = {18: "શુક્રવાર", 19: "શનિવાર", 20: "રવિવાર"}
-
-
 def font(size: int) -> ImageFont.FreeTypeFont:
     if not GUJARATI_FONT.exists():
         raise FileNotFoundError(f"Gujarati font not found: {GUJARATI_FONT}")
@@ -160,6 +134,34 @@ def draw_button(draw: ImageDraw.ImageDraw, label: str, box: tuple[int, int, int,
     draw_centered(draw, ((box[0] + box[2]) // 2, (box[1] + box[3]) // 2 + 2), label, font(25), IVORY)
 
 
+def draw_google_map_pin(draw: ImageDraw.ImageDraw, center_x: int, center_y: int, size: int = 28) -> None:
+    """Draw a compact Google Maps-style multicolour pin without an external asset."""
+    half = size // 2
+    top = center_y - half
+    bottom = center_y + half
+    left = center_x - half
+    right = center_x + half
+    middle = center_y + 1
+
+    # Four coloured quarters form the familiar Google Maps pin silhouette.
+    draw.pieslice((left, top, right, top + size), 90, 180, fill="#34A853")
+    draw.pieslice((left, top, right, top + size), 180, 270, fill="#4285F4")
+    draw.pieslice((left, top, right, top + size), 270, 360, fill="#EA4335")
+    draw.pieslice((left, top, right, top + size), 0, 90, fill="#FBBC04")
+    draw.polygon(
+        (
+            (center_x - half + 3, middle),
+            (center_x + half - 3, middle),
+            (center_x, bottom + 8),
+        ),
+        fill="#EA4335",
+    )
+    draw.ellipse(
+        (center_x - 5, center_y - 5, center_x + 5, center_y + 5),
+        fill=WHITE,
+    )
+
+
 def localized_date_line(days: tuple[int, ...]) -> str:
     if len(days) == 1:
         return "રવિવાર, ૨૦ સપ્ટેમ્બર ૨૦૨૬"
@@ -170,7 +172,65 @@ def names_for_side(side: str) -> tuple[str, str]:
     return ("પૂજા", "મીત") if side == "pooja" else ("મીત", "પૂજા")
 
 
-def create_cover_image(configuration: dict[str, object]) -> tuple[Path, tuple[int, int, int, int], tuple[int, int, int, int]]:
+def relevant_venues(configuration: dict[str, object]) -> list[str]:
+    venues = ["નારાયણી હાઇટ્સ"]
+    if 18 in configuration["days"]:
+        venues.insert(0, "ટ્રેમોન્ટ")
+    return venues
+
+
+def draw_venue_details(
+    draw: ImageDraw.ImageDraw,
+    configuration: dict[str, object],
+) -> list[tuple[tuple[int, int, int, int], str]]:
+    venues = relevant_venues(configuration)
+    heading_y = 770 if configuration["invitees"] is not None else 735
+    row_y = heading_y + 58
+    row_gap = 96
+    left = 145
+    right = PAGE_WIDTH_PX - 145
+    button_width = 258
+    address_width = right - left - button_width - 42
+    map_links: list[tuple[tuple[int, int, int, int], str]] = []
+
+    draw.text((left, heading_y), "સ્થળની વિગતો", font=font(32), fill=FOREST_DARK, anchor="la")
+    draw.line((left, heading_y + 37, right, heading_y + 37), fill=HAIRLINE, width=2)
+
+    for venue_name in venues:
+        details = GUJARATI_VENUES[venue_name]
+        draw.text((left, row_y), venue_name, font=font(24), fill=INK, anchor="la")
+        address_lines = wrap_text(draw, details["address"], font(17), address_width)
+        address_y = row_y + 30
+        for line in address_lines[:2]:
+            draw.text((left, address_y), line, font=font(17), fill=MUTED, anchor="la")
+            address_y += 23
+
+        link_box = (right - button_width, row_y - 17, right, row_y + 43)
+        draw.rounded_rectangle(link_box, radius=28, fill="#F2E9D9", outline=HAIRLINE, width=2)
+        pin_x = link_box[0] + 39
+        pin_y = (link_box[1] + link_box[3]) // 2 - 2
+        draw_google_map_pin(draw, pin_x, pin_y, size=28)
+        draw_centered(
+            draw,
+            ((link_box[0] + link_box[2]) // 2 + 16, (link_box[1] + link_box[3]) // 2 + 2),
+            "માર્ગદર્શન ખોલો",
+            font(20),
+            FOREST,
+        )
+        map_links.append((link_box, details["map"]))
+        row_y += row_gap
+
+    return map_links
+
+
+def create_cover_image(
+    configuration: dict[str, object],
+) -> tuple[
+    Path,
+    tuple[int, int, int, int],
+    tuple[int, int, int, int],
+    list[tuple[tuple[int, int, int, int], str]],
+]:
     image = base_page()
     draw = ImageDraw.Draw(image)
     first_name, second_name = names_for_side(configuration["side"])
@@ -184,6 +244,8 @@ def create_cover_image(configuration: dict[str, object]) -> tuple[Path, tuple[in
     if configuration["invitees"] is not None:
         draw_centered(draw, (PAGE_WIDTH_PX // 2, 700), "આપ સહિત કુલ ૨ મહેમાનોનું સહર્ષ સ્વાગત છે", font(29), GOLD)
 
+    map_links = draw_venue_details(draw, configuration)
+
     qr_box = (PAGE_WIDTH_PX // 2 - 105, 985, PAGE_WIDTH_PX // 2 + 105, 1195)
     draw.rounded_rectangle((qr_box[0] - 16, qr_box[1] - 16, qr_box[2] + 16, qr_box[3] + 16), radius=16, fill=WHITE)
     draw_centered(draw, (PAGE_WIDTH_PX // 2, 1250), "QR કોડ સ્કેન કરો અથવા ડિજિટલ આમંત્રણ ખોલવા નીચે ટૅપ કરો", font(21), MUTED)
@@ -194,76 +256,7 @@ def create_cover_image(configuration: dict[str, object]) -> tuple[Path, tuple[in
 
     destination = TEMP_DIRECTORY / f"{configuration['filename']}-cover.png"
     image.save(destination, optimize=True)
-    return destination, qr_box, button_box
-
-
-def create_schedule_image(configuration: dict[str, object]) -> tuple[Path, list[tuple[tuple[int, int, int, int], str]], tuple[int, int, int, int]]:
-    image = base_page()
-    draw = ImageDraw.Draw(image)
-    first_name, second_name = names_for_side(configuration["side"])
-    event_source = POOJA_EVENTS if configuration["side"] == "pooja" else MEET_EVENTS
-    map_links: list[tuple[tuple[int, int, int, int], str]] = []
-
-    draw_centered(draw, (PAGE_WIDTH_PX // 2, 115), f"{first_name} અને {second_name}", font(45), GOLD)
-    draw_centered(draw, (PAGE_WIDTH_PX // 2, 180), "ઉજવણીનો કાર્યક્રમ", font(54), FOREST_DARK)
-    draw_centered(draw, (PAGE_WIDTH_PX // 2, 232), localized_date_line(configuration["days"]), font(23), MUTED)
-
-    y = 285
-    left = 140
-    right = PAGE_WIDTH_PX - 140
-    content_width = right - left
-    for day in configuration["days"]:
-        draw.rounded_rectangle((left, y, right, y + 58), radius=14, fill=FOREST)
-        day_label = f"{WEEKDAYS[day]}  {str(day).translate(GUJARATI_DIGITS)} સપ્ટેમ્બર"
-        draw.text((left + 25, y + 28), day_label, font=font(27), fill=IVORY, anchor="lm")
-        y += 74
-
-        for title, timing, venue in event_source[day]:
-            title_font = font(27)
-            time_font = font(22)
-            title_lines = wrap_text(draw, title, title_font, 455)
-            timing_lines = wrap_text(draw, timing, time_font, 430)
-            row_height = max(90, 50 + 30 * max(len(title_lines), len(timing_lines)))
-            draw.rounded_rectangle((left, y, right, y + row_height), radius=13, fill=WHITE)
-            title_y = y + 30
-            for line in title_lines[:2]:
-                draw.text((left + 26, title_y), line, font=title_font, fill=INK, anchor="lm")
-                title_y += 31
-            time_y = y + 28
-            for line in timing_lines[:2]:
-                draw.text((right - 26, time_y), line, font=time_font, fill=GOLD, anchor="rm")
-                time_y += 29
-            draw.text((left + 26, y + row_height - 17), venue, font=font(18), fill=MUTED, anchor="lm")
-            y += row_height + 9
-        y += 8
-
-    relevant_venues = ["નારાયણી હાઇટ્સ"]
-    if 18 in configuration["days"]:
-        relevant_venues.insert(0, "ટ્રેમોન્ટ")
-    venue_y = max(y + 12, 1190 if len(configuration["days"]) < 3 else y + 12)
-    draw.text((left, venue_y), "સ્થળની વિગતો", font=font(34), fill=FOREST_DARK, anchor="la")
-    venue_y += 57
-    for venue_name in relevant_venues:
-        details = GUJARATI_VENUES[venue_name]
-        draw.text((left, venue_y), venue_name, font=font(25), fill=INK, anchor="la")
-        address_lines = wrap_text(draw, details["address"], font(18), content_width - 280)
-        address_y = venue_y + 34
-        for line in address_lines[:2]:
-            draw.text((left, address_y), line, font=font(18), fill=MUTED, anchor="la")
-            address_y += 25
-        link_box = (right - 250, venue_y - 2, right, venue_y + 49)
-        draw.rounded_rectangle(link_box, radius=22, fill="#F2E9D9", outline=HAIRLINE, width=2)
-        draw_centered(draw, ((link_box[0] + link_box[2]) // 2, (link_box[1] + link_box[3]) // 2 + 2), "માર્ગદર્શન ખોલો", font(20), FOREST)
-        map_links.append((link_box, details["map"]))
-        venue_y = max(address_y + 35, venue_y + 90)
-
-    button_box = (260, 1545, PAGE_WIDTH_PX - 260, 1630)
-    draw_button(draw, "સંપૂર્ણ ડિજિટલ આમંત્રણ ખોલો", button_box)
-    draw_centered(draw, (PAGE_WIDTH_PX // 2, 1670), "આમંત્રણ અને સ્થળના માર્ગદર્શન માટે ઉપરના બટન પર ટૅપ કરો", font(18), MUTED)
-
-    destination = TEMP_DIRECTORY / f"{configuration['filename']}-schedule.png"
-    image.save(destination, optimize=True)
-    return destination, map_links, button_box
+    return destination, qr_box, button_box, map_links
 
 
 def pdf_rect_from_pixels(box: tuple[int, int, int, int]) -> tuple[float, float, float, float]:
@@ -288,8 +281,7 @@ def add_qr(pdf: canvas.Canvas, invitation_url: str, box: tuple[int, int, int, in
 def create_gujarati_pdf(configuration: dict[str, object], invitation_url: str) -> Path:
     filename = configuration["filename"].replace(".pdf", "-gujarati.pdf")
     destination = OUTPUT_DIRECTORY / filename
-    cover_image, qr_box, cover_button = create_cover_image(configuration)
-    schedule_image, map_links, schedule_button = create_schedule_image(configuration)
+    cover_image, qr_box, cover_button, map_links = create_cover_image(configuration)
 
     pdf = canvas.Canvas(str(destination), pagesize=A4, pageCompression=1)
     first_name, second_name = names_for_side(configuration["side"])
@@ -300,12 +292,8 @@ def create_gujarati_pdf(configuration: dict[str, object], invitation_url: str) -
     pdf.drawImage(str(cover_image), 0, 0, PDF_WIDTH, PDF_HEIGHT)
     add_qr(pdf, invitation_url, qr_box)
     pdf.linkURL(invitation_url, pdf_rect_from_pixels(cover_button), relative=0)
-    pdf.showPage()
-
-    pdf.drawImage(str(schedule_image), 0, 0, PDF_WIDTH, PDF_HEIGHT)
     for box, map_url in map_links:
         pdf.linkURL(map_url, pdf_rect_from_pixels(box), relative=0)
-    pdf.linkURL(invitation_url, pdf_rect_from_pixels(schedule_button), relative=0)
     pdf.showPage()
     pdf.save()
     return destination
