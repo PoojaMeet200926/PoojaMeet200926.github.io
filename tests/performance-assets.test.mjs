@@ -75,3 +75,11 @@ test("starts an original soft soundtrack after the ribbon gesture and keeps cont
   assert.match(css, /\.floating-music[\s\S]*?left: 16px; bottom: 16px;/);
   assert.ok(firstTrack.size + secondTrack.size + thirdTrack.size < 4 * 1024 * 1024);
 });
+
+test("allows private PDF links to request Gujarati without changing encrypted invitation details", async () => {
+  const page = await readFile(new URL("app/page.tsx", root), "utf8");
+
+  assert.match(page, /new URLSearchParams\(window\.location\.search\)\.get\("lang"\)/);
+  assert.match(page, /requestedLanguage === "gu" \|\| requestedLanguage === "en"/);
+  assert.match(page, /setLanguage\(requestedLanguage\);/);
+});

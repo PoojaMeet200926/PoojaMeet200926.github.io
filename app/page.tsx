@@ -406,6 +406,11 @@ export default function Home() {
 
   useEffect(() => {
     try {
+      const requestedLanguage = new URLSearchParams(window.location.search).get("lang");
+      if (requestedLanguage === "gu" || requestedLanguage === "en") {
+        setLanguage(requestedLanguage);
+        return;
+      }
       const savedLanguage = window.localStorage.getItem("invitation-language");
       if (savedLanguage === "gu") setLanguage("gu");
     } catch {
