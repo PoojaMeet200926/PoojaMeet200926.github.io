@@ -215,15 +215,6 @@ const MEET_FAMILY_COMPLIMENTS = {
       ],
     },
     {
-      heading: "Bhai & Bhabhi",
-      rows: [
-        ["Sheetal and Jay Modi", "Krupaben and Kaushal Modi"],
-        ["Chandni and Darshit Modi", "Dr. Nikiben and Dr. Ronak Modi"],
-        ["Aarohi and Ishan Modi", "Yash Dineshbhai Modi"],
-        ["Shivam and Rishit Mayurbhai Modi"],
-      ],
-    },
-    {
       heading: "Kaka & Kaki",
       rows: [
         ["Shilpaben and Late Kirtikumar Modi"],
@@ -271,15 +262,6 @@ const MEET_FAMILY_COMPLIMENTS = {
       ],
     },
     {
-      heading: "ભાઈ ભાભી",
-      rows: [
-        ["શીતલ તથા જય મોદી", "કૃપાબેન તથા કૌશલ મોદી"],
-        ["ચાંદની તથા દર્શિત મોદી", "ડૉ. નિકીબેન તથા ડો. રોનક મોદી"],
-        ["આરોહી તથા ઈશાન મોદી", "યશ દિનેશભાઈ મોદી"],
-        ["શિવમ તથા રીશિત મયુરભાઈ મોદી"],
-      ],
-    },
-    {
       heading: "કાકા કાકી",
       rows: [
         ["શિલ્પાબેન તથા સ્વ. કીર્તિકુમાર મોદી"],
@@ -322,6 +304,24 @@ const POOJA_INVITERS = {
 const POOJA_CONTACT_NUMBERS = [
   { display: "9892701070", href: "tel:+919892701070" },
   { display: "9223375075", href: "tel:+919223375075" },
+] as const;
+
+const MEET_INVITERS = {
+  en: {
+    heading: "Inviters",
+    phoneLabel: "Mo.",
+    names: ["Mr. Mukesh Dhirajlal Modi", "Mrs. Belaben Mukesh Modi"],
+  },
+  gu: {
+    heading: "નિમંત્રક",
+    phoneLabel: "મો.",
+    names: ["શ્રી મુકેશ ધીરજલાલ મોદી", "શ્રીમતી બેલાબેન મુકેશ મોદી"],
+  },
+} as const satisfies Record<Language, { heading: string; phoneLabel: string; names: readonly string[] }>;
+
+const MEET_CONTACT_NUMBERS = [
+  { display: "8866872162", href: "tel:+918866872162" },
+  { display: "9426246536", href: "tel:+919426246536" },
 ] as const;
 
 const GUJARATI_DIGITS = ["૦", "૧", "૨", "૩", "૪", "૫", "૬", "૭", "૮", "૯"] as const;
@@ -389,6 +389,26 @@ export default function Home() {
   const showPoojaBlessings = !isGetTogether && invitationDetails?.side === "pooja";
   const showOpeningBlessings = invitationDetails !== null && !isGetTogether;
   const formatDigits = (value: string | number) => localizeDigits(value, language);
+  const renderInviters = (
+    inviters: { heading: string; phoneLabel: string; names: readonly string[] },
+    phoneNumbers: readonly { display: string; href: string }[],
+  ) => (
+    <div className="compliments-contact">
+      <p className="compliments-contact-heading">{inviters.heading}</p>
+      <div className="compliments-contact-names">
+        {inviters.names.map((name) => <p key={name}>{name}</p>)}
+      </div>
+      <p className="compliments-contact-phones">
+        <span>{inviters.phoneLabel}</span>{" "}
+        {phoneNumbers.map((phone, index) => (
+          <span key={phone.display}>
+            <a href={phone.href} aria-label={`Call ${phone.display}`}>{formatDigits(phone.display)}</a>
+            {index < phoneNumbers.length - 1 && ", "}
+          </span>
+        ))}
+      </p>
+    </div>
+  );
 
   const visibleEvents = useMemo(() => {
     if (invitationDetails?.occasion === "get-together") return GET_TOGETHER_EVENTS;
@@ -1042,6 +1062,7 @@ export default function Home() {
                     </div>
                   </section>
                 ))}
+                {renderInviters(MEET_INVITERS[language], MEET_CONTACT_NUMBERS)}
               </div>
             ) : (
               <>
@@ -1051,24 +1072,16 @@ export default function Home() {
                 <div className="compliments-younger" aria-label={copy.youngerFamilyAria}>
                   {POOJA_YOUNG_FAMILY[language].map((name) => <span key={name}>{name}</span>)}
                 </div>
-                <div className="compliments-contact">
-                  <p className="compliments-contact-heading">{POOJA_INVITERS[language].heading}</p>
-                  <div className="compliments-contact-names">
-                    {POOJA_INVITERS[language].names.map((name) => <p key={name}>{name}</p>)}
-                  </div>
-                  <p className="compliments-contact-phones">
-                    <span>{POOJA_INVITERS[language].phoneLabel}</span>{" "}
-                    {POOJA_CONTACT_NUMBERS.map((phone, index) => (
-                      <span key={phone.display}>
-                        <a href={phone.href} aria-label={`Call ${phone.display}`}>{formatDigits(phone.display)}</a>
-                        {index < POOJA_CONTACT_NUMBERS.length - 1 && ", "}
-                      </span>
-                    ))}
-                  </p>
-                </div>
+                {renderInviters(POOJA_INVITERS[language], POOJA_CONTACT_NUMBERS)}
               </>
             )}
           </div>
+        </section>
+      )}
+
+      {isGetTogether && (
+        <section className="get-together-inviters paper-section" aria-label={MEET_INVITERS[language].heading}>
+          {renderInviters(MEET_INVITERS[language], MEET_CONTACT_NUMBERS)}
         </section>
       )}
 

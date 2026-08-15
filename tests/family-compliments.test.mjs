@@ -25,10 +25,8 @@ test("shows the correct family compliments for both invitation sides", async () 
   assert.match(page, /"Late Dahiben and Late Ramanlal Lalluram Modi"/);
   assert.match(page, /"Neelaben and Late Shashikant Mehta"/);
   assert.doesNotMatch(page, /"Nilaben and Late Shashikant Modi"/);
-  assert.match(page, /\["Sheetal and Jay Modi", "Krupaben and Kaushal Modi"\]/);
-  assert.match(page, /\["Chandni and Darshit Modi", "Dr\. Nikiben and Dr\. Ronak Modi"\]/);
-  assert.match(page, /\["Aarohi and Ishan Modi", "Yash Dineshbhai Modi"\]/);
-  assert.match(page, /"Shivam and Rishit Mayurbhai Modi"/);
+  assert.doesNotMatch(page, /heading: "Bhai & Bhabhi"/);
+  assert.doesNotMatch(page, /"Sheetal and Jay Modi"/);
   assert.match(page, /"Niruben and Mayurbhai Modi"\],[\s\S]*?\["Sheetalben and Jatinbhai Modi"/);
   assert.match(page, /en: \["Devyanshi", "Naisha", "Dhruv", "Roohani", "Radhika"\]/);
   assert.match(page, /"ગં\.સ્વ\. સવિતાબેન અને સ્વ\. અમૃતભાઈ એમ\. મોદી"/);
@@ -38,6 +36,11 @@ test("shows the correct family compliments for both invitation sides", async () 
   assert.doesNotMatch(page, /"નૈશા"/);
   assert.match(page, /POOJA_FAMILY_COMPLIMENTS\[language\]\.map/);
   assert.match(page, /POOJA_YOUNG_FAMILY\[language\]\.map/);
+  assert.match(page, /names: \["Mr\. Mukesh Dhirajlal Modi", "Mrs\. Belaben Mukesh Modi"\]/);
+  assert.match(page, /names: \["શ્રી મુકેશ ધીરજલાલ મોદી", "શ્રીમતી બેલાબેન મુકેશ મોદી"\]/);
+  assert.match(page, /\{ display: "8866872162", href: "tel:\+918866872162" \}/);
+  assert.match(page, /\{ display: "9426246536", href: "tel:\+919426246536" \}/);
+  assert.match(page, /renderInviters\(MEET_INVITERS\[language\], MEET_CONTACT_NUMBERS\)/);
   assert.match(page, /aria-label=\{`Call \$\{phone\.display\}`\}>\{formatDigits\(phone\.display\)\}<\/a>/);
   assert.match(page, /className="compliments-monogram"[\s\S]*?firstName[\s\S]*?secondName/);
   assert.match(page, /"મામા, મામી, નાના, નાની"/);
@@ -50,10 +53,8 @@ test("shows the correct family compliments for both invitation sides", async () 
   assert.doesNotMatch(page, /"વિશ્વ હર્ષ મોદી"/);
   assert.match(page, /"નીલાબેન તથા સ્વ\. શશિકાંત મહેતા"/);
   assert.doesNotMatch(page, /"નીલાબેન તથા સ્વ\. શશિકાંત મોદી"/);
-  assert.match(page, /\["શીતલ તથા જય મોદી", "કૃપાબેન તથા કૌશલ મોદી"\]/);
-  assert.match(page, /\["ચાંદની તથા દર્શિત મોદી", "ડૉ\. નિકીબેન તથા ડો\. રોનક મોદી"\]/);
-  assert.match(page, /\["આરોહી તથા ઈશાન મોદી", "યશ દિનેશભાઈ મોદી"\]/);
-  assert.match(page, /"શિવમ તથા રીશિત મયુરભાઈ મોદી"/);
+  assert.doesNotMatch(page, /heading: "ભાઈ ભાભી"/);
+  assert.doesNotMatch(page, /"શીતલ તથા જય મોદી"/);
   assert.match(page, /"નીરુબેન તથા મયુરભાઈ મોદી"\],[\s\S]*?\["શીતલબેન તથા જતીનભાઈ મોદી"/);
   assert.match(page, /"સ્વ\. ચંપાબેન તથા સ્વ\. નટવરલાલ મોદી"/);
   assert.match(page, /MEET_FAMILY_COMPLIMENTS\[language\]\.map/);

@@ -820,6 +820,18 @@ button { font: inherit; }
   min-width: 0; padding: 2px clamp(8px,3vw,24px); display: flex; align-items: center; justify-content: center;
 }
 .meet-compliments-row.is-paired p + p { border-left: 1px solid rgba(151,105,36,.34); }
+.meet-compliments-groups > .compliments-contact {
+  margin-top: 0; padding-top: clamp(30px,6vw,48px); border-top: 1px solid var(--hairline);
+}
+.get-together-inviters {
+  min-height: 72svh; padding: clamp(80px,13vh,130px) clamp(24px,8vw,72px);
+  display: grid; place-items: center;
+}
+.get-together-inviters .compliments-contact {
+  width: min(680px,100%); margin: 0; padding: clamp(32px,7vw,58px) clamp(22px,7vw,54px);
+  border: 1px solid rgba(151,105,36,.3); border-radius: 28px;
+  background: rgba(255,250,241,.86); box-shadow: 0 20px 55px rgba(62,50,36,.09);
+}
 .compliments-ornament { position: absolute; color: var(--eucalyptus); opacity: .18; font-size: min(54vw,390px); line-height: 1; }
 .compliments-ornament-left { left: -16vw; top: -4vh; transform: rotate(-28deg); }
 .compliments-ornament-right { right: -16vw; bottom: -6vh; transform: rotate(152deg); }
@@ -887,7 +899,8 @@ button { font: inherit; }
 .invitation-open.occasion-get-together .personal-invitation-card,
 .invitation-open.occasion-get-together .countdown-section,
 .invitation-open.occasion-get-together .events-section,
-.invitation-open.occasion-get-together .closing {
+.invitation-open.occasion-get-together .closing,
+.invitation-open.occasion-get-together .get-together-inviters {
   background-color: #f5efe4;
   background-image:
     radial-gradient(circle at 18% 12%,rgba(184,130,57,.1),transparent 28%),
